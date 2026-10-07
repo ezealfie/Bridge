@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\50233866\\Bridge\\Bridge.csproj": {}
+    "C:\\Users\\devandroid\\bridge\\Bridge.csproj": {}
   },
   "projects": {
-    "C:\\Users\\50233866\\Bridge\\Bridge.csproj": {
+    "C:\\Users\\devandroid\\bridge\\Bridge.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\50233866\\Bridge\\Bridge.csproj",
+        "projectUniqueName": "C:\\Users\\devandroid\\bridge\\Bridge.csproj",
         "projectName": "Bridge",
-        "projectPath": "C:\\Users\\50233866\\Bridge\\Bridge.csproj",
-        "packagesPath": "C:\\Users\\50233866\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\50233866\\Bridge\\obj\\",
+        "projectPath": "C:\\Users\\devandroid\\bridge\\Bridge.csproj",
+        "packagesPath": "C:\\Users\\devandroid\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\devandroid\\bridge\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\50233866\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\devandroid\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
