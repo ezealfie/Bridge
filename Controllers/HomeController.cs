@@ -30,7 +30,7 @@ public class HomeController : Controller
     }
     public IActionResult Dashboard()
     {
-        int IdGrupo = HttpContext.Session.GetInt32("IdGrupo") ?? 0;
+        int IdGrupo = HttpContext.Session.GetInt32("IdGrupo");
         ViewBag.NombreAdulto = ObtenerNombreAdulto(IdGrupo);
         ViewBag.Proximos5Eventos = ObtenerProximos5Eventos();
         return View();

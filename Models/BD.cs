@@ -11,9 +11,15 @@ public class BD
             string query = "SELECT Nombre FROM Adultos WHERE Id = @IdGrupo";
             string nombreAdulto = connection.QueryFirstOrDefault<string>(query, new { Id = IdGrupo });
         }
+        return nombreAdulto;
     }
     public void ObtenerProximos5Eventos()
     {
-
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            string query = "SELECT TOP 5 * FROM Eventos ORDER BY FechaEvento ASC";
+            List<Evento> proximosEventos = connection.Query<Evento>(query).ToList();
+        }
+        return proximosEventos;
     }
 }
