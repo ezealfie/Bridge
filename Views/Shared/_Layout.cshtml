@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -13,6 +13,12 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <ul>
+                @if(Http.Context.Session.GetString("NombreUsuario") == "" && Http.Context.Session.GetString("Contraseña") == ""){
+                    <li><a href="/Home/Index.cshtml"><img src="" alt="Aca va el icono de configuracion"></a></li>
+                }
+                @if(Http.Context.Session.GetString("NombreUsuario") != "" && Http.Context.Session.GetString("Contraseña") != ""){
+                    <li><a href="/Home/Dashboard.cshtml"><img src="" alt="Aca va el icono de configuracion"></a></li>
+                }
                 <li><a href="/Home/SobreNosotros.cshtml">"Sobre nosotros"</a></li>
                 @if(Http.Context.Session.GetString("NombreUsuario") != "" && Http.Context.Session.GetString("Contraseña") != ""){
                     <li><a href="/Home/Herramientas.cshtml">"Herramientas"</a></li>
@@ -21,7 +27,9 @@
                     <li><a href="/Home/Usuario.cshtml"><img src="" alt="Aca va la foto de perfil"></a></li>
                     <li><a href="/Home/Configuracion.cshtml"><img src="" alt="Aca va el icono de configuracion"></a></li>
                 }
-                <li><a href="/Home/Login.cshtml"><img src="" alt="Aca va el icono de foto de perfil vacia"></a></li>
+                @if(Http.Context.Session.GetString("NombreUsuario") == "" && Http.Context.Session.GetString("Contraseña") == ""){
+                    <li><a href="/Home/Login.cshtml"><img src="" alt="Aca va el icono de foto de perfil vacia"></a></li>
+                }
             </ul>
         </nav>
     </header>
