@@ -28,4 +28,11 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+    public IActionResult Dashboard()
+    {
+        int IdGrupo = HttpContext.Session.GetInt32("IdGrupo") ?? 0;
+        ViewBag.NombreAdulto = ObtenerNombreAdulto(IdGrupo);
+        ViewBag.Proximos5Eventos = ObtenerProximos5Eventos();
+        return View();
+    }
 }

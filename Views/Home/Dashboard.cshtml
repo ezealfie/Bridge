@@ -1,0 +1,22 @@
+<h1>Grupo de cuidado a @ViewBag.NombreAdulto</h1>
+<div>
+    <h2>Últimos Eventos</h2>
+    @foreach (Evento evento in ViewBag.Proximos5Eventos)
+    {
+        <div>
+            <h3>@evento.Nombre</h3>
+            <p>@evento.Fecha</p>
+            <p>@evento.Descripcion</p>
+        </div>
+    }
+</div>
+<div>
+    <button type="button">Sobre Nosotros</button>
+    <button type="button">Herramientas</button>
+    <button type="button">Adulto mayor</button>
+    <button type="button">Cuidadores</button>
+</div>
+<div>
+    <h2>Cambiar Grupo</h2>
+    <button type="button">Cambiar Grupo</button>
+</div>
