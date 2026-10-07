@@ -9,6 +9,7 @@ a.navbar-brand {
 header
 {
   background-color: #00A9AF !important;
+  z-index: 9999 !important;
 }
 a {
   color: #0077cc;
