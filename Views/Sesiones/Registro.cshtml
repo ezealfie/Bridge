@@ -1,0 +1,65 @@
+<h1>Registrarse</h1>
+<form class="register-form" action="@Url.Action("Registrarse", "Home")" method="POST">
+    <label>Nombre:</label>
+    <input type="text" name="nombre" placeholder="Ingrese su nombre" required />
+    
+    <label>Apellido:</label><br>
+    <input type="text" name="apellido" placeholder="Ingrese su apellido" required /><br>
+    
+    <label>Usuario:</label><br>
+    <input type="text" name="usuario" placeholder="Ingrese su usuario" required /><br>
+    
+    <label>DNI:</label><br>
+    <input type="number" name="DNI" id="DNI" placeholder="Ingrese su DNI" required /><br>
+
+    <label>Contraseña:</label><br>
+    <input type="password" name="contrasena" placeholder="Ingrese su contraseña" required /><br>
+
+    <label>Tipo de Usuario:</label><br>
+    <select name="tipoUsuario" id="tipoUsuario" required>
+        <option value="AdultoMayor">Adulto Mayor</option>
+        <option value="Familiar">Familiar</option>
+        <option value="Cuidador">Cuidador</option>
+    </select>
+
+    <div id="familiarFields" style="display:none;margin-top:10px;">
+        <label>Fecha de Nacimiento:</label><br>
+        <input type="date" name="fechaNacimiento" id="fechaNacimiento" placeholder="Ingrese fecha de nacimiento" /><br>
+
+        <label>Condición:</label><br>
+        <input type="text" name="condicion" id="condicion" placeholder="Ingrese la condición" /><br>
+
+        <label>Fecha de ingreso a grupo:</label><br>
+        <input type="date" name="fechaIngresoGrupo" id="fechaIngresoGrupo" placeholder="Ingrese fecha de ingreso" /><br>
+    </div>
+
+    <button type="submit">Registrarse</button>
+</form>
+
+<script>
+    var tipo = document.getElementById('tipoUsuario');
+    var fam = document.getElementById('familiarFields');
+    var fecha = document.getElementById('fechaNacimiento');
+    var cond = document.getElementById('condicion');
+    var ingreso = document.getElementById('fechaIngresoGrupo');
+
+    function toggleRegistro() {
+        if (!tipo) return;
+        if (tipo.value === 'Familiar') {
+            fam.style.display = 'block';
+            if (fecha) fecha.required = true;
+            if (cond) cond.required = true;
+            if (ingreso) ingreso.required = true;
+        } else {
+            fam.style.display = 'none';
+            if (fecha) { fecha.required = false; fecha.value = ''; }
+            if (cond) { cond.required = false; cond.value = ''; }
+            if (ingreso) { ingreso.required = false; ingreso.value = ''; }
+        }
+}
+    tipo.addEventListener('change', toggleRegistro);
+    toggleRegistro();
+</script>
+<p class="text-danger">@ViewBag.Message</p>
+
+<a><p>¿Ya tienes una cuenta? <a href="@Url.Action("IniciarSesion", "Home")">Iniciar Sesión</a></p>
