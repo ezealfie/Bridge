@@ -1,72 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Bridge</title>
-    <script type="importmap"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Bridge.styles.css" asp-append-version="true" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <ul>
-                @if(Http.Context.Session.GetString("NombreUsuario") == "" && Http.Context.Session.GetString("Contraseña") == ""){
-                    <li><a href="/Home/Index.cshtml"><img src="" alt="Aca va el icono de configuracion"></a></li>
-                }
-                @if(Http.Context.Session.GetString("NombreUsuario") != "" && Http.Context.Session.GetString("Contraseña") != ""){
-                    <li><a href="/Home/Dashboard.cshtml"><img src="" alt="Aca va el icono de configuracion"></a></li>
-                }
-                @if(Http.Context.Session.GetString("NombreUsuario") != "" && Http.Context.Session.GetString("Contraseña") != ""){
-                    <li><a href="/Home/SobreNosotros.cshtml">"Sobre nosotros"</a></li>
-                    <li><a href="/Home/Herramientas.cshtml">"Herramientas"</a></li>
-                    <li><a href="/Home/AdultoMayor.cshtml">"Adulto mayor"</a></li>
-                    <li><a href="/Home/Cuidadores.cshtml">"Familia y Cuidadores"</a></li>
-                    <li><a href="/Home/Usuario.cshtml"><img src="" alt="Aca va la foto de perfil"></a></li>
-                    <li><a href="/Home/Configuracion.cshtml"><img src="" alt="Aca va el icono de configuracion"></a></li>
-                }
-                @if(Http.Context.Session.GetString("NombreUsuario") == "" && Http.Context.Session.GetString("Contraseña") == ""){
-                    <li><a href="/Home/Login.cshtml"><img src="" alt="Aca va el icono de foto de perfil vacia"></a></li>
-                }
-            </ul>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+@{
+    ViewData["Title"] = "Inicio - Bridge";
+}
+<main>
+<section>
+    <div class="card text-bg-dark">
+    <img src="" class="card-img" alt="Aca va el banner principal">
+    <div class="card-img-overlay">
+        <h1 class="Logo">Bridge</h1>
+        <h3 class="card-text">Conservando la vida</h3>
     </div>
-    <footer class="border-top footer text-muted">
-        <h3 class="FooterH3">Bridge</h3>
-        <h4 class="FooterH4">Conservando la vida, facilitando la conexión y el bienestar de nuestros mayores.</h4>
-        <button type="button" onclick="">Soporte</button> <!-- Aca va el icono de mail antes del texto de soporte, no se como hacerla -->
-        <ul>
-            <li><a href="/Home/SobreNosotros.cshtml"></a></li>
-            @if(Http.Context.Session.GetString("NombreUsuario") != "" && Http.Context.Session.GetString("Contraseña") != ""){
-                <li><a href="/Home/Herramientas.cshtml">"Herramientas"</a></li>
-                <li><a href="/Home/AdultoMayor.cshtml">"Adulto mayor"</a></li>
-                <li><a href="/Home/Cuidadores.cshtml">"Familia y Cuidadores"</a></li>
-            }
-            @if(Http.Context.Session.GetString("NombreUsuario") == "" && Http.Context.Session.GetString("Contraseña") == ""){
-                <li><a href="/Home/Login.cshtml">"Herramientas"</a></li>
-                <li><a href="/Home/Login.cshtml">"Adulto mayor"</a></li>
-                <li><a href="/Home/Login.cshtml">"Familia y Cuidadores"</a></li>
-            }
-        </ul>
-        <hr><!-- Esto deberia ser la linea -->
-        <p><i>Copyright © 2026 Bridge. Todos los derechos reservados.</i></p>
-        <a href="/Home/Privacy.cshtml">Privacidad</a>
-        <a href="">Términos de servicio</a>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-</body>
-</html>
+    </div>
+</section>
+<section>
+    <p>En Bridge deseamos poder lograr una mayor calidad de vida para los adultos mayores atravesando situaciones dificiles en relacion al deterioro cognitivo. </p>
+    <p>Creemos que la empatia, la conexion, y el amor al projimo son las claves para lograr un cambio significativo para las vidas de personas que tan gravemente lo necesitan.</p>
+    <button type="button" onclick="/Home/SobreNosotros.cshtml">Leer mas</button>
+    <img class="IntroImg" src="" alt="Imagen introductoria">
+</section>
+<section>
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="..." class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h4 class="card-title">Organización de la salud</h4>
+        <p>Centralizá y gestioná toda la información médica del adulto mayor en un solo lugar: medicación, episodios, documentos y recordatorios.</p>
+        <button type="button" onclick="/Home/Login.cshtml">Ver</button>      </div>
+    </div>
+  </div>
+</div>
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="..." class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h4 class="card-title">Familia y cuidadores</h4>
+        <p>Determina los responsables del adulto mayor y mejora la comunicacion entre ellos para poder lograr mayor bienestar para su ser querido.</p>
+        <button type="button" onclick="/Home/Login.cshtml">Ver</button>      </div>
+    </div>
+  </div>
+</div>
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="..." class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h4 class="card-title">Herramientas y bienestar</h4>
+        <p>Accedé rápidamente a contactos importantes, recursos de estimulación mental, ejercicios y otras herramientas que acompañan el bienestar del adulto mayor.</p>
+        <button type="button" onclick="/Home/Login.cshtml">Ver</button>      </div>
+    </div>
+  </div>
+</div>
+</div>
+    <button type="button" onclick="/Home/Login.cshtml">Probar</button>
+</section>
+<section>
+    <h2>Organizá tu calendario con el resto de los cuidadores</h2>
+    <!-- Aca va la vista previa del calendario, no se como hacerla -->
+    <button type="button" onclick="/Home/Login.cshtml">Ir</button>
+</section>
+</main>
