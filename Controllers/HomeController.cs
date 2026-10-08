@@ -35,4 +35,9 @@ public class HomeController : Controller
         ViewBag.Proximos5Eventos = ObtenerProximos5Eventos();
         return View();
     }
+public IActionResult Grupos()
+    {
+        ViewBag.Grupos = ObtenerGruposUsuario(Idusuario);
+        return View();
+    }
 }
