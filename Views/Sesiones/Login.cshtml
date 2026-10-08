@@ -1,0 +1,13 @@
+<h1>Iniciar Sesión</h1>
+<form action="@Url.Action("IniciarSesion", "Home")" method="POST">
+    <label>Usuario:</label><br>
+    <input type="text" name="usuario" placeholder="Ingrese su usuario" required /><br>
+    
+    <label>Contraseña:</label><br>
+    <input type="password" name="contrasena" placeholder="Ingrese su contraseña" required /><br>
+    
+    <button type="submit">Iniciar Sesión</button>
+
+    <a><p>¿No tienes una cuenta? <a href="@Url.Action("Index", "Home")">Registrarse</a></p>
+</form>
+<p class="text-danger">@ViewBag.Message</p>
