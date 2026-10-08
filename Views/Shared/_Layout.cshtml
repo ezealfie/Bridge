@@ -16,22 +16,18 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <ul>
-                @if(Http.Context.Session.GetString("NombreUsuario") == "" && Http.Context.Session.GetString("Contraseña") == ""){
-                    <li><a href="/Home/Index.cshtml"><img src="" alt="Aca va el icono de configuracion"></a></li>
+                @if(ViewContext.HttpContext.Session.GetString("NombreUsuario") == "" && ViewContext.HttpContext.Session.GetString("Contraseña") == ""){                    <li><a href="/Home/Index.cshtml"><img src="" alt="Aca va el icono de configuracion"></a></li>
                 }
-                @if(Http.Context.Session.GetString("NombreUsuario") != "" && Http.Context.Session.GetString("Contraseña") != ""){
-                    <li><a href="/Home/Dashboard.cshtml"><img src="" alt="Aca va el icono de configuracion"></a></li>
+                @if(ViewContext.HttpContext.Session.GetString("NombreUsuario") != "" && ViewContext.HttpContext.Session.GetString("Contraseña") != ""){                    <li><a href="/Home/Dashboard.cshtml"><img src="" alt="Aca va el icono de configuracion"></a></li>
                 }
-                @if(Http.Context.Session.GetString("NombreUsuario") != "" && Http.Context.Session.GetString("Contraseña") != ""){
-                    <li><a href="/Home/SobreNosotros.cshtml">"Sobre nosotros"</a></li>
+                @if(ViewContext.HttpContext.Session.GetString("NombreUsuario") != "" && ViewContext.HttpContext.Session.GetString("Contraseña") != ""){                    <li><a href="/Home/SobreNosotros.cshtml">"Sobre nosotros"</a></li>
                     <li><a href="/Home/Herramientas.cshtml">"Herramientas"</a></li>
                     <li><a href="/Home/AdultoMayor.cshtml">"Adulto mayor"</a></li>
                     <li><a href="/Home/Cuidadores.cshtml">"Familia y Cuidadores"</a></li>
                     <li><a href="/Home/Usuario.cshtml"><img src="" alt="Aca va la foto de perfil"></a></li>
                     <li><a href="/Home/Configuracion.cshtml"><img src="" alt="Aca va el icono de configuracion"></a></li>
                 }
-                @if(Http.Context.Session.GetString("NombreUsuario") == "" && Http.Context.Session.GetString("Contraseña") == ""){
-                    <li><a href="/Home/Login.cshtml"><img src="" alt="Aca va el icono de foto de perfil vacia"></a></li>
+                @if(ViewContext.HttpContext.Session.GetString("NombreUsuario") == "" && ViewContext.HttpContext.Session.GetString("Contraseña") == ""){                    <li><a href="/Home/Login.cshtml"><img src="" alt="Aca va el icono de foto de perfil vacia"></a></li>
                 }
             </ul>
         </nav>
@@ -47,12 +43,12 @@
         <button type="button" onclick="">Soporte</button> <!-- Aca va el icono de mail antes del texto de soporte, no se como hacerla -->
         <ul>
             <li><a href="/Home/SobreNosotros.cshtml"></a></li>
-            @if(Http.Context.Session.GetString("NombreUsuario") != "" && Http.Context.Session.GetString("Contraseña") != ""){
+            @if(ViewContext.HttpContext.Session.GetString("NombreUsuario") != "" && ViewContext.HttpContext.Session.GetString("Contraseña") != ""){                <li><a href="/Home/Herramientas.cshtml">"Herramientas"</a></li>
                 <li><a href="/Home/Herramientas.cshtml">"Herramientas"</a></li>
                 <li><a href="/Home/AdultoMayor.cshtml">"Adulto mayor"</a></li>
                 <li><a href="/Home/Cuidadores.cshtml">"Familia y Cuidadores"</a></li>
             }
-            @if(Http.Context.Session.GetString("NombreUsuario") == "" && Http.Context.Session.GetString("Contraseña") == ""){
+            @if(ViewContext.HttpContext.Session.GetString("NombreUsuario") == "" && ViewContext.HttpContext.Session.GetString("Contraseña") == ""){                <li><a href="/Home/Login.cshtml">"Herramientas"</a></li>
                 <li><a href="/Home/Login.cshtml">"Herramientas"</a></li>
                 <li><a href="/Home/Login.cshtml">"Adulto mayor"</a></li>
                 <li><a href="/Home/Login.cshtml">"Familia y Cuidadores"</a></li>
