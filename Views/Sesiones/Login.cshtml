@@ -1,0 +1,12 @@
+//formulario de login
+<form action="@Url.Action("Login", "Sesiones")" method="post">
+    <div class="form-group">
+        <label-for="email"></label>
+        <input type="text" name="email" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Contraseña"></label>
+        <input asp-for="Contraseña" class="form-control" type="password" />
+        <span asp-validation-for="Contraseña" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Iniciar sesión</button>

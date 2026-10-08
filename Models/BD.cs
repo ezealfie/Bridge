@@ -1,7 +1,8 @@
-namespace Bridge.Models;
 
 using Microsoft.Data.SqlClient;
 using Dapper;
+namespace Bridge.Models;
+
 public class BD
 {
    private string _connectionString = @"Server=localhost;DataBase Bridge; Integrated Security=True; TrustServer Certificate=True;";
