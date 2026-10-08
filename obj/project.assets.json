@@ -15,8 +15,6 @@
           }
         }
       },
-<<<<<<< HEAD
-=======
       "Microsoft.AspNetCore.Cryptography.Internal/2.3.11": {
         "type": "package",
         "compile": {
@@ -156,7 +154,6 @@
           }
         }
       },
->>>>>>> 05b63f96aca2de8bf80b106e0b50fb472bccdc8b
       "Microsoft.Bcl.Cryptography/9.0.18": {
         "type": "package",
         "compile": {
@@ -302,11 +299,7 @@
           "Microsoft.Extensions.Primitives": "9.0.18"
         },
         "compile": {
-<<<<<<< HEAD
-          "lib/net9.0/_._": {
-=======
           "lib/net9.0/Microsoft.Extensions.Caching.Abstractions.dll": {
->>>>>>> 05b63f96aca2de8bf80b106e0b50fb472bccdc8b
             "related": ".xml"
           }
         },
@@ -342,8 +335,6 @@
           "buildTransitive/net8.0/_._": {}
         }
       },
-<<<<<<< HEAD
-=======
       "Microsoft.Extensions.Configuration.Abstractions/8.0.0": {
         "type": "package",
         "dependencies": {
@@ -363,7 +354,6 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
->>>>>>> 05b63f96aca2de8bf80b106e0b50fb472bccdc8b
       "Microsoft.Extensions.DependencyInjection.Abstractions/9.0.18": {
         "type": "package",
         "compile": {
@@ -380,8 +370,6 @@
           "buildTransitive/net8.0/_._": {}
         }
       },
-<<<<<<< HEAD
-=======
       "Microsoft.Extensions.Diagnostics.Abstractions/8.0.1": {
         "type": "package",
         "dependencies": {
@@ -444,7 +432,6 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
->>>>>>> 05b63f96aca2de8bf80b106e0b50fb472bccdc8b
       "Microsoft.Extensions.Logging.Abstractions/9.0.18": {
         "type": "package",
         "dependencies": {
@@ -471,11 +458,7 @@
           "Microsoft.Extensions.Primitives": "9.0.18"
         },
         "compile": {
-<<<<<<< HEAD
-          "lib/net9.0/_._": {
-=======
           "lib/net9.0/Microsoft.Extensions.Options.dll": {
->>>>>>> 05b63f96aca2de8bf80b106e0b50fb472bccdc8b
             "related": ".xml"
           }
         },
@@ -491,11 +474,7 @@
       "Microsoft.Extensions.Primitives/9.0.18": {
         "type": "package",
         "compile": {
-<<<<<<< HEAD
-          "lib/net9.0/_._": {
-=======
           "lib/net9.0/Microsoft.Extensions.Primitives.dll": {
->>>>>>> 05b63f96aca2de8bf80b106e0b50fb472bccdc8b
             "related": ".xml"
           }
         },
@@ -603,8 +582,6 @@
           }
         }
       },
-<<<<<<< HEAD
-=======
       "Microsoft.NETCore.Platforms/2.0.0": {
         "type": "package",
         "compile": {
@@ -614,7 +591,6 @@
           "lib/netstandard1.0/_._": {}
         }
       },
->>>>>>> 05b63f96aca2de8bf80b106e0b50fb472bccdc8b
       "Microsoft.SqlServer.Server/1.0.0": {
         "type": "package",
         "compile": {
@@ -628,8 +604,6 @@
           }
         }
       },
-<<<<<<< HEAD
-=======
       "Microsoft.Win32.Registry/4.5.0": {
         "type": "package",
         "dependencies": {
@@ -655,7 +629,6 @@
           }
         }
       },
->>>>>>> 05b63f96aca2de8bf80b106e0b50fb472bccdc8b
       "System.Configuration.ConfigurationManager/9.0.18": {
         "type": "package",
         "dependencies": {
@@ -719,8 +692,6 @@
           }
         }
       },
-<<<<<<< HEAD
-=======
       "System.Security.AccessControl/4.5.0": {
         "type": "package",
         "dependencies": {
@@ -742,7 +713,6 @@
           }
         }
       },
->>>>>>> 05b63f96aca2de8bf80b106e0b50fb472bccdc8b
       "System.Security.Cryptography.Pkcs/9.0.18": {
         "type": "package",
         "compile": {
@@ -781,8 +751,6 @@
           "buildTransitive/net8.0/_._": {}
         }
       },
-<<<<<<< HEAD
-=======
       "System.Security.Cryptography.Xml/8.0.4": {
         "type": "package",
         "dependencies": {
@@ -847,7 +815,6 @@
           }
         }
       },
->>>>>>> 05b63f96aca2de8bf80b106e0b50fb472bccdc8b
       "System.Threading.RateLimiting/9.0.18": {
         "type": "package",
         "compile": {
@@ -888,8 +855,6 @@
         "readme.md"
       ]
     },
-<<<<<<< HEAD
-=======
     "Microsoft.AspNetCore.Cryptography.Internal/2.3.11": {
       "sha512": "KEVQ0SeDq4xIEO5leU7+Pi6UMOUXyVeorVDGK4iLWCyb+24jVZ6Xx68I+wXrBpeSTlqUjdyVPlMJtrCg0Phfbw==",
       "type": "package",
@@ -994,7 +959,6 @@
         "microsoft.aspnetcore.session.nuspec"
       ]
     },
->>>>>>> 05b63f96aca2de8bf80b106e0b50fb472bccdc8b
     "Microsoft.Bcl.Cryptography/9.0.18": {
       "sha512": "42XcqOGj0jTNW6FphUEuhNLCdVQsYbYCf2pPlkWdz1uDyxxirpcxyjg7pWIBgPCjzk6rv/irgLya/2tDJKIpYg==",
       "type": "package",
@@ -1198,8 +1162,6 @@
         "useSharedDesignerContext.txt"
       ]
     },
-<<<<<<< HEAD
-=======
     "Microsoft.Extensions.Configuration.Abstractions/8.0.0": {
       "sha512": "3lE/iLSutpgX1CC0NOW70FJoGARRHbyKmG7dc0klnUZ9Dd9hS6N/POPWhKhMLCEuNN5nXEY5agmlFtH562vqhQ==",
       "type": "package",
@@ -1230,7 +1192,6 @@
         "useSharedDesignerContext.txt"
       ]
     },
->>>>>>> 05b63f96aca2de8bf80b106e0b50fb472bccdc8b
     "Microsoft.Extensions.DependencyInjection.Abstractions/9.0.18": {
       "sha512": "eSUdaLUP+pj1J7SpCsUYQP6dNk0w9g0KGu4ovPYBnlfqomW1u+1fF8ZIjMVuHY6Z3p30yL0SxND9JTS6i3NolQ==",
       "type": "package",
@@ -1261,8 +1222,6 @@
         "useSharedDesignerContext.txt"
       ]
     },
-<<<<<<< HEAD
-=======
     "Microsoft.Extensions.Diagnostics.Abstractions/8.0.1": {
       "sha512": "elH2vmwNmsXuKmUeMQ4YW9ldXiF+gSGDgg1vORksob5POnpaI6caj1Hu8zaYbEuibhqCoWg0YRWDazBY3zjBfg==",
       "type": "package",
@@ -1352,7 +1311,6 @@
         "useSharedDesignerContext.txt"
       ]
     },
->>>>>>> 05b63f96aca2de8bf80b106e0b50fb472bccdc8b
     "Microsoft.Extensions.Logging.Abstractions/9.0.18": {
       "sha512": "uzNHNdNZJTHACwFkWclx8s5GXLjGacJj4QwBQZ/6BeixTJjlHmNESIK738iPFLPkO8jWsENLUcUW/kAPe0b8ew==",
       "type": "package",
@@ -1653,8 +1611,6 @@
         "microsoft.identitymodel.tokens.nuspec"
       ]
     },
-<<<<<<< HEAD
-=======
     "Microsoft.NETCore.Platforms/2.0.0": {
       "sha512": "VdLJOCXhZaEMY7Hm2GKiULmn7IEPFE4XC5LPSfBVCUIA8YLZVh846gtfBJalsPQF2PlzdD7ecX7DZEulJ402ZQ==",
       "type": "package",
@@ -1672,7 +1628,6 @@
         "version.txt"
       ]
     },
->>>>>>> 05b63f96aca2de8bf80b106e0b50fb472bccdc8b
     "Microsoft.SqlServer.Server/1.0.0": {
       "sha512": "N4KeF3cpcm1PUHym1RmakkzfkEv3GRMyofVv40uXsQhCQeglr2OHNcUk2WOG51AKpGO8ynGpo9M/kFXSzghwug==",
       "type": "package",
@@ -1691,8 +1646,6 @@
         "microsoft.sqlserver.server.nuspec"
       ]
     },
-<<<<<<< HEAD
-=======
     "Microsoft.Win32.Registry/4.5.0": {
       "sha512": "+FWlwd//+Tt56316p00hVePBCouXyEzT86Jb3+AuRotTND0IYn0OO3obs1gnQEs/txEnt+rF2JBGLItTG+Be6A==",
       "type": "package",
@@ -1733,7 +1686,6 @@
         "version.txt"
       ]
     },
->>>>>>> 05b63f96aca2de8bf80b106e0b50fb472bccdc8b
     "System.Configuration.ConfigurationManager/9.0.18": {
       "sha512": "/1q0MHB2xKyTFRC5tk+oL3Ahi+QK0UPI6Qk6Xc5z5BW6otR2T9wwWmEW/LZX98cq7UOmu+7sZ5HNwuq61zrNtg==",
       "type": "package",
@@ -1822,8 +1774,6 @@
         "system.identitymodel.tokens.jwt.nuspec"
       ]
     },
-<<<<<<< HEAD
-=======
     "System.Security.AccessControl/4.5.0": {
       "sha512": "vW8Eoq0TMyz5vAG/6ce483x/CP83fgm4SJe5P8Tb1tZaobcvPrbMEL7rhH1DRdrYbbb6F0vq3OlzmK0Pkwks5A==",
       "type": "package",
@@ -1866,7 +1816,6 @@
         "version.txt"
       ]
     },
->>>>>>> 05b63f96aca2de8bf80b106e0b50fb472bccdc8b
     "System.Security.Cryptography.Pkcs/9.0.18": {
       "sha512": "NKMKhUdLGNZryY9GXXTF5dXyP6S37EYXhiA2JYvwshJbd4DRq07IOS9it8Opi9atadvv5rlNkD76Mio+5Oo2aQ==",
       "type": "package",
@@ -1934,8 +1883,6 @@
         "useSharedDesignerContext.txt"
       ]
     },
-<<<<<<< HEAD
-=======
     "System.Security.Cryptography.Xml/8.0.4": {
       "sha512": "1y+ROEEmEOACrQWqRi37GkGHOThPc31m7vezOySpPE9xXN2nTN6ndLYjylvy42aCtQq4owlYhcqaKpQKMDFKFg==",
       "type": "package",
@@ -2055,7 +2002,6 @@
         "useSharedDesignerContext.txt"
       ]
     },
->>>>>>> 05b63f96aca2de8bf80b106e0b50fb472bccdc8b
     "System.Threading.RateLimiting/9.0.18": {
       "sha512": "pxuHw/tQXaHMRXEaKzzgpoGO8VeTPIzHbnp0KclXp6js5wPHn7VaqSCa8yRTAsZDcZ2XuIEnXGM2MbRDJFLBog==",
       "type": "package",
@@ -2088,47 +2034,28 @@
   "projectFileDependencyGroups": {
     "net9.0": [
       "Dapper >= 2.1.89",
-<<<<<<< HEAD
-=======
-      "Microsoft.AspNetCore.Session >= 2.3.13",
->>>>>>> 05b63f96aca2de8bf80b106e0b50fb472bccdc8b
-      "Microsoft.Data.SqlClient >= 7.1.1"
+      "Microsoft.Data.SqlClient >= 7.1.1",
+      "microsoft.aspnetcore.session >= 2.3.13"
     ]
   },
   "packageFolders": {
-<<<<<<< HEAD
-    "C:\\Users\\49551280\\.nuget\\packages\\": {},
-=======
-    "C:\\Users\\50434059\\.nuget\\packages\\": {},
->>>>>>> 05b63f96aca2de8bf80b106e0b50fb472bccdc8b
+    "C:\\Users\\devandroid\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
-      "projectUniqueName": "C:\\Users\\49551280\\Bridge\\Bridge.csproj",
+      "projectUniqueName": "C:\\Users\\devandroid\\bridge\\Bridge.csproj",
       "projectName": "Bridge",
-      "projectPath": "C:\\Users\\49551280\\Bridge\\Bridge.csproj",
-      "packagesPath": "C:\\Users\\49551280\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\49551280\\Bridge\\obj\\",
-=======
-      "projectUniqueName": "C:\\Users\\50434059\\Bridge\\Bridge.csproj",
-      "projectName": "Bridge",
-      "projectPath": "C:\\Users\\50434059\\Bridge\\Bridge.csproj",
-      "packagesPath": "C:\\Users\\50434059\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\50434059\\Bridge\\obj\\",
->>>>>>> 05b63f96aca2de8bf80b106e0b50fb472bccdc8b
+      "projectPath": "C:\\Users\\devandroid\\bridge\\Bridge.csproj",
+      "packagesPath": "C:\\Users\\devandroid\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\devandroid\\bridge\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-<<<<<<< HEAD
-        "C:\\Users\\49551280\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
-        "C:\\Users\\50434059\\AppData\\Roaming\\NuGet\\NuGet.Config",
->>>>>>> 05b63f96aca2de8bf80b106e0b50fb472bccdc8b
+        "C:\\Users\\devandroid\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -2165,16 +2092,13 @@
             "target": "Package",
             "version": "[2.1.89, )"
           },
-<<<<<<< HEAD
-=======
-          "Microsoft.AspNetCore.Session": {
-            "target": "Package",
-            "version": "[2.3.13, )"
-          },
->>>>>>> 05b63f96aca2de8bf80b106e0b50fb472bccdc8b
           "Microsoft.Data.SqlClient": {
             "target": "Package",
             "version": "[7.1.1, )"
+          },
+          "microsoft.aspnetcore.session": {
+            "target": "Package",
+            "version": "[2.3.13, )"
           }
         },
         "imports": [
