@@ -1,0 +1,12 @@
+@*Se debe traer de la base de datos: 
+-Lista de los grupos que participa el usuario*@
+<h1>TUS GRUPOS</h1>
+<div class="div-grupos">
+    @foreach (Grupos grupo in ViewBag.Grupos)
+    {
+        <div class="div-grupo">
+            <button type="button">@grupo.Nombre</button>
+        </div>
+    } 
+    <button type="button">Agregar</button>
+</div>

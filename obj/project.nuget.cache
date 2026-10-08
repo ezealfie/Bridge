@@ -48,15 +48,5 @@
     "C:\\Users\\49551280\\.nuget\\packages\\system.text.encodings.web\\8.0.0\\system.text.encodings.web.8.0.0.nupkg.sha512",
     "C:\\Users\\49551280\\.nuget\\packages\\system.threading.ratelimiting\\9.0.18\\system.threading.ratelimiting.9.0.18.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "message": "Problema al leer el archivo de caché Z:\\Bridge\\obj\\project.nuget.cache : '<' is an invalid start of a property name. Expected a '\"'. Path: $ | LineNumber: 2 | BytePositionInLine: 0.",
-      "projectPath": "Z:\\Bridge\\Bridge.csproj",
-      "warningLevel": 1,
-      "filePath": "Z:\\Bridge\\Bridge.csproj",
-      "targetGraphs": []
-    }
-  ]
+  "logs": []
 }
