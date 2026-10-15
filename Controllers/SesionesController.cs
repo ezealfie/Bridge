@@ -34,7 +34,7 @@ public class SesionesController : Controller
 
         return View();
     }
-public IActionResult Login(string username, string password)
+public IActionResult Login(string email, string password)
     {
         int id = bd.UsuarioExiste(email);
         //verificacion con la bd
