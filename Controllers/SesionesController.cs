@@ -15,7 +15,7 @@ public class SesionesController : Controller
 
     public IActionResult Index()
     {
-        return View();
+        return View("Grupo");
     }
 
     public IActionResult Privacy()
@@ -33,7 +33,6 @@ public IActionResult Login()
 
         return View();
     }
-}
 public IActionResult Login(string username, string password)
     {
         //desarrollar login
@@ -53,6 +52,6 @@ public IActionResult Login(string username, string password)
     {
         HttpContext.Session.Clear();
         return RedirectToAction("Login");
-    }
+    }*/
 }
     
