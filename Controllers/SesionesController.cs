@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Bridge.Models;
+using System.Data;
 
 namespace Bridge.Controllers;
 
@@ -12,7 +13,7 @@ public class SesionesController : Controller
     {
         _logger = logger;
     }
-
+    BD bd = new BD();
     public IActionResult Index()
     {
         return View("Grupo");
@@ -28,30 +29,60 @@ public class SesionesController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
-public IActionResult Login()
+    public IActionResult Login()
     {
 
         return View();
     }
 public IActionResult Login(string username, string password)
     {
-        //desarrollar login
-        if (username == "admin" && password == "password") 
+        int id = bd.UsuarioExiste(email);
+        //verificacion con la bd
+        if (id != -1)
         {
-            HttpContext.Session.SetString("Username", username);
-            return RedirectToAction("Dashboard", "Home");
+            if (bd.VerificarCredenciales(id, password))
+            {
+                HttpContext.Session.SetInt32("IdUsuario", id);
+                return RedirectToAction("Dashboard", "Home");
+            }
+            else
+            {
+                ViewBag.Error = "Contraseña incorrecta. Inténtalo de nuevo.";
+                return View();
+            }
         }
         else
         {
-            ViewBag.ErrorMessage = "Nombre de usuario o contraseña incorrectos.";
+            ViewBag.Error = "El correo electrónico no está registrado. Por favor, regístrese primero.";
             return View();
         }
+
     }
 
+    public IActionResult Registrarse()
+    {
+        return View();
+    }
+    public IActionResult Registrarse(string email, string password, string nombre, string apellido, string telefono)
+    {
+        if (bd.UsuarioExiste(email) != -1)
+        {
+            ViewBag.Error = "El correo electrónico ya está registrado. Por favor, inicia sesión.";
+            return View();
+        }
+        else
+        {
+          
+            bd.RegistrarUsuario(email, password, nombre, apellido, telefono);
+            ViewBag.Message = "Registro exitoso. Ahora puedes iniciar sesión.";
+            return RedirectToAction("Login");
+        }
+        
+        
+    }
     public IActionResult Logout()
     {
         HttpContext.Session.Clear();
         return RedirectToAction("Login");
     }*/
 }
-    

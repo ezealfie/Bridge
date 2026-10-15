@@ -1,6 +1,6 @@
 <h1>Iniciar Sesión</h1>
-<form action="@Url.Action("IniciarSesion", "Home")" method="POST">
-    <label>Usuario:</label><br>
+<form action="@Url.Action("Login", "Sesiones")" method="POST">
+    <label>Correo Electrónico:</label><br>
     <input type="text" name="usuario" placeholder="Ingrese su usuario" required /><br>
     
     <label>Contraseña:</label><br>
@@ -8,6 +8,7 @@
     
     <button type="submit">Iniciar Sesión</button>
 
-    <a><p>¿No tienes una cuenta? <a href="@Url.Action("Index", "Home")">Registrarse</a></p>
+    <a href=""><p>¿Olvidaste tu contraseña?</p></a>
+    <a href="@Url.Action("Registrarse", "Sesiones")"><p>Registrarse</p></a>
 </form>
 <p class="text-danger">@ViewBag.Message</p>
