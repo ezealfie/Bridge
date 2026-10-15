@@ -7,7 +7,7 @@ a.navbar-brand {
 }
 header
 {
-  background: linear-gradient(to right, #00A9AF, #03ADD0) !important;
+  background-color: #17CBD8 !important;
   z-index: 9999 !important;
 }
 a {
