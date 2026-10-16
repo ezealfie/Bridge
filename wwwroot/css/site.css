@@ -38,8 +38,70 @@ p
   font-family: "League Spartan", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+    color: #374151;
 }
 .Banner
 {
   background-color: #E6F7F7;
+}
+body {
+    margin: 0%;
+    padding: 0%;
+}
+button {
+    background-color: #00A9AF;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 1.5% 4%;
+    font-size: 0.9em;
+    cursor: pointer;
+    margin-top: 2%;
+}
+.Logo {
+    text-transform: uppercase;
+    font-size: 2.2em;
+    color: #3b4b5b;
+    margin: 0% 0% 1% 0%;
+}
+.Banner .card-text {
+    font-size: 1.1em;
+    font-weight: normal;
+    margin: 0%;
+    color: #3b4b5b;
+}
+.IntroImg {
+    float: right;
+    width: 45%;
+    border: none;
+}
+.row {
+    border: 2px solid #00A9AF;
+    border-radius: 20px;
+    margin-bottom: 4%;
+    padding: 3%;
+    display: flex;
+    align-items: center;
+}
+.col-md-4 {
+    width: 30%;
+    text-align: center;
+}
+.col-md-4 img {
+    width: 70%;
+    border-radius: 50%;
+}
+.col-md-8 {
+    width: 70%;
+    padding-left: 3%;
+}
+.card-title {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin: 0% 0% 2% 0%;
+}
+.card-body p {
+    font-size: 0.9em;
+    line-height: 1.4em;
+    margin: 0% 0% 2% 0%;
 }
