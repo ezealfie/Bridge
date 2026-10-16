@@ -23,34 +23,34 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
-main
-{
-  background-color: #ffffff;
-}
-h1,h2,h3,h4
-{
-  font-family: "Montserrat", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
-}
-p
-{
-  font-family: "League Spartan", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
-    color: #374151;
-}
-.Banner
-{
-  background-color: #E6F7F7;
+:root {
+    --color-blanco: #ffffff;
+    --color-texto: #374151;
+    --color-fondo-banner: #E6F7F7;
+    --color-primario: #00A9AF;
 }
 body {
+    background-color: var(--color-blanco);
     margin: 0%;
     padding: 0%;
 }
+h1, h2, h3, h4 {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+p {
+    font-family: "League Spartan", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    color: var(--color-texto);
+}
+.Banner {
+    background-color: var(--color-fondo-banner);
+}
 button {
-    background-color: #00A9AF;
-    color: white;
+    background-color: var(--color-primario);
+    color: var(--color-blanco);
     border: none;
     border-radius: 20px;
     padding: 1.5% 4%;
@@ -61,14 +61,14 @@ button {
 .Logo {
     text-transform: uppercase;
     font-size: 2.2em;
-    color: #3b4b5b;
+    color: var(--color-texto);
     margin: 0% 0% 1% 0%;
 }
 .Banner .card-text {
     font-size: 1.1em;
     font-weight: normal;
     margin: 0%;
-    color: #3b4b5b;
+    color: var(--color-texto);
 }
 .IntroImg {
     float: right;
@@ -76,7 +76,7 @@ button {
     border: none;
 }
 .row {
-    border: 2px solid #00A9AF;
+    border: 2px solid var(--color-primario);
     border-radius: 20px;
     margin-bottom: 4%;
     padding: 3%;
