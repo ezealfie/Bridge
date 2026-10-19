@@ -2,12 +2,9 @@
 <form action="@Url.Action("Login", "Sesiones")" method="POST">
     <label>Correo Electrónico:</label><br>
     <input type="text" name="usuario" placeholder="Ingrese su usuario" required /><br>
-    
     <label>Contraseña:</label><br>
     <input type="password" name="contrasena" placeholder="Ingrese su contraseña" required /><br>
-    
     <button type="submit">Iniciar Sesión</button>
-
     <a href=""><p>¿Olvidaste tu contraseña?</p></a>
     <a href="@Url.Action("Registrarse", "Sesiones")"><p>Registrarse</p></a>
 </form>

@@ -1,14 +1,7 @@
-/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
 a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
-}
-header
-{
-  background-color: #17CBD8 !important;
-  z-index: 9999 !important;
 }
 a {
   color: #0077cc;
@@ -42,4 +35,164 @@ button.accept-policy {
   width: 100%;
   white-space: nowrap;
   line-height: 60px;
+}
+.navbar.bg-white {
+    background-color: #17CBD8 !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+    padding: 15px 40px !important;
+}
+.navbar ul {
+    display: flex !important;
+    align-items: center;
+    list-style: none;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    gap: 15px !important;
+}
+.navbar ul li a {
+    text-decoration: none !important;
+    color: #ffffff !important;
+    background-color: #00A9AF !important;
+    padding: 10px 24px !important;
+    border-radius: 25px !important;
+    font-family: "League Spartan", sans-serif !important;    
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    display: inline-block !important;
+    transition: background-color 0.3s !important;
+}
+.navbar ul li a:hover {
+    background-color: #01858a !important;
+}
+.navbar ul li a[href="/Home/Registrarse.cshtml"] {
+    background-color: #ffffff !important;
+    color: #1cc6cc !important;
+    font-weight: 600;
+}
+.navbar ul li a[href="/Home/Registrarse.cshtml"]:hover {
+    background-color: #f0f0f0 !important;
+}
+.navbar ul li {
+    color: transparent; 
+}
+footer.footer {
+    background-color: #17CBD8 !important;
+    color: #ffffff !important;
+    padding: 35px 70px 25px 70px !important;
+    display: grid !important;
+    grid-template-columns: 320px 1fr auto auto !important;
+    row-gap: 10px !important;
+    column-gap: 20px !important;
+    align-items: center !important;
+    border: none !important;
+    box-shadow: none !important;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif !important;
+}
+footer .FooterH3 {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    color: #ffffff !important;
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+}
+footer .FooterH4 {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    color: #ffffff !important;
+    font-size: 12.5px !important;
+    font-weight: 400 !important;
+    line-height: 1.4 !important;
+    margin: 0 !important;
+    max-width: 270px !important;
+}
+footer ul {
+    grid-column: 2 / span 2;
+    grid-row: 1 / span 2;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+footer ul li {
+    display: inline-block;
+}
+footer ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: opacity 0.2s ease;
+}
+footer ul li a:hover {
+    opacity: 0.8;
+}
+footer button {
+    grid-column: 4;
+    grid-row: 1 / span 2;
+    justify-self: end;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer ;
+    padding: 0 ;
+    margin: 0 ;
+}
+footer button::before {
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+}
+footer hr {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    border: none;
+    border-top: 1px solid #ffffff;
+    margin: 18px 0 10px 0;
+    opacity: 1;
+    width: 100%;
+}
+footer p {
+    grid-column: 1 / span 2;
+    grid-row: 4;
+    color: #ffffff;
+    font-size: 12px;
+    margin: 0;
+}
+footer > a[href*="Privacy"] {
+    grid-column: 3;
+    grid-row: 4;
+    justify-self: end;
+    color: #ffffff;
+    font-size: 12px;
+    text-decoration: none;
+}
+footer > a[href*="Privacy"] + a {
+    grid-column: 4;
+    grid-row: 4;
+    justify-self: end;
+    color: #ffffff;
+    font-size: 12px;
+    text-decoration: none;
+}
+footer > a[href*="Privacy"]:hover,
+footer > a[href*="Privacy"] + a:hover {
+    text-decoration: underline;
+}
+footer a img {
+    display: block;
+    width: 18px;
+    height: 18px;
 }
