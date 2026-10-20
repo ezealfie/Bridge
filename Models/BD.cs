@@ -9,22 +9,25 @@ public class BD
 
     public void ObtenerNombreAdulto(int IdGrupo)
     {
+        string nombreAdulto = ' ';
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = "SELECT Nombre FROM Adultos WHERE Id = @IdGrupo";
-            string nombreAdulto = connection.QueryFirstOrDefault<string>(query, new { Id = IdGrupo });
+            string query = "SELECT nombre FROM AdultoMayor WHERE Id = @IdGrupo";
+            nombreAdulto = connection.QueryFirstOrDefault<string>(query, new { Id = IdGrupo });
         }
         return nombreAdulto;
     }
     public void ObtenerProximos5Eventos()
     {
+        List<Evento> proximosEventos = new List<Evento>();
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = "SELECT TOP 5 * FROM Eventos ORDER BY FechaEvento ASC";
+            string query = "SELECT TOP 5 * FROM Evento ORDER BY fechaHora ASC";
             List<Evento> proximosEventos = connection.Query<Evento>(query).ToList();
         }
         return proximosEventos;
     }
+    //arrgelalo alfie
     public int UsuarioExiste(string email)
     {
         using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -52,5 +55,8 @@ public class BD
             connection.Execute(query, new { Nombre = nombre, Apellido = apellido, Email = email, Password = contrasena, Telefono = telefono });
         }
     }
-    
+    public List<Grupo> ObtenerGruposUsuario(int idUsuario)
+    {
+        
+    }
 }
