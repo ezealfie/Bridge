@@ -23,7 +23,7 @@ public class BD
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
             string query = "SELECT TOP 5 * FROM Evento ORDER BY fechaHora ASC";
-            List<Evento> proximosEventos = connection.Query<Evento>(query).ToList();
+            proximosEventos = connection.Query<Evento>(query).ToList();
         }
         return proximosEventos;
     }

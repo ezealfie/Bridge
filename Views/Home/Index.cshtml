@@ -9,7 +9,7 @@
 <section>
     <p>En Bridge deseamos poder lograr una mayor calidad de vida para los adultos mayores atravesando situaciones dificiles en relacion al deterioro cognitivo. </p>
     <p>Creemos que la empatia, la conexion, y el amor al projimo son las claves para lograr un cambio significativo para las vidas de personas que tan gravemente lo necesitan.</p>
-    <button type="button" onclick="/Home/SobreNosotros.cshtml">Leer mas</button>
+    <button type="button" onclick="location.href='@Url.Action(SobreNosotros, Home)'">Leer mas</button>
     <img class="IntroImg" src="" alt="Imagen introductoria">
 </section>
 <section>
@@ -21,7 +21,7 @@
       <div class="card-body">
         <h4 class="card-title">Organización de la salud</h4>
         <p>Centralizá y gestioná toda la información médica del adulto mayor en un solo lugar: medicación, episodios, documentos y recordatorios.</p>
-        <button type="button" onclick="/Home/Login.cshtml">Ver</button>
+        <button type="button" onclick="location.href='@Url.Action(Login, Sesiones)'">Ver</button>
       </div>
     </div>
   </div>
@@ -34,7 +34,7 @@
       <div class="card-body">
         <h4 class="card-title">Familia y cuidadores</h4>
         <p>Determina los responsables del adulto mayor y mejora la comunicacion entre ellos para poder lograr mayor bienestar para su ser querido.</p>
-        <button type="button" onclick="/Home/Login.cshtml">Ver</button>      </div>
+        <button type="button" onclick="location.href='@Url.Action(Login, Sesiones)'">Ver</button>      </div>
     </div>
   </div>
 </div>
@@ -46,16 +46,16 @@
       <div class="card-body">
         <h4 class="card-title">Herramientas y bienestar</h4>
         <p>Accedé rápidamente a contactos importantes, recursos de estimulación mental, ejercicios y otras herramientas que acompañan el bienestar del adulto mayor.</p>
-        <button type="button" onclick="/Home/Login.cshtml">Ver</button>      </div>
+        <button type="button" onclick="location.href='@Url.Action(Login, Sesiones)'">Ver</button>      </div>
     </div>
   </div>
 </div>
 </div>
-    <button type="button" onclick="/Home/Login.cshtml">Probar</button>
+    <button type="button" onclick="location.href='@Url.Action(Login, Sesiones)'">Probar</button>
 </section>
 <section>
     <h2>Organizá tu calendario con el resto de los cuidadores</h2>
     <!-- Aca va la vista previa del calendario, no se como hacerla -->
-    <button type="button" onclick="/Home/Login.cshtml">Ir</button>
+    <button type="button" onclick="location.href='@Url.Action(Login, Sesiones)'">Ir</button>
 </section>
 </main>
