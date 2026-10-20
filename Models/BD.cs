@@ -52,5 +52,25 @@ public class BD
             connection.Execute(query, new { Nombre = nombre, Apellido = apellido, Email = email, Password = contrasena, Telefono = telefono });
         }
     }
+
+    public List<Grupo> ObtenerGruposUsuario(int idUsuario)
+{
+    using (SqlConnection connection = new SqlConnection(_connectionString))
+    {
+        string query = @"
+            SELECT
+                g.id_grupo,
+                g.Nombre,
+                g.descripcion,
+                g.id_adultoMayor
+            FROM Grupo g
+            LEFT JOIN CuidadorGrupo cg ON cg.id_grupo = g.id_grupo
+            WHERE g.id_adultoMayor = @IdUsuario
+               OR cg.id_cuidador = @IdUsuario
+            ORDER BY g.Nombre;";
+
+        return connection.Query<Grupo>(query, new { IdUsuario = idUsuario }).ToList();
+    }
+}
     
 }
