@@ -55,7 +55,7 @@ public class BD
             connection.Execute(query, new { Nombre = nombre, Apellido = apellido, Email = email, Password = contrasena, Telefono = telefono });
         }
     }
-    public List<Grupo> ObtenerGruposUsuario(int idUsuario)
+    public List<Grupo> ObtenerGruposUsuario()
     {
         
     }

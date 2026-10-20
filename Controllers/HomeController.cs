@@ -1,5 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Dapper;
 using Bridge.Models;
 
 namespace Bridge.Controllers;
@@ -7,6 +9,7 @@ namespace Bridge.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly string _connectionString = @"Server=localhost;DataBase Bridge; Integrated Security=True; TrustServer Certificate=True;";
 
     public HomeController(ILogger<HomeController> logger)
     {

@@ -1,8 +1,8 @@
 @{
     ViewData["Title"] = "Grupos";
+    var grupos = ViewBag.Grupos as IEnumerable<dynamic> ?? Enumerable.Empty<dynamic>();
 }
 
-@* Prototipo inicial: la lista real vendrá desde la base de datos *@
 <section class="py-4 py-md-5">
     <div class="container">
         <div class="row justify-content-center">
@@ -13,26 +13,15 @@
 
                 <div class="card border-0 rounded-4 shadow-sm bg-light p-3 p-md-4">
                     <div class="d-grid gap-3">
-                        <button type="button" class="btn btn-secondary border-0 rounded-4 d-flex align-items-center gap-3 px-3 py-3 text-start shadow-sm">
-                            <span class="rounded-circle bg-white text-dark d-inline-flex align-items-center justify-content-center flex-shrink-0 fw-semibold" style="width: 2.75rem; height: 2.75rem;">
-                                U
-                            </span>
-                            <span class="fs-5 fw-medium">Nombre</span>
-                        </button>
-
-                        <button type="button" class="btn btn-secondary border-0 rounded-4 d-flex align-items-center gap-3 px-3 py-3 text-start shadow-sm">
-                            <span class="rounded-circle bg-white text-dark d-inline-flex align-items-center justify-content-center flex-shrink-0 fw-semibold" style="width: 2.75rem; height: 2.75rem;">
-                                U
-                            </span>
-                            <span class="fs-5 fw-medium">Nombre</span>
-                        </button>
-
-                        <button type="button" class="btn btn-secondary border-0 rounded-4 d-flex align-items-center gap-3 px-3 py-3 text-start shadow-sm">
-                            <span class="rounded-circle bg-white text-dark d-inline-flex align-items-center justify-content-center flex-shrink-0 fw-semibold" style="width: 2.75rem; height: 2.75rem;">
-                                U
-                            </span>
-                            <span class="fs-5 fw-medium">Nombre</span>
-                        </button>
+                        @foreach (dynamic g in grupos)
+                        {
+                            <button type="button" class="btn btn-secondary border-0 rounded-4 d-flex align-items-center gap-3 px-3 py-3 text-start shadow-sm">
+                                <span class="rounded-circle bg-white text-dark d-inline-flex align-items-center justify-content-center flex-shrink-0 fw-semibold" style="width: 2.75rem; height: 2.75rem;">
+                                    @(g.Nombre != null && g.Nombre.Length > 0 ? g.Nombre.Substring(0, 1).ToUpper() : "G")
+                                </span>
+                                <span class="fs-5 fw-medium">@g.Nombre</span>
+                            </button>
+                        }
                     </div>
 
                     <div class="d-flex justify-content-center mt-4">
