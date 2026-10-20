@@ -7,9 +7,9 @@ public class BD
 {
    private string _connectionString = @"Server=localhost;DataBase Bridge; Integrated Security=True; TrustServer Certificate=True;";
 
-    public void ObtenerNombreAdulto(int IdGrupo)
+    public string ObtenerNombreAdulto(int IdGrupo)
     {
-        string nombreAdulto = ' ';
+        string nombreAdulto = " ";
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
             string query = "SELECT nombre FROM AdultoMayor WHERE Id = @IdGrupo";
