@@ -17,13 +17,13 @@ public class BD
         }
         return nombreAdulto;
     }
-    public void ObtenerProximos5Eventos()
+    public List<Evento> ObtenerProximos5Eventos()
     {
         List<Evento> proximosEventos = new List<Evento>();
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
             string query = "SELECT TOP 5 * FROM Evento ORDER BY fechaHora ASC";
-            List<Evento> proximosEventos = connection.Query<Evento>(query).ToList();
+            proximosEventos = connection.Query<Evento>(query).ToList();
         }
         return proximosEventos;
     }
