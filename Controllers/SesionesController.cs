@@ -84,5 +84,5 @@ public IActionResult Login(string email, string password)
     {
         HttpContext.Session.Clear();
         return RedirectToAction("Login");
-    }*/
+    }
 }

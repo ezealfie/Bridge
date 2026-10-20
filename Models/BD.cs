@@ -9,22 +9,25 @@ public class BD
 
     public void ObtenerNombreAdulto(int IdGrupo)
     {
+        string nombreAdulto = ' ';
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = "SELECT Nombre FROM Adultos WHERE Id = @IdGrupo";
-            string nombreAdulto = connection.QueryFirstOrDefault<string>(query, new { Id = IdGrupo });
+            string query = "SELECT nombre FROM AdultoMayor WHERE Id = @IdGrupo";
+            nombreAdulto = connection.QueryFirstOrDefault<string>(query, new { Id = IdGrupo });
         }
         return nombreAdulto;
     }
-    public void ObtenerProximos5Eventos()
+    public List<Evento> ObtenerProximos5Eventos()
     {
+        List<Evento> proximosEventos = new List<Evento>();
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = "SELECT TOP 5 * FROM Eventos ORDER BY FechaEvento ASC";
-            List<Evento> proximosEventos = connection.Query<Evento>(query).ToList();
+            string query = "SELECT TOP 5 * FROM Evento ORDER BY fechaHora ASC";
+            proximosEventos = connection.Query<Evento>(query).ToList();
         }
         return proximosEventos;
     }
+    //arrgelalo alfie
     public int UsuarioExiste(string email)
     {
         using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -52,25 +55,8 @@ public class BD
             connection.Execute(query, new { Nombre = nombre, Apellido = apellido, Email = email, Password = contrasena, Telefono = telefono });
         }
     }
-
     public List<Grupo> ObtenerGruposUsuario(int idUsuario)
-{
-    using (SqlConnection connection = new SqlConnection(_connectionString))
     {
-        string query = @"
-            SELECT
-                g.id_grupo,
-                g.Nombre,
-                g.descripcion,
-                g.id_adultoMayor
-            FROM Grupo g
-            LEFT JOIN CuidadorGrupo cg ON cg.id_grupo = g.id_grupo
-            WHERE g.id_adultoMayor = @IdUsuario
-               OR cg.id_cuidador = @IdUsuario
-            ORDER BY g.Nombre;";
-
-        return connection.Query<Grupo>(query, new { IdUsuario = idUsuario }).ToList();
+        
     }
-}
-    
 }
