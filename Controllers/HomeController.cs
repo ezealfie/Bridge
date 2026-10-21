@@ -28,7 +28,18 @@ public class HomeController : Controller
     {
         return View();
     }
-
+    public IActionResult Herramientas()
+    {
+        return View();
+    }
+    public IActionResult AdultoMayor()
+    {
+        return View();
+    }
+    public IActionResult Cuidadores()
+    {
+        return View();
+    }
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

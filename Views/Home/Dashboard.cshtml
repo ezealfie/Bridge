@@ -1,4 +1,7 @@
-<h1>Grupo de cuidado a @ViewBag.NombreAdulto</h1>
+@{
+    ViewData["Title"] = "Panel de control";
+}
+<h1>Grupo de cuidado de @ViewBag.NombreAdulto</h1>
 <div>
     <h2>Últimos Eventos</h2>
     @foreach (Evento evento in ViewBag.Proximos5Eventos)
@@ -11,9 +14,9 @@
     }
 </div>
 <div>
-    <button type="button">Herramientas</button>
-    <button type="button">Adulto mayor</button>
-    <button type="button">Cuidadores</button>
+    <button type="button" onclick="location.href='@Url.Action(Herramientas, Home)'">Herramientas</button>
+    <button type="button" onclick="location.href='@Url.Action(AdultoMayor, Home)'">Adulto mayor</button>
+    <button type="button" onclick="location.href='@Url.Action(Cuidadores, Home)'">Cuidadores</button>
 </div>
 <div>
     <h2>Cambiar Grupo</h2>
