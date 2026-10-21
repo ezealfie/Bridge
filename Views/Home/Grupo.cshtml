@@ -1,8 +1,8 @@
 @{
     ViewData["Title"] = "Grupos";
+    var grupos = ViewBag.Grupos as List<Bridge.Models.Grupo> ?? new List<Bridge.Models.Grupo>();
 }
 
-@* Prototipo inicial: la lista real vendrá desde la base de datos *@
 <section class="py-4 py-md-5">
     <div class="container">
         <div class="row justify-content-center">
@@ -13,26 +13,16 @@
 
                 <div class="card border-0 rounded-4 shadow-sm bg-light p-3 p-md-4">
                     <div class="d-grid gap-3">
-                        <button type="button" class="btn btn-secondary border-0 rounded-4 d-flex align-items-center gap-3 px-3 py-3 text-start shadow-sm">
-                            <span class="rounded-circle bg-white text-dark d-inline-flex align-items-center justify-content-center flex-shrink-0 fw-semibold" style="width: 2.75rem; height: 2.75rem;">
-                                U
-                            </span>
-                            <span class="fs-5 fw-medium">Nombre</span>
-                        </button>
-
-                        <button type="button" class="btn btn-secondary border-0 rounded-4 d-flex align-items-center gap-3 px-3 py-3 text-start shadow-sm">
-                            <span class="rounded-circle bg-white text-dark d-inline-flex align-items-center justify-content-center flex-shrink-0 fw-semibold" style="width: 2.75rem; height: 2.75rem;">
-                                U
-                            </span>
-                            <span class="fs-5 fw-medium">Nombre</span>
-                        </button>
-
-                        <button type="button" class="btn btn-secondary border-0 rounded-4 d-flex align-items-center gap-3 px-3 py-3 text-start shadow-sm">
-                            <span class="rounded-circle bg-white text-dark d-inline-flex align-items-center justify-content-center flex-shrink-0 fw-semibold" style="width: 2.75rem; height: 2.75rem;">
-                                U
-                            </span>
-                            <span class="fs-5 fw-medium">Nombre</span>
-                        </button>
+                        @foreach (List<Grupo> grupo in ViewBag.Grupos)
+                        {
+                            <a href="@Url.Action("Dashboard", "Home", new { idGrupo = grupo.id_grupo })"
+                               class="btn btn-secondary border-0 rounded-4 d-flex align-items-center gap-3 px-3 py-3 text-start shadow-sm text-decoration-none">
+                                <span class="rounded-circle bg-white text-dark d-inline-flex align-items-center justify-content-center flex-shrink-0 fw-semibold" style="width: 2.75rem; height: 2.75rem;">
+                                    @grupo.Nombre.Substring(0, 1).ToUpper()
+                                </span>
+                                <span class="fs-5 fw-medium text-start">@grupo.Nombre</span>
+                            </a>
+                        }
                     </div>
 
                     <div class="d-flex justify-content-center mt-4">

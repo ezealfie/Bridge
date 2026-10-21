@@ -12,31 +12,31 @@ public class BD
         string nombreAdulto = " ";
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = "SELECT nombre FROM AdultoMayor WHERE Id = @IdGrupo";
-            nombreAdulto = connection.QueryFirstOrDefault<string>(query, new { Id = IdGrupo });
+            string query = "SELECT nombre FROM AdultoMayor inner join Grupo on AdultoMayor_id = Grupo.adultoMayor_id WHERE Grupo.id_grupo = @IdGrupo";
+            nombreAdulto = connection.QueryFirstOrDefault<string>(query, new { IdGrupo = IdGrupo });
         }
         return nombreAdulto;
     }
-    public List<Evento> ObtenerProximos5Eventos()
+    public List<Evento> ObtenerProximos5Eventos(int idGrupo)
     {
         List<Evento> proximosEventos = new List<Evento>();
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = "SELECT TOP 5 * FROM Evento ORDER BY fechaHora ASC";
-            proximosEventos = connection.Query<Evento>(query).ToList();
+            string query = "SELECT TOP 5 * FROM Evento WHERE Grupo_Id = @IdGrupo ORDER BY fechaHora ASC";
+            proximosEventos = connection.Query<Evento>(query, new { IdGrupo = idGrupo }).ToList();
         }
         return proximosEventos;
     }
     //arrgelalo alfie
-    public int UsuarioExiste(string email)
+    public int UsuarioExiste(string mail)
     {
+        int id = -1;
         using (SqlConnection connection = new SqlConnection(_connectionString))
-        {   int id = -1;
-            string query = "SELECT Id FROM Usuarios WHERE Email = @Email";
-            id = connection.QueryFirstOrDefault<int>(query, new { Email = email });
-            return id;
-            
+        {   
+            string query = "SELECT id_usuario FROM Usuarios WHERE mail = @mail";
+            id = connection.QueryFirstOrDefault<int>(query, new { mail = mail });
         }
+        return id;
     }
     public bool VerificarCredenciales(int id, string password)
     {
@@ -57,6 +57,44 @@ public class BD
     }
     public List<Grupo> ObtenerGruposUsuario(int idUsuario)
     {
-        
+        //verifivasr si el id del usuario es cuidador o adulto matyor.- si es adulto mayor solo tiene un gruoo. si es cuidador tiene mas. hacer ambas querys en cada caso
+        List<Grupo> grupos = new List<Grupo>();
+        if (EsCuidador(idUsuario))
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT * FROM Grupos INNER JOIN Cuidador ON grupo.cuidador_id = cuidador_Id WHERE cuidador_Id = @IdUsuario";
+                grupos = connection.Query<Grupo>(query, new { IdUsuario = idUsuario }).ToList();
+            }
+        }
+        else
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT * FROM Grupos INNER JOIN AdultoMayor ON grupo.adultoMayor_id = adultoMayor_Id WHERE adultoMayor_Id = @IdUsuario";
+                grupos = connection.Query<Grupo>(query, new { IdUsuario = idUsuario }).ToList();
+            }
+        }
+        return grupos;
+    }
+    public string ObtenerIdUsuario(string mail)
+    {
+        string mail = " ";
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            string query = "SELECT Id FROM Usuarios WHERE mail = @mail";
+            mail = connection.QueryFirstOrDefault<int>(query, new { mail = mail });
+        }
+        return mail;
+    }
+    public bool EsCuidador(int idUsuario)
+    {
+        int count = 0;
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            string query = "SELECT COUNT(*) FROM Cuidador WHERE id_usuario = @IdUsuario";
+            count = connection.QueryFirstOrDefault<int>(query, new { IdUsuario = idUsuario });
+        }
+        return count > 0;
     }
 }

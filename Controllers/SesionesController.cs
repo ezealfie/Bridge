@@ -34,7 +34,7 @@ public class SesionesController : Controller
 
         return View();
     }
-public IActionResult Login(string email, string password)
+public IActionResult LoginVerificar(string email, string password)
     {
         int id = bd.UsuarioExiste(email);
         //verificacion con la bd
@@ -43,12 +43,12 @@ public IActionResult Login(string email, string password)
             if (bd.VerificarCredenciales(id, password))
             {
                 HttpContext.Session.SetInt32("IdUsuario", id);
-                return RedirectToAction("Dashboard", "Home");
+                return RedirectToAction("Grupo", "Home", new { idUsuario = HttpContext.Session.GetInt32("IdUsuario")});
             }
             else
             {
                 ViewBag.Error = "Contraseña incorrecta. Inténtalo de nuevo.";
-                return View();
+                return View("Login");
             }
         }
         else
@@ -63,7 +63,7 @@ public IActionResult Login(string email, string password)
     {
         return View();
     }
-    public IActionResult Registrarse(string email, string password, string nombre, string apellido, string telefono)
+    public IActionResult RegistrarseVerificar(string email, string password, string nombre, string apellido, string telefono)
     {
         if (bd.UsuarioExiste(email) != -1)
         {
@@ -74,8 +74,9 @@ public IActionResult Login(string email, string password)
         {
           
             bd.RegistrarUsuario(email, password, nombre, apellido, telefono);
-            ViewBag.Message = "Registro exitoso. Ahora puedes iniciar sesión.";
-            return RedirectToAction("Login");
+            HttpContext.Session.SetInt32("IdUsuario", bd.ObtenerIdUsuario(email));
+            return RedireectToAction("Grupo", "Home", new { idUsuario = HttpContext.Session.GetInt32("IdUsuario") });
+   
         }
         
         
