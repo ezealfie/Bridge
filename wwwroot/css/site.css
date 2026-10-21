@@ -1,3 +1,9 @@
+:root {
+    --color-blanco: #ffffff;
+    --color-texto: #374151;
+    --color-fondo-banner: #E6F7F7;
+    --color-primario: #00A9AF;
+}
 html {
   font-size: 14px;
 }
@@ -7,7 +13,7 @@ html {
   }
 }
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #00A9AF;
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem var(--color-primario);
 }
 html {
   position: relative;
@@ -22,12 +28,6 @@ body {
 }
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
-}
-:root {
-    --color-blanco: #ffffff;
-    --color-texto: #374151;
-    --color-fondo-banner: #E6F7F7;
-    --color-primario: #00A9AF;
 }
 body {
     background-color: var(--color-blanco);
@@ -104,4 +104,63 @@ button {
     font-size: 0.9em;
     line-height: 1.4em;
     margin: 0% 0% 2% 0%;
+}
+@media (max-width: 767px) {
+    html {
+        font-size: 13px;
+    }
+    body {
+        margin-bottom: 30px;
+    }
+    .Logo {
+        font-size: 1.8em;
+        text-align: center;
+    }
+    .IntroImg {
+        float: none;
+        display: block;
+        width: 100%;
+        margin: 1rem auto;
+    }
+    .row {
+        display: block;
+        padding: 5%;
+    }
+    .col-md-4,
+    .col-md-8 {
+        width: 100%;
+        padding: 0;
+        text-align: center;
+    }
+    .col-md-4 img {
+        width: 50%;
+        margin-bottom: 1rem;
+    }
+    button {
+        width: 100%;
+        padding: 3% 4%;
+        margin-top: 1rem;
+    }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+    .Logo {
+        font-size: 2em;
+    }
+    .IntroImg {
+        width: 50%;
+    }
+    .col-md-4 {
+        width: 34%;
+    }
+    .col-md-8 {
+        width: 66%;
+    }
+}
+@media (min-width: 992px) {
+    .Logo {
+        font-size: 2.3em;
+    }
+    .Banner .card-text {
+        font-size: 1.2em;
+    }
 }

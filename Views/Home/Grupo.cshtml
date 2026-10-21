@@ -1,5 +1,5 @@
 @{
-    ViewData["Title"] = "Grupos";
+    ViewData["Title"] = "Grupos de cuidado";
     var grupos = ViewBag.Grupos as IEnumerable<dynamic> ?? Enumerable.Empty<dynamic>();
 }
 
@@ -8,9 +8,8 @@
         <div class="row justify-content-center">
             <div class="col-12 col-sm-10 col-md-8 col-lg-5 col-xl-4">
                 <div class="text-center mb-4">
-                    <h1 class="fw-bold mb-0">Grupos</h1>
+                    <h1 class="fw-bold mb-0">Grupos de cuidado</h1>
                 </div>
-
                 <div class="card border-0 rounded-4 shadow-sm bg-light p-3 p-md-4">
                     <div class="d-grid gap-3">
                         @foreach (dynamic g in grupos)
@@ -23,7 +22,6 @@
                             </button>
                         }
                     </div>
-
                     <div class="d-flex justify-content-center mt-4">
                         <button type="button" class="btn btn-dark rounded-pill px-5 py-2 fw-medium">Agregar</button>
                     </div>

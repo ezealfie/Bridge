@@ -9,7 +9,7 @@ public class BD
 
     public string ObtenerNombreAdulto(int IdGrupo)
     {
-        string nombreAdulto = " ";
+        string nombreAdulto = "";
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
             string query = "SELECT nombre FROM AdultoMayor WHERE Id = @IdGrupo";
@@ -27,7 +27,7 @@ public class BD
         }
         return proximosEventos;
     }
-    //arrgelalo alfie
+    //Arreglalo Alfie
     public int UsuarioExiste(string email)
     {
         using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -35,7 +35,6 @@ public class BD
             string query = "SELECT Id FROM Usuarios WHERE Email = @Email";
             id = connection.QueryFirstOrDefault<int>(query, new { Email = email });
             return id;
-            
         }
     }
     public bool VerificarCredenciales(int id, string password)
