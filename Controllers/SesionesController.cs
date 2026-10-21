@@ -74,8 +74,9 @@ public IActionResult LoginVerificar(string email, string password)
         {
           
             bd.RegistrarUsuario(email, password, nombre, apellido, telefono);
-            HttpContext.Session.SetInt32("IdUsuario", bd.ObtenerIdUsuario(email));
-            return RedireectToAction("Grupo", "Home", new { idUsuario = HttpContext.Session.GetInt32("IdUsuario") });
+            int idUsuario = bd.ObtenerIdUsuario(email);
+            HttpContext.Session.SetInt32("IdUsuario", idUsuario);
+            return RedirectToAction("Grupo", "Home", new { idUsuario = HttpContext.Session.GetInt32("IdUsuario") });
    
         }
         

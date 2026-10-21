@@ -77,15 +77,15 @@ public class BD
         }
         return grupos;
     }
-    public string ObtenerIdUsuario(string mail)
+    public int ObtenerIdUsuario(string mail)
     {
-        string mail = " ";
+        int id = -1;
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
             string query = "SELECT Id FROM Usuarios WHERE mail = @mail";
-            mail = connection.QueryFirstOrDefault<int>(query, new { mail = mail });
+            id = connection.QueryFirstOrDefault<int>(query, new { mail = mail });
         }
-        return mail;
+        return id;
     }
     public bool EsCuidador(int idUsuario)
     {

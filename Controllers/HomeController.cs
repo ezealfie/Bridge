@@ -36,20 +36,33 @@ public class HomeController : Controller
     }
     public IActionResult Dashboard(int idGrupo)
     {  
+        BD bd = new BD();
         HttpContext.Session.SetInt32("IdGrupo", idGrupo);
         int? idGrupoSession = HttpContext.Session.GetInt32("IdGrupo");
             if (idGrupoSession == null)
             {
                 return RedirectToAction("Login");
             }
-        ViewBag.NombreAdulto = ObtenerNombreAdulto(idGrupo);
-        ViewBag.Proximos5Eventos = ObtenerProximos5Eventos(idGrupo);
+        ViewBag.NombreAdulto = bd.ObtenerNombreAdulto(idGrupo);
+        ViewBag.Proximos5Eventos = bd.ObtenerProximos5Eventos(idGrupo);
         return View();
     }
     public IActionResult Grupo(int idUsuario)
     {   
         BD BD = new BD();
         ViewBag.Grupos = BD.ObtenerGruposUsuario(idUsuario);
+        return View();
+    }
+    public IActionResult Herramientas()
+    {
+        return View();
+    }
+    public IActionResult AdultoMayor()
+    {
+        return View();
+    }
+    public IActionResult Cuidadores()
+    {
         return View();
     }
 }
