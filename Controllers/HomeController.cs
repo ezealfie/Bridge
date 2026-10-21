@@ -1,7 +1,5 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
-using Dapper;
 using Bridge.Models;
 
 namespace Bridge.Controllers;
@@ -9,7 +7,7 @@ namespace Bridge.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    private readonly string _connectionString = @"Server=localhost;DataBase Bridge; Integrated Security=True; TrustServer Certificate=True;";
+    private readonly BD _bd = new BD();
 
     public HomeController(ILogger<HomeController> logger)
     {
@@ -38,18 +36,17 @@ public class HomeController : Controller
         BD bd = new BD();
         HttpContext.Session.SetInt32("IdGrupo", idGrupo);
         int? idGrupoSession = HttpContext.Session.GetInt32("IdGrupo");
-            if (idGrupoSession == null)
-            {
-                return RedirectToAction("Login");
-            }
-        ViewBag.NombreAdulto = bd.ObtenerNombreAdulto(idGrupo);
-        ViewBag.Proximos5Eventos = bd.ObtenerProximos5Eventos(idGrupo);
+        if (idGrupoSession == null)
+        {
+            return RedirectToAction("Login", "Sesiones");
+        }
+        ViewBag.NombreAdulto = _bd.bd.ObtenerNombreAdulto(idGrupo);
+        ViewBag.Proximos5Eventos = _bd.bd.ObtenerProximos5Eventos(idGrupo);
         return View();
     }
     public IActionResult Grupo(int idUsuario)
     {   
-        BD BD = new BD();
-        ViewBag.Grupos = BD.ObtenerGruposUsuario(idUsuario);
+        ViewBag.Grupos = _bd.ObtenerGruposUsuario(idUsuario);
         return View();
     }
 }

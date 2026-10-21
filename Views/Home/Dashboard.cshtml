@@ -1,14 +1,15 @@
 @{
     ViewData["Title"] = "Panel de control";
+    var eventos = ViewBag.Proximos5Eventos as List<Bridge.Models.Evento> ?? new List<Bridge.Models.Evento>();
 }
 <h1>Grupo de cuidado de @ViewBag.NombreAdulto</h1>
 <div>
     <h2>Últimos Eventos</h2>
-    @foreach (Evento evento in ViewBag.Proximos5Eventos)
+    @foreach (var evento in eventos)
     {
         <div>
             <h3>@evento.nombre</h3>
-            <p>@evento.fechaHora</p>
+            <p>@evento.fechaHora.ToString("g")</p>
             <p>@evento.descripcion</p>
         </div>
     }
@@ -20,5 +21,5 @@
 </div>
 <div>
     <h2>Cambiar Grupo</h2>
-    <button type="button">Cambiar Grupo</button>
+    <button type="button" onclick="location.href='@Url.Action("Index", "Sesiones")'">Cambiar Grupo</button>
 </div>

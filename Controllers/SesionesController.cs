@@ -1,19 +1,19 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Bridge.Models;
-using System.Data;
 
 namespace Bridge.Controllers;
 
 public class SesionesController : Controller
 {
     private readonly ILogger<SesionesController> _logger;
+    private readonly BD bd = new BD();
 
     public SesionesController(ILogger<SesionesController> logger)
     {
         _logger = logger;
     }
-    BD bd = new BD();
+
     public IActionResult Index()
     {
         return View("Grupo");
@@ -29,59 +29,66 @@ public class SesionesController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
     public IActionResult Login()
     {
-
         return View();
     }
-public IActionResult LoginVerificar(string email, string password)
+
+    [HttpPost]
+    public IActionResult LoginVerificar(string? email, string? password, string? usuario, string? contrasena)
     {
-        int id = bd.UsuarioExiste(email);
-        //verificacion con la bd
+        string mailInput = !string.IsNullOrWhiteSpace(email) ? email : (usuario ?? string.Empty);
+        string passInput = !string.IsNullOrWhiteSpace(password) ? password : (contrasena ?? string.Empty);
+
+        int id = bd.UsuarioExiste(mailInput);
         if (id != -1)
         {
-            if (bd.VerificarCredenciales(id, password))
+            if (bd.VerificarCredenciales(id, passInput))
             {
                 HttpContext.Session.SetInt32("IdUsuario", id);
-                return RedirectToAction("Grupo", "Home", new { idUsuario = HttpContext.Session.GetInt32("IdUsuario")});
+                return RedirectToAction("Grupo", "Home", new { idUsuario = id });
             }
             else
             {
                 ViewBag.Error = "Contraseña incorrecta. Inténtalo de nuevo.";
+                ViewBag.Message = ViewBag.Error;
                 return View("Login");
             }
         }
         else
         {
             ViewBag.Error = "El correo electrónico no está registrado. Por favor, regístrese primero.";
-            return View();
+            ViewBag.Message = ViewBag.Error;
+            return View("Login");
         }
-
     }
 
     public IActionResult Registrarse()
     {
         return View();
     }
-    public IActionResult RegistrarseVerificar(string email, string password, string nombre, string apellido, string telefono)
+
+    [HttpPost]
+    public IActionResult RegistrarseVerificar(string email, string? password = null, string? contrasena = null, string nombre = "", string apellido = "", string telefono = "", string tipoUsuario = "Cuidador")
     {
+        string passInput = !string.IsNullOrWhiteSpace(password) ? password : (contrasena ?? string.Empty);
+
         if (bd.UsuarioExiste(email) != -1)
         {
             ViewBag.Error = "El correo electrónico ya está registrado. Por favor, inicia sesión.";
-            return View();
+            ViewBag.Message = ViewBag.Error;
+            return View("Registrarse");
         }
         else
         {
-          
-            bd.RegistrarUsuario(email, password, nombre, apellido, telefono);
+            bd.RegistrarUsuario(email, passInput, nombre, apellido, telefono, tipoUsuario);
             int idUsuario = bd.ObtenerIdUsuario(email);
             HttpContext.Session.SetInt32("IdUsuario", idUsuario);
-            return RedirectToAction("Grupo", "Home", new { idUsuario = HttpContext.Session.GetInt32("IdUsuario") });
-   
+            return RedirectToAction("Grupo", "Home", new { idUsuario = idUsuario });
         }
-        
-        
     }
+
     public IActionResult Logout()
     {
         HttpContext.Session.Clear();
