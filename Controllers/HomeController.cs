@@ -45,21 +45,22 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
-    public IActionResult Dashboard()
+    public IActionResult Dashboard(int idGrupo)
     {  
+        HttpContext.Session.SetInt32("IdGrupo", idGrupo);
         int? idGrupoSession = HttpContext.Session.GetInt32("IdGrupo");
             if (idGrupoSession == null)
             {
                 return RedirectToAction("Login");
             }
-        int IdGrupo = idGrupoSession.Value;
-        ViewBag.NombreAdulto = ObtenerNombreAdulto(IdGrupo);
-        ViewBag.Proximos5Eventos = ObtenerProximos5Eventos();
+        ViewBag.NombreAdulto = ObtenerNombreAdulto(idGrupo);
+        ViewBag.Proximos5Eventos = ObtenerProximos5Eventos(idGrupo);
         return View();
     }
-    public IActionResult Grupos()
-    {
-        ViewBag.Grupos = BD.ObtenerGruposUsuario(Idusuario);
+    public IActionResult Grupo(int idUsuario)
+    {   
+        BD BD = new BD();
+        ViewBag.Grupos = BD.ObtenerGruposUsuario(idUsuario);
         return View();
     }
 }
