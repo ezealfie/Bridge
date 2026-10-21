@@ -1,100 +1,141 @@
-
+using System.Data;
 using Microsoft.Data.SqlClient;
 using Dapper;
+
 namespace Bridge.Models;
 
 public class BD
 {
-   private string _connectionString = @"Server=localhost;DataBase Bridge; Integrated Security=True; TrustServer Certificate=True;";
+    private string _connectionString = @"Server=localhost;Database=Bridge;Integrated Security=True;TrustServerCertificate=True;";
 
     public string ObtenerNombreAdulto(int IdGrupo)
     {
-        string nombreAdulto = "";
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = "SELECT nombre FROM AdultoMayor inner join Grupo on AdultoMayor_id = Grupo.adultoMayor_id WHERE Grupo.id_grupo = @IdGrupo";
-            nombreAdulto = connection.QueryFirstOrDefault<string>(query, new { IdGrupo = IdGrupo });
+            return connection.QueryFirstOrDefault<string>(
+                "ObtenerNombreAdulto",
+                new { IdGrupo = IdGrupo },
+                commandType: CommandType.StoredProcedure
+            ) ?? string.Empty;
         }
-        return nombreAdulto;
     }
+
     public List<Evento> ObtenerProximos5Eventos(int idGrupo)
     {
-        List<Evento> proximosEventos = new List<Evento>();
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = "SELECT TOP 5 * FROM Evento WHERE Grupo_Id = @IdGrupo ORDER BY fechaHora ASC";
-            proximosEventos = connection.Query<Evento>(query, new { IdGrupo = idGrupo }).ToList();
+            return connection.Query<Evento>(
+                "ObtenerProximos5Eventos",
+                new { IdGrupo = idGrupo },
+                commandType: CommandType.StoredProcedure
+            ).ToList();
         }
-        return proximosEventos;
     }
-    //arrgelalo alfie
+
     public int UsuarioExiste(string mail)
     {
-        int id = -1;
         using (SqlConnection connection = new SqlConnection(_connectionString))
-        {   
-            string query = "SELECT id_usuario FROM Usuarios WHERE mail = @mail";
-            id = connection.QueryFirstOrDefault<int>(query, new { mail = mail });
+        {
+            int? id = connection.QueryFirstOrDefault<int?>(
+                "UsuarioExiste",
+                new { Mail = mail },
+                commandType: CommandType.StoredProcedure
+            );
+            return id ?? -1;
         }
-        return id;
     }
+
     public bool VerificarCredenciales(int id, string password)
     {
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = "SELECT Password FROM Usuarios WHERE Id = @Id AND Password = @Password";
-            int count = connection.Execute(query, new { Id = id, Password = password });
+            int count = connection.QueryFirstOrDefault<int>(
+                "VerificarCredenciales",
+                new { IdUsuario = id, Password = password },
+                commandType: CommandType.StoredProcedure
+            );
             return count > 0;
         }
     }
-    public void RegistrarUsuario(string nombre, string apellido, string email, string contrasena, string telefono)
+
+    public void RegistrarUsuario(string emailOrNombre, string contrasenaOrApellido, string nombreOrEmail, string apellidoOrContrasena = "", string telefono = "", string tipoUsuario = "Cuidador")
     {
-        using (SqlConnection connection = new SqlConnection(_connectionString))
+        string email;
+        string contrasena;
+        string nombre;
+        string apellido;
+
+        if (emailOrNombre != null && emailOrNombre.Contains("@"))
         {
-            string query = "INSERT INTO Usuarios (Nombre, Apellido, Email, Password, Telefono) VALUES (@Nombre, @Apellido, @Email, @Password, @Telefono)";
-            connection.Execute(query, new { Nombre = nombre, Apellido = apellido, Email = email, Password = contrasena, Telefono = telefono });
-        }
-    }
-    public List<Grupo> ObtenerGruposUsuario(int idUsuario)
-    {
-        //verifivasr si el id del usuario es cuidador o adulto matyor.- si es adulto mayor solo tiene un gruoo. si es cuidador tiene mas. hacer ambas querys en cada caso
-        List<Grupo> grupos = new List<Grupo>();
-        if (EsCuidador(idUsuario))
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                string query = "SELECT * FROM Grupos INNER JOIN Cuidador ON grupo.cuidador_id = cuidador_Id WHERE cuidador_Id = @IdUsuario";
-                grupos = connection.Query<Grupo>(query, new { IdUsuario = idUsuario }).ToList();
-            }
+            email = emailOrNombre;
+            contrasena = contrasenaOrApellido;
+            nombre = nombreOrEmail;
+            apellido = apellidoOrContrasena;
         }
         else
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                string query = "SELECT * FROM Grupos INNER JOIN AdultoMayor ON grupo.adultoMayor_id = adultoMayor_Id WHERE adultoMayor_Id = @IdUsuario";
-                grupos = connection.Query<Grupo>(query, new { IdUsuario = idUsuario }).ToList();
-            }
+            nombre = emailOrNombre ?? string.Empty;
+            apellido = contrasenaOrApellido ?? string.Empty;
+            email = nombreOrEmail ?? string.Empty;
+            contrasena = apellidoOrContrasena ?? string.Empty;
         }
-        return grupos;
-    }
-    public string ObtenerIdUsuario(string mail)
-    {
-        string mail = " ";
+
+        string nombreCompleto = string.IsNullOrWhiteSpace(apellido) ? nombre : $"{nombre} {apellido}".Trim();
+
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = "SELECT Id FROM Usuarios WHERE mail = @mail";
-            mail = connection.QueryFirstOrDefault<int>(query, new { mail = mail });
+            connection.Execute(
+                "RegistrarUsuario",
+                new
+                {
+                    Mail = email,
+                    Contrasena = contrasena,
+                    Nombre = nombreCompleto,
+                    Telefono = telefono ?? string.Empty,
+                    TipoUsuario = tipoUsuario,
+                    FotoPerfil = (string?)null,
+                    NombreUsuario = email
+                },
+                commandType: CommandType.StoredProcedure
+            );
         }
-        return mail;
     }
+
+    public List<Grupo> ObtenerGruposUsuario(int idUsuario)
+    {
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            return connection.Query<Grupo>(
+                "ObtenerGruposUsuario",
+                new { IdUsuario = idUsuario },
+                commandType: CommandType.StoredProcedure
+            ).ToList();
+        }
+    }
+
+    public int ObtenerIdUsuario(string mail)
+    {
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            int? id = connection.QueryFirstOrDefault<int?>(
+                "ObtenerIdUsuario",
+                new { Mail = mail },
+                commandType: CommandType.StoredProcedure
+            );
+            return id ?? -1;
+        }
+    }
+
     public bool EsCuidador(int idUsuario)
     {
-        int count = 0;
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = "SELECT COUNT(*) FROM Cuidador WHERE id_usuario = @IdUsuario";
-            count = connection.QueryFirstOrDefault<int>(query, new { IdUsuario = idUsuario });
+            int count = connection.QueryFirstOrDefault<int>(
+                "EsCuidador",
+                new { IdUsuario = idUsuario },
+                commandType: CommandType.StoredProcedure
+            );
+            return count > 0;
         }
-        return count > 0;
     }
 }
