@@ -9,7 +9,7 @@ public class BD
 
     public string ObtenerNombreAdulto(int IdGrupo)
     {
-        string nombreAdulto = " ";
+        string nombreAdulto = "";
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
             string query = "SELECT nombre FROM AdultoMayor inner join Grupo on AdultoMayor_id = Grupo.adultoMayor_id WHERE Grupo.id_grupo = @IdGrupo";
