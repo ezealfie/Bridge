@@ -1,61 +1,67 @@
 @{
     ViewData["Title"] = "Inicio - Bridge";
 }
-<main>
-<section class="Banner">
-  <h1 class="Logo">Bridge</h1>
-  <h3 class="card-text">Conservando la vida</h3>
-</section>
-<section>
-    <p>En Bridge deseamos poder lograr una mayor calidad de vida para los adultos mayores atravesando situaciones dificiles en relacion al deterioro cognitivo. </p>
-    <p>Creemos que la empatia, la conexion, y el amor al projimo son las claves para lograr un cambio significativo para las vidas de personas que tan gravemente lo necesitan.</p>
-    <button type="button" onclick="location.href='@Url.Action("SobreNosotros", "Home")'">Leer mas</button>
-    <img class="IntroImg" src="" alt="Imagen introductoria">
-</section>
-<section>
-  <div class="row g-0">
-    <div class="col-md-4">
-      <img src="..." class="img-fluid rounded-start" alt="...">
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h4 class="card-title">Organización de la salud</h4>
-        <p>Centralizá y gestioná toda la información médica del adulto mayor en un solo lugar: medicación, episodios, documentos y recordatorios.</p>
-        <button type="button" onclick="location.href='@Url.Action('Login', 'Sesiones')'">Ver</button>
-      </div>
-    </div>
-  </div>
-</div>
-  <div class="row g-0">
-    <div class="col-md-4">
-      <img src="..." class="img-fluid rounded-start" alt="...">
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h4 class="card-title">Familia y cuidadores</h4>
-        <p>Determina los responsables del adulto mayor y mejora la comunicacion entre ellos para poder lograr mayor bienestar para su ser querido.</p>
-        <button type="button" onclick="location.href='@Url.Action('Login', 'Sesiones')'">Ver</button></div>
-    </div>
-  </div>
-</div>
-  <div class="row g-0">
-    <div class="col-md-4">
-      <img src="..." class="img-fluid rounded-start" alt="...">
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h4 class="card-title">Herramientas y bienestar</h4>
-        <p>Accedé rápidamente a contactos importantes, recursos de estimulación mental, ejercicios y otras herramientas que acompañan el bienestar del adulto mayor.</p>
-        <button type="button" onclick="location.href='@Url.Action('Login', 'Sesiones')'">Ver</button>      </div>
-    </div>
-  </div>
-</div>
-</div>
-    <button type="button" onclick="location.href='@Url.Action('Login', 'Sesiones')'">Probar</button>
-</section>
-<section>
-    <h2>Organizá tu calendario con el resto de los cuidadores</h2>
-    <!-- Aca va la vista previa del calendario, no se como hacerla -->
-    <button type="button" onclick="location.href='@Url.Action('Login', 'Sesiones')'">Ir</button>
-</section>
+
+<main class="home-page">
+    <header class="landing-brand">
+        <h1 class="Logo">BRIDGE</h1>
+        <p class="subtitle">Conservando la vida</p>
+    </header>
+    <section class="hero-panel">
+        <div class="hero-copy">
+            <p>
+                En Bridge deseamos poder lograr una mayor calidad de vida para los adultos mayores a través de situaciones difíciles en relación al deterioro cognitivo.
+            </p>
+            <p>
+                Creemos que la empatía, la conexión y el amor al prójimo son las claves para lograr un cambio significativo para las vidas de personas que tan gravemente lo necesitan.
+            </p>
+            <a class="primary-btn" href="@Url.Action("SobreNosotros", "Home")">Leer más</a>
+        </div>
+
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=900&q=80" alt="Adulto mayor con cuidador" />
+        </div>
+    </section>
+    <section class="services-section">
+        <h2>¿Qué podés hacer?</h2>
+        <div class="service-list">
+            <article class="service-item">
+                <div class="service-image" aria-hidden="true"></div>
+                <div class="service-body">
+                    <h3>Organización de la salud</h3>
+                    <p>
+                        Centralizá y gestioná toda la información médica del adulto mayor en un solo lugar: medicación, episodios, documentos y recordatorios.
+                    </p>
+                    <a class="secondary-btn" href="@Url.Action("Login", "Sesiones")">Ver más</a>
+                </div>
+            </article>
+            <article class="service-item">
+                <div class="service-image" aria-hidden="true"></div>
+                <div class="service-body">
+                    <h3>Familia y cuidadores</h3>
+                    <p>
+                        Determiná los responsables del adulto mayor y mejorá la comunicación entre ellos para lograr mayor bienestar para su ser querido.
+                    </p>
+                    <a class="secondary-btn" href="@Url.Action("Login", "Sesiones")">Ver más</a>
+                </div>
+            </article>
+            <article class="service-item">
+                <div class="service-image" aria-hidden="true"></div>
+                <div class="service-body">
+                    <h3>Herramientas y bienestar</h3>
+                    <p>
+                        Accedé rápidamente a contactos importantes, recursos de estimulación mental, ejercicios y otras herramientas que acompañan el bienestar del adulto mayor.
+                    </p>
+                    <a class="secondary-btn" href="@Url.Action("Login", "Sesiones")">Ver más</a>
+                </div>
+            </article>
+        </div>
+    </section>
+    <section class="calendar-callout">
+        <div class="calendar-placeholder" aria-hidden="true"></div>
+        <div class="calendar-copy">
+            <h3>Organizá tu calendario con el resto de los cuidadores</h3>
+            <a class="primary-btn" href="@Url.Action("Login", "Sesiones")">Ir</a>
+        </div>
+    </section>
 </main>
