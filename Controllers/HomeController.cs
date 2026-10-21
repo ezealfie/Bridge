@@ -40,8 +40,8 @@ public class HomeController : Controller
         {
             return RedirectToAction("Login", "Sesiones");
         }
-        ViewBag.NombreAdulto = _bd.bd.ObtenerNombreAdulto(idGrupo);
-        ViewBag.Proximos5Eventos = _bd.bd.ObtenerProximos5Eventos(idGrupo);
+        ViewBag.NombreAdulto = _bd.ObtenerNombreAdulto(idGrupo);
+        ViewBag.Proximos5Eventos = _bd.ObtenerProximos5Eventos(idGrupo);
         return View();
     }
     public IActionResult Grupo(int idUsuario)

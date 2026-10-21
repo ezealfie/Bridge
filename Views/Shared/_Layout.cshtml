@@ -23,11 +23,11 @@
                     <li><a href="/Home/Dashboard.cshtml">Inicio</a></li>
                 }
                 @if(ViewContext.HttpContext.Session.GetString("NombreUsuario") != "" && ViewContext.HttpContext.Session.GetString("Contraseña") != ""){                    
-                    <li><a href="/Home/SobreNosotros.cshtml">"Sobre nosotros"</a></li>
-                    <li><a href="/Home/Grupos.cshtml">"Grupos"</a></li>
-                    <li><a href="/Home/Herramientas.cshtml">"Herramientas"</a></li>
-                    <li><a href="/Home/AdultoMayor.cshtml">"Adulto mayor"</a></li>
-                    <li><a href="/Home/Cuidadores.cshtml">"Familia y Cuidadores"</a></li>
+                    <li><a href="/Home/SobreNosotros.cshtml">Sobre nosotros</a></li>
+                    <li><a href="/Home/Grupos.cshtml">Grupos</a></li>
+                    <li><a href="/Home/Herramientas.cshtml">Herramientas</a></li>
+                    <li><a href="/Home/AdultoMayor.cshtml">Adulto mayor</a></li>
+                    <li><a href="/Home/Cuidadores.cshtml">Familia y Cuidadores</a></li>
                     <li><a href="/Home/Usuario.cshtml"><img src="" alt="Aca va la foto de perfil"></a></li>
                 }
                 @if(ViewContext.HttpContext.Session.GetString("NombreUsuario") == "" && ViewContext.HttpContext.Session.GetString("Contraseña") == ""){                    
