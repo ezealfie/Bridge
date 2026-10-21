@@ -105,3 +105,62 @@ button {
     line-height: 1.4em;
     margin: 0% 0% 2% 0%;
 }
+@media (max-width: 767px) {
+    html {
+        font-size: 13px;
+    }
+    body {
+        margin-bottom: 30px;
+    }
+    .Logo {
+        font-size: 1.8em;
+        text-align: center;
+    }
+    .IntroImg {
+        float: none;
+        display: block;
+        width: 100%;
+        margin: 1rem auto;
+    }
+    .row {
+        display: block;
+        padding: 5%;
+    }
+    .col-md-4,
+    .col-md-8 {
+        width: 100%;
+        padding: 0;
+        text-align: center;
+    }
+    .col-md-4 img {
+        width: 50%;
+        margin-bottom: 1rem;
+    }
+    button {
+        width: 100%;
+        padding: 3% 4%;
+        margin-top: 1rem;
+    }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+    .Logo {
+        font-size: 2em;
+    }
+    .IntroImg {
+        width: 50%;
+    }
+    .col-md-4 {
+        width: 34%;
+    }
+    .col-md-8 {
+        width: 66%;
+    }
+}
+@media (min-width: 992px) {
+    .Logo {
+        font-size: 2.3em;
+    }
+    .Banner .card-text {
+        font-size: 1.2em;
+    }
+}
