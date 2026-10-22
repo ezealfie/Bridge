@@ -48,25 +48,27 @@
         <button type="button" onclick="">Soporte</button> <!-- Aca va el icono de mail antes del texto de soporte, no se como hacerla -->
         <ul>
             <li><a href="/Home/SobreNosotros.cshtml"></a></li>
-            @if(ViewContext.HttpContext.Session.GetString("NombreUsuario") != "" && ViewContext.HttpContext.Session.GetString("Contraseña") != ""){                <li><a href="/Home/Herramientas.cshtml">"Herramientas"</a></li>
-                <li><a href="/Home/Herramientas.cshtml">"Herramientas"</a></li>
-                <li><a href="/Home/AdultoMayor.cshtml">"Adulto mayor"</a></li>
-                <li><a href="/Home/Cuidadores.cshtml">"Familia y Cuidadores"</a></li>
+            @if(ViewContext.HttpContext.Session.GetString("NombreUsuario") != "" && ViewContext.HttpContext.Session.GetString("Contraseña") != ""){
+                <li><a href="/Home/Herramientas.cshtml">Herramientas</a></li>
+                <li><a href="/Home/AdultoMayor.cshtml">Adulto mayor</a></li>
+                <li><a href="/Home/Cuidadores.cshtml">Familia y Cuidadores</a></li>
             }
-            @if(ViewContext.HttpContext.Session.GetString("NombreUsuario") == "" && ViewContext.HttpContext.Session.GetString("Contraseña") == ""){                <li><a href="/Home/Login.cshtml">"Herramientas"</a></li>
-                <li><a href="/Home/Login.cshtml">"Herramientas"</a></li>
-                <li><a href="/Home/Login.cshtml">"Adulto mayor"</a></li>
-                <li><a href="/Home/Login.cshtml">"Familia y Cuidadores"</a></li>
+            @if(ViewContext.HttpContext.Session.GetString("NombreUsuario") == "" && ViewContext.HttpContext.Session.GetString("Contraseña") == ""){
+                <li><a href="/Home/Login.cshtml">Herramientas</a></li>
+                <li><a href="/Home/Login.cshtml">Adulto mayor</a></li>
+                <li><a href="/Home/Login.cshtml">Familia y Cuidadores</a></li>
             }
         </ul>
         <hr><!-- Esto deberia ser la linea -->
         <p><i>Copyright © 2026 Bridge. Todos los derechos reservados.</i></p>
         <a href="/Home/Privacy.cshtml">Privacidad</a>
         <a href="">Términos de servicio</a>
-        <a href=""><img src="~/Imagenes/X.png" alt="Logo de X"></a> <!-- Esto deberia ser el logo de X -->
-        <a href=""><img src="~/Imagenes/Instagram.png" alt="Logo de Instagram"></a> <!-- Esto deberia ser el logo de Instagram -->
-        <a href=""><img src="~/Imagenes/YouTube.png" alt="Logo de YouTube"></a> <!-- Esto deberia ser el logo de YouTube -->
-        <a href=""><img src="~/Imagenes/LinkedIn.png" alt="Logo de LinkedIn"></a> <!-- Esto deberia ser el logo de LinkedIn -->
+        <section class="RedesSociales">
+            <a href=""><img src="~/Imagenes/X.png" alt="Logo de X"></a> <!-- Esto deberia ser el logo de X -->
+            <a href=""><img src="~/Imagenes/Instagram.png" alt="Logo de Instagram"></a> <!-- Esto deberia ser el logo de Instagram -->
+            <a href=""><img src="~/Imagenes/YouTube.png" alt="Logo de YouTube"></a> <!-- Esto deberia ser el logo de YouTube -->
+            <a href=""><img src="~/Imagenes/LinkedIn.png" alt="Logo de LinkedIn"></a> <!-- Esto deberia ser el logo de LinkedIn -->
+        </section>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

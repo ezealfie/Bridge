@@ -117,11 +117,10 @@ footer.footer {
   box-shadow: none !important;
   padding: 1.8rem 2.5rem 1.1rem !important;
   font-family: "League Spartan", sans-serif !important;
-  display: grid !important;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 2.2fr) auto auto;
-  column-gap: 1.35rem;
-  row-gap: 0.8rem;
+  display: flex !important;
+  flex-wrap: wrap;
   align-items: center;
+  gap: 0.8rem 1.35rem;
 }
 
 .footer .FooterH3,
@@ -134,35 +133,35 @@ footer.footer {
 }
 
 .footer .FooterH3 {
-  grid-column: 1;
-  grid-row: 1;
   margin: 0;
   font-family: "Montserrat", sans-serif !important;
   font-size: 2rem !important;
   font-weight: 700 !important;
   line-height: 1.1;
+  text-align: left;
+  justify-self: start;
+  order: 1;
 }
 
 .footer .FooterH4 {
-  grid-column: 1;
-  grid-row: 2;
+  flex: 0 0 22rem;
   margin: 0;
-  max-width: 22rem;
   font-size: 0.95rem !important;
   font-weight: 400 !important;
   line-height: 1.4;
+  text-align: left;
+  order: 2;
 }
 
 footer.footer ul {
-  grid-column: 2;
-  grid-row: 1 / span 2;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 1.1rem 1.6rem;
   list-style: none;
-  margin: 0;
+  margin: 0 0 0 auto;
   padding: 0;
+  order: 3;
 }
 
 footer.footer ul li {
@@ -177,15 +176,12 @@ footer.footer ul li a {
 }
 
 footer.footer button {
-  grid-column: 4;
-  grid-row: 1 / span 2;
-  justify-self: end;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.45rem;
   padding: 0.7rem 1.1rem;
-  margin: 0;
+  margin: 0 0 0 auto;
   border: 1px solid #ffffff;
   border-radius: 999px;
   color: #ffffff;
@@ -193,6 +189,7 @@ footer.footer button {
   font-size: 0.82rem;
   font-weight: 600;
   cursor: pointer;
+  order: 4;
 }
 
 footer.footer button::before {
@@ -203,38 +200,55 @@ footer.footer button::before {
 }
 
 footer.footer hr {
-  grid-column: 1 / -1;
-  grid-row: 3;
   width: 100%;
   border: none;
   border-top: 1px solid #ffffff;
   margin: 0.35rem 0 0.7rem;
+  order: 5;
 }
 
 footer.footer p {
-  grid-column: 1;
-  grid-row: 4;
   margin: 0;
   font-size: 0.76rem;
   opacity: 0.95;
+  order: 6;
 }
 
 footer.footer > a[href*="Privacy"] {
-  grid-column: 3;
-  grid-row: 4;
-  justify-self: end;
+  margin-left: auto;
   color: #ffffff !important;
   text-decoration: none;
   font-size: 0.8rem;
+  order: 8;
 }
 
 footer.footer > a[href*="Privacy"] + a {
-  grid-column: 4;
-  grid-row: 4;
-  justify-self: end;
   color: #ffffff !important;
   text-decoration: none;
   font-size: 0.8rem;
+  order: 9;
+}
+
+footer.footer > a:nth-of-type(3),
+footer.footer > a:nth-of-type(4),
+footer.footer > a:nth-of-type(5),
+footer.footer > a:nth-of-type(6) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  margin: 0.9rem 0.42rem 0 0;
+  padding: 0;
+  background: transparent !important;
+  border-radius: 0;
+  box-shadow: none;
+  order: 7;
+  flex: 0 0 auto;
+}
+
+footer.footer > a:nth-of-type(3) {
+  margin-left: 0;
 }
 
 footer.footer > a[href*="Privacy"]:hover,
@@ -243,16 +257,39 @@ footer.footer ul li a:hover {
   text-decoration: underline;
 }
 
-footer.footer a img {
+footer.footer .RedesSociales {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.38rem;
+  width: 100%;
+  margin-top: 0.3rem;
+  order: 7;
+}
+
+footer.footer .RedesSociales a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.7rem;
-  height: 1.7rem;
-  padding: 0.2rem;
-  border-radius: 0.4rem;
-  background: #ffffff;
+  width: 1.35rem;
+  height: 1.35rem;
+  margin: 0;
+  padding: 0;
+  background: transparent !important;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+footer.footer .RedesSociales a img {
+  display: block;
+  width: 1.35rem;
+  height: 1.35rem;
+  padding: 0;
+  border-radius: 0;
+  background: transparent !important;
   object-fit: contain;
+  box-shadow: none;
+  filter: none;
 }
 
 @media (max-width: 767px) {
