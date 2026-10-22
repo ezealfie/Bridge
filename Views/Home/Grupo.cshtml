@@ -2,29 +2,30 @@
     ViewData["Title"] = "Grupos";
 }
 
-<section class="py-4 py-md-5">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12 col-sm-10 col-md-8 col-lg-5 col-xl-4">
-                <div class="text-center mb-4">
-                    <h1 class="fw-bold mb-0">Grupos de cuidado</h1>
+<section class="grupo-page py-4 py-md-5">
+    <div class="grupo-container">
+        <div class="grupo-shell">
+            <div class="grupo-header text-center mb-4">
+                <p class="grupo-kicker">Cuidado compartido</p>
+                <h1 class="fw-bold mb-0">Grupos de cuidado</h1>
+            </div>
+
+            <div class="grupo-card">
+                <div class="grupo-list">
+                    @foreach (Grupo grupo in ViewBag.Grupos)
+                    {
+                        <a href="@Url.Action("Dashboard", "Home", new { idGrupo = grupo.id_grupo })"
+                           class="grupo-item">
+                            <span class="grupo-avatar">
+                                @(!string.IsNullOrEmpty(grupo.Nombre) ? grupo.Nombre.Substring(0, 1).ToUpper() : "G")
+                            </span>
+                            <span class="grupo-name">@grupo.Nombre</span>
+                        </a>
+                    }
                 </div>
-                <div class="card border-0 rounded-4 shadow-sm bg-light p-3 p-md-4">
-                    <div class="d-grid gap-3">
-                        @foreach (Grupo grupo in ViewBag.Grupos)
-                        {
-                            <a href="@Url.Action("Dashboard", "Home", new { idGrupo = grupo.id_grupo })"
-                               class="btn btn-secondary border-0 rounded-4 d-flex align-items-center gap-3 px-3 py-3 text-start shadow-sm text-decoration-none">
-                                <span class="rounded-circle bg-white text-dark d-inline-flex align-items-center justify-content-center flex-shrink-0 fw-semibold" style="width: 2.75rem; height: 2.75rem;">
-                                    @(!string.IsNullOrEmpty(grupo.Nombre) ? grupo.Nombre.Substring(0, 1).ToUpper() : "G")
-                                </span>
-                                <span class="fs-5 fw-medium text-start">@grupo.Nombre</span>
-                            </a>
-                        }
-                    </div>
-                    <div class="d-flex justify-content-center mt-4">
-                        <button type="button" class="btn btn-dark rounded-pill px-5 py-2 fw-medium">Agregar</button>
-                    </div>
+
+                <div class="grupo-actions">
+                    <button type="button" class="grupo-btn">Agregar</button>
                 </div>
             </div>
         </div>
