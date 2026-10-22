@@ -64,16 +64,4 @@ public class HomeController : Controller
         ViewBag.Grupos = BD.ObtenerGruposUsuario(idUsuario);
         return View();
     }
-    public IActionResult Herramientas()
-    {
-        return View();
-    }
-    public IActionResult AdultoMayor()
-    {
-        return View();
-    }
-    public IActionResult Cuidadores()
-    {
-        return View();
-    }
 }
