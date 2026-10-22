@@ -47,18 +47,38 @@ public class SesionesController : Controller
             if (bd.VerificarCredenciales(id, passInput))
             {
                 HttpContext.Session.SetInt32("IdUsuario", id);
+
+                if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                {
+                    return Json(new { success = true, redirectUrl = Url.Action("Grupo", "Home", new { idUsuario = id }) });
+                }
+
                 return RedirectToAction("Grupo", "Home", new { idUsuario = id });
             }
             else
             {
-                ViewBag.Error = "Contraseña incorrecta. Inténtalo de nuevo.";
+                var errorMessage = "Contraseña incorrecta. Inténtalo de nuevo.";
+
+                if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                {
+                    return Json(new { success = false, message = errorMessage });
+                }
+
+                ViewBag.Error = errorMessage;
                 ViewBag.Message = ViewBag.Error;
                 return View("Login");
             }
         }
         else
         {
-            ViewBag.Error = "El correo electrónico no está registrado. Por favor, regístrese primero.";
+            var errorMessage = "El correo electrónico no está registrado. Por favor, regístrese primero.";
+
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return Json(new { success = false, message = errorMessage });
+            }
+
+            ViewBag.Error = errorMessage;
             ViewBag.Message = ViewBag.Error;
             return View("Login");
         }

@@ -1,21 +1,69 @@
-<h1>Registrarse</h1>
-<form class="register-form" action="@Url.Action("RegistrarseVerificar", "Sesiones")" method="POST">
-    <label>Correo electrónico:</label><br>
-    <input type="text" name="email" placeholder="Ingrese su correo electrónico" required /><br>
-    <label>Nombre:</label><br>
-    <input type="text" name="nombre" placeholder="Ingrese su nombre" required /><br>
-    <label>Apellido:</label><br>
-    <input type="text" name="apellido" placeholder="Ingrese su apellido" required /><br>
-    <label>Tipo de Usuario:</label><br>
-    <select name="tipoUsuario" required>
-        <option value="Cuidador">Cuidador</option>
-        <option value="Adulto Mayor">Adulto Mayor</option>
-    </select><br>
-    <label>Contraseña:</label><br>
-    <input type="password" name="contrasena" placeholder="Ingrese su contraseña" required /><br>
-    <label>Repetir Contraseña:</label><br>
-    <input type="password" name="repetirContrasena" placeholder="Repita su contraseña" required /><br>
-    <button type="submit">Registrarse</button>
-</form>
-<p class="text-danger">@ViewBag.Message</p>
-<p>¿Ya tenés una cuenta? <a href="@Url.Action("Login", "Sesiones")">Iniciar Sesión</a></p>
+@{
+    ViewData["Title"] = "Registrarse";
+}
+
+<div class="auth-shell">
+    <div class="auth-card auth-card--register">
+        <div class="auth-card__illustration" aria-hidden="true">
+            <div class="auth-badge">Bridge</div>
+            <h2>Creá tu cuenta</h2>
+            <p>Unite a una comunidad de cuidado y atención para mayores.</p>
+        </div>
+
+        <div class="auth-card__form">
+            <div class="auth-header">
+                <span class="auth-kicker">Registro</span>
+                <h1>Registrarse</h1>
+            </div>
+
+            <form id="register-form" action="@Url.Action("RegistrarseVerificar", "Sesiones")" method="POST" novalidate>
+                <div class="field-row two-columns">
+                    <div class="field-group">
+                        <label for="nombre">Nombre</label>
+                        <input id="nombre" type="text" name="nombre" placeholder="Tu nombre" required />
+                    </div>
+
+                    <div class="field-group">
+                        <label for="apellido">Apellido</label>
+                        <input id="apellido" type="text" name="apellido" placeholder="Tu apellido" required />
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label for="email">Correo electrónico</label>
+                    <input id="email" type="email" name="email" placeholder="ejemplo@correo.com" required />
+                </div>
+
+                <div class="field-group">
+                    <label for="tipoUsuario">Tipo de usuario</label>
+                    <select id="tipoUsuario" name="tipoUsuario" required>
+                        <option value="Cuidador">Cuidador</option>
+                        <option value="Adulto Mayor">Adulto Mayor</option>
+                    </select>
+                </div>
+
+                <div class="field-row two-columns">
+                    <div class="field-group">
+                        <label for="contrasena">Contraseña</label>
+                        <input id="contrasena" type="password" name="contrasena" placeholder="Ingrese su contraseña" required />
+                    </div>
+
+                    <div class="field-group">
+                        <label for="repetirContrasena">Repetir contraseña</label>
+                        <input id="repetirContrasena" type="password" name="repetirContrasena" placeholder="Repita su contraseña" required />
+                    </div>
+                </div>
+
+                <button type="submit" class="primary-btn">Registrarse</button>
+
+                <div id="register-error" class="form-message" role="alert" aria-live="polite">
+                    @ViewBag.Message
+                </div>
+            </form>
+
+            <p class="auth-footer">
+                ¿Ya tenés una cuenta? <a href="@Url.Action("Login", "Sesiones")">Iniciar sesión</a>
+            </p>
+        </div>
+    </div>
+</div>

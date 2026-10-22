@@ -1,11 +1,50 @@
-<h1>Iniciar Sesión</h1>
-<form action="@Url.Action("LoginVerificar", "Sesiones")" method="POST">
-    <label>Correo Electrónico:</label><br>
-    <input type="text" name="usuario" placeholder="Ingrese su usuario" required /><br>
-    <label>Contraseña:</label><br>
-    <input type="password" name="contrasena" placeholder="Ingrese su contraseña" required /><br>
-    <button type="submit">Iniciar Sesión</button>
-    <a href=""><p>¿No tenes cuenta todavia?</p></a>
-    <a href="@Url.Action("Registrarse", "Sesiones")"><p>Registrarse</p></a>
-</form>
-<p class="text-danger">@ViewBag.Message</p>
+@{
+    ViewData["Title"] = "Iniciar sesión";
+}
+
+<div class="auth-shell">
+    <div class="auth-card auth-card--login">
+        <div class="auth-card__illustration" aria-hidden="true">
+            <div class="auth-badge">Bridge</div>
+            <h2>Bienvenido de nuevo</h2>
+            <p>Accedé a tu espacio para cuidar, acompañar y acompañarte mejor.</p>
+        </div>
+
+        <div class="auth-card__form">
+            <div class="auth-header">
+                <span class="auth-kicker">Acceso</span>
+                <h1>Iniciar sesión</h1>
+            </div>
+
+            <form id="login-form" action="@Url.Action("LoginVerificar", "Sesiones")" method="POST" novalidate>
+                <div class="field-group">
+                    <label for="usuario">Correo electrónico</label>
+                    <input id="usuario" type="email" name="email" placeholder="ejemplo@correo.com" required />
+                </div>
+
+                <div class="field-group">
+                    <label for="contrasena">Contraseña</label>
+                    <input id="contrasena" type="password" name="password" placeholder="Ingrese su contraseña" required />
+                </div>
+
+                <div class="form-row">
+                    <label class="remember-box">
+                        <input type="checkbox" />
+                        <span>Recordarme</span>
+                    </label>
+                    <a href="#">Olvidé mi contraseña</a>
+                </div>
+
+                <button type="submit" class="primary-btn">Iniciar sesión</button>
+
+                <div id="login-error" class="form-message" role="alert" aria-live="polite">
+                    @ViewBag.Message
+                </div>
+            </form>
+
+            <p class="auth-footer">
+                ¿No tenés cuenta? <a href="@Url.Action("Registrarse", "Sesiones")">Registrate</a>
+            </p>
+        </div>
+    </div>
+</div>
