@@ -43,40 +43,42 @@ header {
   width: 100%;
 }
 
-.navbar {
+nav.navbar {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
   padding: 1rem 1.25rem !important;
   margin: 0 !important;
-}
-
-.navbar ul {
   display: flex !important;
   align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+nav.navbar .nav-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+nav.navbar .nav-group--left {
+  justify-content: flex-start;
+  flex: 1;
+}
+
+nav.navbar .nav-group--right {
   justify-content: flex-end;
-  list-style: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  width: 100% !important;
-  gap: 1rem !important;
+  flex: 1;
 }
 
-.navbar ul li {
-  display: inline-flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.navbar ul li a {
+nav.navbar .nav-group a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 2.6rem;
   padding: 0.75rem 1.35rem;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.18);
+  background: var(--color-primario-oscuro) !important;
   color: #ffffff !important;
   text-decoration: none !important;
   font-family: "Montserrat", sans-serif !important;
@@ -86,23 +88,195 @@ header {
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.navbar ul li a:hover {
+nav.navbar .nav-group a:not(.brand-logo-link):not(.btn-register):not(.profile-link) {
+  background: var(--color-primario-oscuro) !important;
+}
+
+nav.navbar .nav-group a.brand-logo-link {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  min-height: auto !important;
+}
+
+nav.navbar .nav-group a.brand-logo-link img.brand-logo-image {
+  display: block !important;
+  width: 7.5rem;
+  height: 3rem;
+  object-fit: contain;
+  background: transparent !important;
+  filter: none;
+}
+
+nav.navbar .nav-group a.btn-register {
+  background: #ffffff !important;
+  color: var(--color-primario-oscuro) !important;
+  border: 2px solid var(--color-primario-oscuro) !important;
+  box-shadow: none !important;
+}
+
+nav.navbar .nav-group a.profile-link {
+  background: var(--color-primario-oscuro) !important;
+  border: 1px solid rgba(255,255,255,0.5);
+}
+
+nav.navbar .nav-group a.profile-link img {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  display: block;
+  object-fit: cover;
+  background: rgba(255,255,255,0.2);
+}
+
+nav.navbar .nav-group a:hover,
+nav.navbar .nav-group a.btn-register:hover {
   opacity: 0.92;
   transform: translateY(-1px);
 }
 
-.navbar ul li a[href*="Login"],
-.navbar ul li a[href*="Registro"] {
-  background: rgba(255, 255, 255, 0.18);
+.navbar {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 1rem 1.25rem !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
-.navbar ul li a[href*="Login"] {
-  min-width: 8.2rem;
+.navbar .nav-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
-.navbar ul li a[href*="Registro"] {
-  min-width: 7.4rem;
-  background: rgba(255, 255, 255, 0.2);
+.navbar .nav-group--left {
+  justify-content: flex-start;
+  flex: 1;
+}
+
+.navbar .nav-group--right {
+  justify-content: flex-end;
+  flex: 1;
+}
+
+.navbar a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.6rem;
+  padding: 0.75rem 1.35rem;
+  border-radius: 999px;
+  background: var(--color-primario-oscuro) !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  font-family: "Montserrat", sans-serif !important;
+  font-size: 0.92rem !important;
+  font-weight: 600 !important;
+  line-height: 1;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.navbar .nav-group a:not(.brand-logo-link):not(.btn-register):not(.profile-link) {
+  background: var(--color-primario-oscuro) !important;
+}
+
+.navbar .brand-logo-link {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  min-height: auto !important;
+}
+
+.navbar .brand-logo-image {
+  display: block;
+  width: 7.5rem;
+  height: auto;
+  max-height: 3rem;
+  background: transparent;
+  object-fit: contain;
+  filter: none;
+}
+
+.navbar a.btn-register,
+.navbar .btn-register {
+  background: #ffffff !important;
+  color: var(--color-primario-oscuro) !important;
+  border: 2px solid var(--color-primario-oscuro) !important;
+  box-shadow: none !important;
+}
+
+.navbar .profile-link {
+  background: transparent !important;
+  border: 1px solid rgba(255,255,255,0.5);
+}
+
+.navbar .profile-link img {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  display: block;
+  object-fit: cover;
+  background: rgba(255,255,255,0.2);
+}
+
+.navbar a:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.navbar .btn-register:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.brand-logo-link {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+
+.brand-logo-image {
+  display: block;
+  width: 7.5rem;
+  height: auto;
+  max-height: 3rem;
+  background: transparent;
+  object-fit: contain;
+  filter: none;
+}
+
+.btn-register {
+  background: #ffffff !important;
+  color: var(--color-primario-oscuro) !important;
+  border: 2px solid var(--color-primario-oscuro) !important;
+  box-shadow: none !important;
+}
+
+.profile-link {
+  background: transparent !important;
+  border: 1px solid rgba(255,255,255,0.5);
+}
+
+.profile-link img {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  display: block;
+  object-fit: cover;
+  background: rgba(255,255,255,0.2);
 }
 
 footer.footer {
