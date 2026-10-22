@@ -3,196 +3,299 @@ a.navbar-brand {
   text-align: center;
   word-break: break-all;
 }
+
 a {
   color: #0077cc;
 }
+
 .btn-primary {
   color: #fff;
   background-color: #17CBD8;
   border-color: #00A9AF;
 }
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
   color: #fff;
   background-color: #17CBD8;
   border-color: #00A9AF;
 }
+
 .border-top {
   border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
   border-bottom: 1px solid #e5e5e5;
 }
+
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
+
 button.accept-policy {
   font-size: 1rem;
   line-height: inherit;
 }
-.footer {
-  position: absolute;
-  bottom: 0;
+
+header {
+  background: var(--color-primario);
   width: 100%;
-  white-space: nowrap;
-  line-height: 60px;
 }
-.navbar.bg-white {
-    background-color: #17CBD8 !important;
-    border-bottom: none !important;
-    box-shadow: none !important;
-    padding: 15px 40px !important;
+
+.navbar {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 1rem 1.25rem !important;
+  margin: 0 !important;
 }
+
 .navbar ul {
-    display: flex !important;
-    align-items: center;
-    list-style: none;
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 100% !important;
-    gap: 15px !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: flex-end;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  gap: 1rem !important;
 }
-.navbar ul li a {
-    text-decoration: none !important;
-    color: #ffffff !important;
-    background-color: #00A9AF !important;
-    padding: 10px 24px !important;
-    border-radius: 25px !important;
-    font-family: "League Spartan", sans-serif !important;    
-    font-size: 14px !important;
-    font-weight: 500 !important;
-    display: inline-block !important;
-    transition: background-color 0.3s !important;
-}
-.navbar ul li a:hover {
-    background-color: #01858a !important;
-}
-.navbar ul li a[href="/Home/Registrarse.cshtml"] {
-    background-color: #ffffff !important;
-    color: #1cc6cc !important;
-    font-weight: 600;
-}
-.navbar ul li a[href="/Home/Registrarse.cshtml"]:hover {
-    background-color: #f0f0f0 !important;
-}
+
 .navbar ul li {
-    color: transparent; 
+  display: inline-flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
+
+.navbar ul li a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.6rem;
+  padding: 0.75rem 1.35rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff !important;
+  text-decoration: none !important;
+  font-family: "Montserrat", sans-serif !important;
+  font-size: 0.92rem !important;
+  font-weight: 600 !important;
+  line-height: 1;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.navbar ul li a:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.navbar ul li a[href*="Login"],
+.navbar ul li a[href*="Registro"] {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.navbar ul li a[href*="Login"] {
+  min-width: 8.2rem;
+}
+
+.navbar ul li a[href*="Registro"] {
+  min-width: 7.4rem;
+  background: rgba(255, 255, 255, 0.2);
+}
+
 footer.footer {
-    background-color: #17CBD8 !important;
-    color: #ffffff !important;
-    padding: 35px 70px 25px 70px !important;
-    display: grid !important;
-    grid-template-columns: 320px 1fr auto auto !important;
-    row-gap: 10px !important;
-    column-gap: 20px !important;
-    align-items: center !important;
-    border: none !important;
-    box-shadow: none !important;
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif !important;
+  position: relative !important;
+  bottom: auto !important;
+  width: 100%;
+  white-space: normal;
+  line-height: normal;
+  background: var(--color-primario) !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 1.8rem 2.5rem 1.1rem !important;
+  font-family: "League Spartan", sans-serif !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 2.2fr) auto auto;
+  column-gap: 1.35rem;
+  row-gap: 0.8rem;
+  align-items: center;
 }
-footer .FooterH3 {
-    grid-column: 1 !important;
-    grid-row: 1 !important;
-    color: #ffffff !important;
-    font-size: 22px !important;
-    font-weight: 700 !important;
-    margin: 0 !important;
+
+.footer .FooterH3,
+.footer .FooterH4,
+.footer p,
+.footer a,
+.footer ul li a,
+.footer button {
+  color: #ffffff !important;
 }
-footer .FooterH4 {
-    grid-column: 1 !important;
-    grid-row: 2 !important;
-    color: #ffffff !important;
-    font-size: 12.5px !important;
-    font-weight: 400 !important;
-    line-height: 1.4 !important;
-    margin: 0 !important;
-    max-width: 270px !important;
+
+.footer .FooterH3 {
+  grid-column: 1;
+  grid-row: 1;
+  margin: 0;
+  font-family: "Montserrat", sans-serif !important;
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  line-height: 1.1;
 }
-footer ul {
-    grid-column: 2 / span 2;
-    grid-row: 1 / span 2;
-    display: flex;
-    flex-direction: row;
+
+.footer .FooterH4 {
+  grid-column: 1;
+  grid-row: 2;
+  margin: 0;
+  max-width: 22rem;
+  font-size: 0.95rem !important;
+  font-weight: 400 !important;
+  line-height: 1.4;
+}
+
+footer.footer ul {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.1rem 1.6rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+footer.footer ul li {
+  list-style: none;
+}
+
+footer.footer ul li a {
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  opacity: 1;
+}
+
+footer.footer button {
+  grid-column: 4;
+  grid-row: 1 / span 2;
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.7rem 1.1rem;
+  margin: 0;
+  border: 1px solid #ffffff;
+  border-radius: 999px;
+  color: #ffffff;
+  font-family: "Montserrat", sans-serif !important;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+footer.footer button::before {
+  content: "✉";
+  display: inline-block;
+  font-size: 0.8rem;
+  line-height: 1;
+}
+
+footer.footer hr {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  width: 100%;
+  border: none;
+  border-top: 1px solid #ffffff;
+  margin: 0.35rem 0 0.7rem;
+}
+
+footer.footer p {
+  grid-column: 1;
+  grid-row: 4;
+  margin: 0;
+  font-size: 0.76rem;
+  opacity: 0.95;
+}
+
+footer.footer > a[href*="Privacy"] {
+  grid-column: 3;
+  grid-row: 4;
+  justify-self: end;
+  color: #ffffff !important;
+  text-decoration: none;
+  font-size: 0.8rem;
+}
+
+footer.footer > a[href*="Privacy"] + a {
+  grid-column: 4;
+  grid-row: 4;
+  justify-self: end;
+  color: #ffffff !important;
+  text-decoration: none;
+  font-size: 0.8rem;
+}
+
+footer.footer > a[href*="Privacy"]:hover,
+footer.footer > a[href*="Privacy"] + a:hover,
+footer.footer ul li a:hover {
+  text-decoration: underline;
+}
+
+footer.footer a img {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  padding: 0.2rem;
+  border-radius: 0.4rem;
+  background: #ffffff;
+  object-fit: contain;
+}
+
+@media (max-width: 767px) {
+  .navbar {
+    padding: 0.9rem 0.8rem !important;
+  }
+  .navbar ul {
     justify-content: center;
-    align-items: center;
-    gap: 25px;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-footer ul li {
-    display: inline-block;
-}
-footer ul li a {
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 600;
-    transition: opacity 0.2s ease;
-}
-footer ul li a:hover {
-    opacity: 0.8;
-}
-footer button {
-    grid-column: 4;
-    grid-row: 1 / span 2;
-    justify-self: end;
-    background: transparent;
-    border: none;
-    color: #ffffff;
-    font-size: 14px;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer ;
-    padding: 0 ;
-    margin: 0 ;
-}
-footer button::before {
-    content: "";
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-}
-footer hr {
-    grid-column: 1 / -1;
-    grid-row: 3;
-    border: none;
-    border-top: 1px solid #ffffff;
-    margin: 18px 0 10px 0;
-    opacity: 1;
-    width: 100%;
-}
-footer p {
-    grid-column: 1 / span 2;
-    grid-row: 4;
-    color: #ffffff;
-    font-size: 12px;
-    margin: 0;
-}
-footer > a[href*="Privacy"] {
-    grid-column: 3;
-    grid-row: 4;
-    justify-self: end;
-    color: #ffffff;
-    font-size: 12px;
-    text-decoration: none;
-}
-footer > a[href*="Privacy"] + a {
-    grid-column: 4;
-    grid-row: 4;
-    justify-self: end;
-    color: #ffffff;
-    font-size: 12px;
-    text-decoration: none;
-}
-footer > a[href*="Privacy"]:hover,
-footer > a[href*="Privacy"] + a:hover {
-    text-decoration: underline;
-}
-footer a img {
-    display: block;
-    width: 18px;
-    height: 18px;
+    flex-wrap: wrap;
+    gap: 0.7rem !important;
+  }
+  .navbar ul li a {
+    min-height: 2.2rem;
+    padding: 0.7rem 1rem;
+    font-size: 0.8rem !important;
+  }
+  footer.footer {
+    grid-template-columns: 1fr;
+    padding: 1.5rem 1rem 1rem !important;
+    text-align: center;
+  }
+  .footer .FooterH3,
+  .footer .FooterH4,
+  footer.footer ul,
+  footer.footer button,
+  footer.footer p,
+  footer.footer > a[href*="Privacy"],
+  footer.footer > a[href*="Privacy"] + a {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: center;
+  }
+  .footer .FooterH4 {
+    max-width: 100%;
+  }
+  footer.footer ul {
+    justify-content: center;
+    gap: 0.8rem 1.1rem;
+  }
+  footer.footer button {
+    margin-top: 0.25rem;
+  }
+  footer.footer hr {
+    margin-top: 0.8rem;
+  }
 }

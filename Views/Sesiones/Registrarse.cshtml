@@ -1,11 +1,16 @@
 <h1>Registrarse</h1>
 <form class="register-form" action="@Url.Action("RegistrarseVerificar", "Sesiones")" method="POST">
-    <label>Correo electrónico</label>
-    <input type="text" name="email" placeholder="Ingrese su correo electrónico" required />
-    <label>Nombre:</label>
-    <input type="text" name="nombre" placeholder="Ingrese su nombre" required />
+    <label>Correo electrónico:</label><br>
+    <input type="text" name="email" placeholder="Ingrese su correo electrónico" required /><br>
+    <label>Nombre:</label><br>
+    <input type="text" name="nombre" placeholder="Ingrese su nombre" required /><br>
     <label>Apellido:</label><br>
     <input type="text" name="apellido" placeholder="Ingrese su apellido" required /><br>
+    <label>Tipo de Usuario:</label><br>
+    <select name="tipoUsuario" required>
+        <option value="Cuidador">Cuidador</option>
+        <option value="Adulto Mayor">Adulto Mayor</option>
+    </select><br>
     <label>Contraseña:</label><br>
     <input type="password" name="contrasena" placeholder="Ingrese su contraseña" required /><br>
     <label>Repetir Contraseña:</label><br>
@@ -13,4 +18,4 @@
     <button type="submit">Registrarse</button>
 </form>
 <p class="text-danger">@ViewBag.Message</p>
-<a><p>¿Ya tenés una cuenta? <a href="@Url.Action("Login", "Sesiones")">Iniciar Sesión</a></p>
+<p>¿Ya tenés una cuenta? <a href="@Url.Action("Login", "Sesiones")">Iniciar Sesión</a></p>
