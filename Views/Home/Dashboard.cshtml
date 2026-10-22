@@ -10,50 +10,52 @@
         </div>
     </header>
 
-    <section class="dashboard-section dashboard-events">
-        <div class="dashboard-card">
-            <h2>Últimos Eventos</h2>
-            @if (eventos.Count == 0)
-            {
-                <p class="dashboard-empty">No hay eventos próximos para mostrar.</p>
-            }
-            else
-            {
-                <div class="event-list">
-                    @foreach (var evento in ViewBag.Proximos5Eventos)
-                    {
-                        <article class="event-item">
-                            <div class="event-date">
-                                <span>@evento.fechaHora.ToString("dd")</span>
-                                <small>@evento.fechaHora.ToString("MMM")</small>
-                            </div>
-                            <div class="event-content">
-                                <h3>@evento.nombre</h3>
-                                <p class="event-time">@evento.fechaHora.ToString("g")</p>
-                                <p>@evento.descripcion</p>
-                            </div>
-                        </article>
-                    }
-                </div>
-            }
-        </div>
-    </section>
-
-    <section class="dashboard-section dashboard-actions">
-        <div class="dashboard-card dashboard-actions-card">
-            <h2>Acciones rápidas</h2>
-            <div class="button-group">
-                <button type="button" onclick="location.href='@Url.Action("Herramientas", "Home")'">Herramientas</button>
-                <button type="button" onclick="location.href='@Url.Action("AdultoMayor", "Home")'">Adulto mayor</button>
-                <button type="button" onclick="location.href='@Url.Action("Cuidadores", "Home")'">Cuidadores</button>
+    <div class="dashboard-grid">
+        <section class="dashboard-section dashboard-events">
+            <div class="dashboard-card">
+                <h2>Últimos Eventos</h2>
+                @if (eventos.Count == 0)
+                {
+                    <p class="dashboard-empty">No hay eventos próximos para mostrar.</p>
+                }
+                else
+                {
+                    <div class="event-list">
+                        @foreach (var evento in ViewBag.Proximos5Eventos)
+                        {
+                            <article class="event-item">
+                                <div class="event-date">
+                                    <span>@evento.fechaHora.ToString("dd")</span>
+                                    <small>@evento.fechaHora.ToString("MMM")</small>
+                                </div>
+                                <div class="event-content">
+                                    <h3>@evento.nombre</h3>
+                                    <p class="event-time">@evento.fechaHora.ToString("g")</p>
+                                    <p>@evento.descripcion</p>
+                                </div>
+                            </article>
+                        }
+                    </div>
+                }
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="dashboard-section dashboard-group">
-        <div class="dashboard-card dashboard-group-card">
-            <h2>Cambiar Grupo</h2>
-            <button type="button" onclick="location.href='@Url.Action("Grupo", "Home")'">Cambiar Grupo</button>
-        </div>
-    </section>
+        <section class="dashboard-section dashboard-actions">
+            <div class="dashboard-card dashboard-actions-card">
+                <h2>Acciones rápidas</h2>
+                <div class="button-group">
+                    <button type="button" onclick="location.href='@Url.Action("Herramientas", "Home")'">Herramientas</button>
+                    <button type="button" onclick="location.href='@Url.Action("AdultoMayor", "Home")'">Adulto mayor</button>
+                    <button type="button" onclick="location.href='@Url.Action("Cuidadores", "Home")'">Cuidadores</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="dashboard-section dashboard-group">
+            <div class="dashboard-card dashboard-group-card">
+                <h2>Cambiar Grupo</h2>
+                <button type="button" onclick="location.href='@Url.Action("Grupo", "Home")'">Cambiar Grupo</button>
+            </div>
+        </section>
+    </div>
 </div>
