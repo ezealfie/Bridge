@@ -17,22 +17,22 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <ul>
                 @if(ViewContext.HttpContext.Session.GetString("NombreUsuario") == "" && ViewContext.HttpContext.Session.GetString("Contraseña") == ""){                    
-                    <li><a href="/Home/Index.cshtml">Inicio</a></li>
+                    <li><a href="@Url.Action("Index", "Home")">Inicio</a></li>
                 }
                 @if(ViewContext.HttpContext.Session.GetString("NombreUsuario") != "" && ViewContext.HttpContext.Session.GetString("Contraseña") != ""){                    
-                    <li><a href="/Home/Dashboard.cshtml">Inicio</a></li>
+                    <li><a href="@Url.Action("Dashboard", "Home")">Inicio</a></li>
                 }
                 @if(ViewContext.HttpContext.Session.GetString("NombreUsuario") != "" && ViewContext.HttpContext.Session.GetString("Contraseña") != ""){                    
-                    <li><a href="/Home/SobreNosotros.cshtml">Sobre nosotros</a></li>
-                    <li><a href="/Home/Grupos.cshtml">Grupos</a></li>
-                    <li><a href="/Home/Herramientas.cshtml">Herramientas</a></li>
-                    <li><a href="/Home/AdultoMayor.cshtml">Adulto mayor</a></li>
-                    <li><a href="/Home/Cuidadores.cshtml">Familia y Cuidadores</a></li>
-                    <li><a href="/Home/Usuario.cshtml"><img src="" alt="Aca va la foto de perfil"></a></li>
+                    <li><a href="@Url.Action("SobreNosotros", "Home")">Sobre nosotros</a></li>
+                    <li><a href="@Url.Action("Grupo", "Home")">Grupos</a></li>
+                    <li><a href="@Url.Action("Index", "Home")">Herramientas</a></li> /* Esto deberia ser un dropdown con las herramientas, pero no esta hecha la view todavia */
+                    <li><a href="@Url.Action("Index", "Home")">Adulto mayor</a></li>
+                    <li><a href="@Url.Action("Index", "Home")">Familia y Cuidadores</a></li>
+                    <li><a href="@Url.Action("Index", "Home")"><img src="" alt="Aca va la foto de perfil"></a></li>
                 }
                 @if(ViewContext.HttpContext.Session.GetString("NombreUsuario") == "" && ViewContext.HttpContext.Session.GetString("Contraseña") == ""){                    
-                    <li><a href="/Home/Login.cshtml">Iniciar Sesion</a></li>
-                    <li><a href="/Home/Registro.cshtml">Registrarse</a></li>
+                    <li><a href="@Url.Action("Login", "Sesiones")">Iniciar Sesion</a></li>
+                    <li><a href="@Url.Action("Registrarse", "Sesiones")">Registrarse</a></li>
                 }
             </ul>
         </nav>
@@ -47,21 +47,21 @@
         <h4 class="FooterH4">Conservando la vida, facilitando la conexión y el bienestar de nuestros mayores.</h4>
         <button type="button" onclick="">Soporte</button> <!-- Aca va el icono de mail antes del texto de soporte, no se como hacerla -->
         <ul>
-            <li><a href="/Home/SobreNosotros.cshtml"></a></li>
+            <li><a href="@Url.Action("SobreNosotros", "Home")">Sobre nosotros</a></li>
             @if(ViewContext.HttpContext.Session.GetString("NombreUsuario") != "" && ViewContext.HttpContext.Session.GetString("Contraseña") != ""){
-                <li><a href="/Home/Herramientas.cshtml">Herramientas</a></li>
-                <li><a href="/Home/AdultoMayor.cshtml">Adulto mayor</a></li>
-                <li><a href="/Home/Cuidadores.cshtml">Familia y Cuidadores</a></li>
+                <li><a href="@Url.Action("Herramientas", "Home")">Herramientas</a></li>
+                <li><a href="@Url.Action("AdultoMayor", "Home")">Adulto mayor</a></li>
+                <li><a href="@Url.Action("Cuidadores", "Home")">Familia y Cuidadores</a></li>
             }
             @if(ViewContext.HttpContext.Session.GetString("NombreUsuario") == "" && ViewContext.HttpContext.Session.GetString("Contraseña") == ""){
-                <li><a href="/Home/Login.cshtml">Herramientas</a></li>
-                <li><a href="/Home/Login.cshtml">Adulto mayor</a></li>
-                <li><a href="/Home/Login.cshtml">Familia y Cuidadores</a></li>
+                <li><a href="@Url.Action("Login", "Sesiones")">Herramientas</a></li>
+                <li><a href="@Url.Action("Login", "Sesiones")">Adulto mayor</a></li>
+                <li><a href="@Url.Action("Login", "Sesiones")">Familia y Cuidadores</a></li>
             }
         </ul>
         <hr><!-- Esto deberia ser la linea -->
         <p><i>Copyright © 2026 Bridge. Todos los derechos reservados.</i></p>
-        <a href="/Home/Privacy.cshtml">Privacidad</a>
+        <a href="@Url.Action("Privacy", "Home")">Privacidad</a>
         <a href="">Términos de servicio</a>
         <section class="RedesSociales">
             <a href=""><img src="~/Imagenes/X.png" alt="Logo de X"></a> <!-- Esto deberia ser el logo de X -->

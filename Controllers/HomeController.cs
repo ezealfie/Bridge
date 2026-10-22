@@ -46,7 +46,8 @@ public class HomeController : Controller
     }
     public IActionResult Grupo(int idUsuario)
     {   
-        ViewBag.Grupos = _bd.ObtenerGruposUsuario(idUsuario);
+        BD BD = new BD();
+        ViewBag.Grupos = BD.ObtenerGruposUsuario(idUsuario);
         return View();
     }
 }
