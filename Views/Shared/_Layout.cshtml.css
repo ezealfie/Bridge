@@ -87,11 +87,6 @@ nav.navbar .nav-group a {
   line-height: 1;
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
-
-nav.navbar .nav-group a:not(.brand-logo-link):not(.btn-register):not(.profile-link) {
-  background: var(--color-primario-oscuro) !important;
-}
-
 nav.navbar .nav-group a.brand-logo-link {
   display: inline-flex !important;
   align-items: center;
@@ -119,18 +114,12 @@ nav.navbar .nav-group a.btn-register {
   box-shadow: none !important;
 }
 
-nav.navbar .nav-group a.profile-link {
-  background: var(--color-primario-oscuro) !important;
-  border: 1px solid rgba(255,255,255,0.5);
-}
-
 nav.navbar .nav-group a.profile-link img {
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 50%;
   display: block;
   object-fit: cover;
-  background: rgba(255,255,255,0.2);
 }
 
 nav.navbar .nav-group a:hover,
@@ -183,11 +172,6 @@ nav.navbar .nav-group a.btn-register:hover {
   line-height: 1;
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
-
-.navbar .nav-group a:not(.brand-logo-link):not(.btn-register):not(.profile-link) {
-  background: var(--color-primario-oscuro) !important;
-}
-
 .navbar .brand-logo-link {
   display: inline-flex !important;
   align-items: center;
@@ -218,7 +202,6 @@ nav.navbar .nav-group a.btn-register:hover {
 
 .navbar .profile-link {
   background: transparent !important;
-  border: 1px solid rgba(255,255,255,0.5);
 }
 
 .navbar .profile-link img {
@@ -227,7 +210,6 @@ nav.navbar .nav-group a.btn-register:hover {
   border-radius: 50%;
   display: block;
   object-fit: cover;
-  background: rgba(255,255,255,0.2);
 }
 
 .navbar a:hover {
@@ -268,7 +250,6 @@ nav.navbar .nav-group a.btn-register:hover {
 
 .profile-link {
   background: transparent !important;
-  border: 1px solid rgba(255,255,255,0.5);
 }
 
 .profile-link img {
@@ -277,7 +258,6 @@ nav.navbar .nav-group a.btn-register:hover {
   border-radius: 50%;
   display: block;
   object-fit: cover;
-  background: rgba(255,255,255,0.2);
 }
 
 footer.footer {
