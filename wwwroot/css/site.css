@@ -800,6 +800,16 @@ footer.footer a img {
   }
 }
 
+footer.footer .footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: fit-content;
+    margin: 0;
+    text-align: left;
+}
+
 footer.footer .FooterH3,
 footer.footer .FooterH4 {
     text-align: left !important;
