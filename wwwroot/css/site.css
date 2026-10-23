@@ -2,8 +2,6 @@
     --color-blanco: #ffffff;
     --color-texto: #1f2937;
     --color-texto-suave: #5f6b7a;
-    --color-fondo: #eef8f9;
-    --color-fondo-2: #f5fbfc;
     --color-primario: #00A9AF;
     --color-primario-oscuro: #0a7d81;
     --color-secundario: #d7f7f8;
@@ -31,7 +29,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background: linear-gradient(135deg, #edf7f8 0%, #f7fbfc 30%, #eef6ff 100%);
+  background-color: var(--color-blanco);
   color: var(--color-texto);
   font-family: "League Spartan", sans-serif;
 }
@@ -276,27 +274,47 @@ select {
     text-decoration: underline;
 }
 
+.primary-btn,
+.secondary-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: auto !important;
+    min-width: 7.5rem !important;
+    min-height: 2.9rem !important;
+    margin-top: 0 !important;
+    border: 1px solid #ffffff !important;
+    border-radius: 999px !important;
+    padding: 0.8rem 1.5rem !important;
+    background: linear-gradient(135deg, var(--color-primario) 0%, #0ea9af 100%) !important;
+    color: #ffffff !important;
+    font-family: "Montserrat", sans-serif !important;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.02em !important;
+    text-decoration: none !important;
+    line-height: 1 !important;
+    box-shadow: 0 12px 24px rgba(0, 169, 175, 0.18) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease !important;
+}
+
+.primary-btn:hover,
+.secondary-btn:hover {
+    opacity: 0.96 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 16px 28px rgba(0, 169, 175, 0.24) !important;
+    color: #ffffff !important;
+    text-decoration: none !important;
+}
+
 .primary-btn {
-    display: block;
-    width: 100%;
-    margin-top: 0.25rem;
-    border-radius: 16px;
-    padding: 1rem 1.2rem;
-    background: linear-gradient(135deg, var(--color-primario) 0%, #0ea9af 100%);
-    font-size: 0.95rem;
-    letter-spacing: 0.02em;
+    display: block !important;
+    width: 100% !important;
+    margin-top: 0.25rem !important;
 }
 
-.form-message {
-    min-height: 1.25rem;
-    color: var(--color-error);
-    font-weight: 600;
-    font-size: 0.9rem;
-    margin-top: 0.15rem;
-}
-
-.form-message:empty {
-    display: none;
+.secondary-btn {
+    display: inline-flex !important;
 }
 
 .auth-footer {
@@ -836,4 +854,260 @@ footer.footer .FooterH4 {
     height: auto;
     max-height: 2.5rem;
     object-fit: contain;
+}
+
+.home-page {
+    width: 100vw;
+    max-width: none;
+    margin-left: calc(50% - 50vw);
+    background: transparent;
+}
+
+.landing-brand {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    background: var(--color-secundario);
+    padding: 2.2rem 0 1.5rem;
+    min-height: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.landing-brand .Logo,
+.landing-brand .subtitle {
+    display: block;
+    width: 100%;
+    margin: 0;
+    text-align: center !important;
+}
+
+.landing-brand .Logo {
+    color: var(--color-texto);
+    font-family: "Montserrat", sans-serif;
+    font-size: clamp(2.4rem, 4vw, 4.2rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 800;
+}
+
+.landing-brand .subtitle {
+    margin-top: 0.55rem;
+    color: var(--color-texto);
+    font-family: "League Spartan", sans-serif;
+    font-size: clamp(1.2rem, 2vw, 1.7rem);
+    line-height: 1.35;
+    font-weight: 400;
+}
+
+.services-section {
+    max-width: 1200px;
+    margin: 2.5rem auto 0;
+    padding: 0 1.25rem;
+}
+
+.services-section h2 {
+    margin: 0 0 2rem;
+    text-align: center !important;
+    color: var(--color-texto);
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    line-height: 1.2;
+}
+
+.service-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.service-item {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    align-items: center;
+    gap: 2rem;
+    width: min(100%, 1100px);
+    margin: 0 auto;
+    padding: 1.4rem 1.6rem 1.4rem 1.2rem;
+    background: rgba(255, 255, 255, 0.92);
+    border: 2px solid rgba(0, 169, 175, 0.9);
+    border-radius: 2rem;
+    box-shadow: 0 18px 40px rgba(13, 141, 146, 0.08);
+}
+
+.service-image {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: rgba(0, 169, 175, 0.08);
+    border: 1px solid rgba(0, 169, 175, 0.18);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35);
+}
+
+.service-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+}
+
+.service-body h3 {
+    margin: 0 0 0.65rem;
+    color: var(--color-texto);
+    font-family: "Montserrat", sans-serif;
+    font-size: clamp(1.55rem, 2vw, 2.2rem);
+    line-height: 1.2;
+    text-align: left !important;
+}
+
+.service-body p {
+    margin: 0 0 1.15rem;
+    color: var(--color-texto-suave);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    text-align: left;
+    max-width: 620px;
+}
+
+.service-body .secondary-btn {
+    align-self: flex-start;
+    margin-top: 0;
+}
+
+@media (max-width: 767px) {
+    .service-item {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+        gap: 1.1rem;
+        padding: 1.25rem 1rem;
+    }
+
+    .service-body h3,
+    .service-body p,
+    .service-body .secondary-btn {
+        text-align: center !important;
+        align-self: center;
+    }
+
+    .service-image {
+        width: 170px;
+        height: 170px;
+    }
+}
+
+.hero-panel {
+    max-width: 1200px;
+    margin: 2rem auto 0;
+    padding: 0 1.25rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    align-items: center;
+    gap: 2.2rem;
+}
+
+.hero-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.hero-copy p {
+    margin: 0 0 1.15rem;
+    font-size: 1.08rem;
+    line-height: 1.6;
+    color: var(--color-texto);
+    text-align: left;
+}
+
+.hero-copy .primary-btn {
+    display: inline-flex !important;
+    width: auto !important;
+    min-width: 9.5rem !important;
+    margin-top: 0.5rem !important;
+    padding: 0.9rem 2rem !important;
+    align-self: flex-end;
+}
+
+.hero-image {
+    width: 100%;
+    min-height: 420px;
+    border-radius: 2rem;
+    overflow: hidden;
+}
+
+.hero-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 2rem;
+}
+
+.calendar-callout {
+    max-width: 1200px;
+    margin: 2.5rem auto 0;
+    padding: 0 1.25rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    align-items: center;
+    gap: 2.5rem;
+}
+
+.calendar-placeholder {
+    width: 100%;
+    min-height: 360px;
+    border-radius: 1.5rem;
+    background: rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 169, 175, 0.12);
+}
+
+.calendar-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    min-width: 0;
+}
+
+.calendar-copy h3 {
+    margin: 0 0 1.5rem;
+    color: var(--color-texto);
+    font-family: "Montserrat", sans-serif;
+    font-size: clamp(2rem, 2.5vw, 3rem);
+    line-height: 1.2;
+    text-align: left !important;
+    max-width: 540px;
+}
+
+.calendar-copy .primary-btn {
+    display: inline-flex !important;
+    width: auto !important;
+    min-width: 9rem !important;
+    padding: 0.9rem 2.1rem !important;
+    margin: 0 !important;
+    align-self: flex-start;
+}
+
+@media (max-width: 767px) {
+    .calendar-callout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .calendar-copy {
+        align-items: center;
+    }
+
+    .calendar-copy h3 {
+        text-align: center !important;
+        max-width: 100%;
+    }
+
+    .calendar-copy .primary-btn {
+        align-self: center;
+    }
 }
