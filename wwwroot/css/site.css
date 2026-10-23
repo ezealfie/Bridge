@@ -78,8 +78,6 @@ button:hover {
     transform: translateY(-1px);
     box-shadow: 0 12px 25px rgba(0, 169, 175, 0.22);
 }
-
-/* Auth views */
 .auth-shell {
     min-height: calc(100vh - 180px);
     display: flex;
@@ -313,6 +311,7 @@ footer.footer {
     color: #ffffff;
     padding: 1.5rem 1.2rem 1rem;
     border-top: none;
+    text-align: left;
 }
 
 footer.footer h3,
@@ -799,4 +798,32 @@ footer.footer a img {
   .grupo-name {
     font-size: 1rem;
   }
+}
+
+footer.footer .FooterH3,
+footer.footer .FooterH4 {
+    text-align: left !important;
+    margin: 0;
+    color: var(--color-texto);
+}
+
+footer.footer .FooterH3 {
+    margin-bottom: 0.35rem;
+}
+
+footer.footer .FooterH4 {
+    display: block;
+    max-width: 32rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    font-weight: 500;
+    color: var(--color-texto-suave);
+}
+
+.brand-logo-image {
+    width: 4.6rem;
+    height: auto;
+    max-height: 2.5rem;
+    object-fit: contain;
 }

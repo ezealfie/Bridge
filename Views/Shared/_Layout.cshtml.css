@@ -104,8 +104,9 @@ nav.navbar .nav-group a.brand-logo-link {
 
 nav.navbar .nav-group a.brand-logo-link img.brand-logo-image {
   display: block !important;
-  width: 7.5rem;
-  height: 3rem;
+  width: 4.6rem !important;
+  height: auto !important;
+  max-height: 2.5rem !important;
   object-fit: contain;
   background: transparent !important;
   filter: none;
@@ -295,6 +296,7 @@ footer.footer {
   flex-wrap: wrap;
   align-items: center;
   gap: 0.8rem 1.35rem;
+  text-align: left !important;
 }
 
 .footer .FooterH3,
@@ -325,6 +327,13 @@ footer.footer {
   line-height: 1.4;
   text-align: left;
   order: 2;
+  display: block;
+  max-width: 32rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 500;
+  color: var(--color-texto-suave);
 }
 
 footer.footer ul {
