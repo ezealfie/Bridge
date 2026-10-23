@@ -3,13 +3,16 @@
     var eventos = ViewBag.Proximos5Eventos as List<Bridge.Models.Evento> ?? new List<Bridge.Models.Evento>();
 }
 <div class="dashboard-page">
-    <header class="dashboard-header">
+    <section class="landing-brand">
+        <h1 class="Logo">BRIDGE</h1>
+        <h3 class="subtitle">Conservando la vida</h3>
+    </section>
+    <section class="dashboard-header">
         <div>
             <p class="dashboard-eyebrow">Panel de control</p>
-            <h1>Grupo de cuidado de @ViewBag.NombreAdulto</h1>
+            <h2>Grupo de cuidado de @ViewBag.NombreAdulto</h2>
         </div>
-    </header>
-
+    </section>
     <div class="dashboard-grid">
         <section class="dashboard-section dashboard-events">
             <div class="dashboard-card">
