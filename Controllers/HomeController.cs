@@ -16,6 +16,10 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        /*Hace que pueda ver en la pagina el nombre y contraseña del usuario para poder hacer biene l testeo
+        */
+        int? id = HttpContext.Session.GetInt32("IdUsuario");
+        ViewBag.NombreUsuario = id;
         return View();
     }
     public IActionResult SobreNosotros()
