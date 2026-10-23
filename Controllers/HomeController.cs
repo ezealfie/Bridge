@@ -22,6 +22,22 @@ public class HomeController : Controller
     {
         return View();
     }
+    public IActionResult Configuracion()
+    {
+        return View();
+    }
+    public IActionResult Herramientas()
+    {
+        return View();
+    }
+    public IActionResult Cuidadores()
+    {
+        return View();
+    }
+    public IActionResult AdultoMayor()
+    {
+        return View();
+    }
     public IActionResult Privacy()
     {
         return View();
