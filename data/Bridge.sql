@@ -735,11 +735,25 @@ BEGIN
 END
 GO
 
--- Crear un grupo
+-- Obtener el id_adultoMayor por DNI
+CREATE OR ALTER PROCEDURE ObtenerIdAdultoMayorPorDni
+    @Dni VARCHAR(50)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT id_adultoMayor
+    FROM dbo.AdultoMayor
+    WHERE dni = @Dni;
+END
+GO
+
+-- Crear un grupo y dejar la invitación del adulto como pendiente hasta aceptar
 CREATE OR ALTER PROCEDURE CrearGrupo
     @Nombre VARCHAR(100),
     @IdAdultoMayor INT,
-    @Descripcion VARCHAR(500) = NULL
+    @Descripcion VARCHAR(500) = NULL,
+    @IdCuidador INT = NULL
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -753,7 +767,15 @@ BEGIN
     INSERT INTO dbo.Grupo (Nombre, id_adultoMayor, descripcion)
     VALUES (@Nombre, @IdAdultoMayor, @Descripcion);
 
-    SELECT SCOPE_IDENTITY();
+    DECLARE @IdGrupo INT = SCOPE_IDENTITY();
+
+    IF @IdCuidador IS NOT NULL
+    BEGIN
+        INSERT INTO dbo.CuidadorGrupo (id_grupo, id_cuidador, fechaIngreso, estadoAutorizacion)
+        VALUES (@IdGrupo, @IdCuidador, CONVERT(date, GETDATE()), 'autorizado');
+    END
+
+    SELECT @IdGrupo;
 END
 GO
 
@@ -819,6 +841,19 @@ BEGIN
     SELECT am.id_adultoMayor
     FROM dbo.AdultoMayor am
     WHERE am.id_usuario = @IdUsuario;
+END
+GO
+
+-- Obtener tipo de usuario
+CREATE OR ALTER PROCEDURE ObtenerTipoUsuario
+    @IdUsuario INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT tipoUsuario
+    FROM dbo.Usuario
+    WHERE id_usuario = @IdUsuario;
 END
 GO
 USE [master]
@@ -977,11 +1012,25 @@ BEGIN
 END
 GO
 
--- Crear un grupo
+-- Obtener el id_adultoMayor por DNI
+CREATE OR ALTER PROCEDURE ObtenerIdAdultoMayorPorDni
+    @Dni VARCHAR(50)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT id_adultoMayor
+    FROM dbo.AdultoMayor
+    WHERE dni = @Dni;
+END
+GO
+
+-- Crear un grupo y dejar la invitación del adulto como pendiente hasta aceptar
 CREATE OR ALTER PROCEDURE CrearGrupo
     @Nombre VARCHAR(100),
     @IdAdultoMayor INT,
-    @Descripcion VARCHAR(500) = NULL
+    @Descripcion VARCHAR(500) = NULL,
+    @IdCuidador INT = NULL
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -995,7 +1044,15 @@ BEGIN
     INSERT INTO dbo.Grupo (Nombre, id_adultoMayor, descripcion)
     VALUES (@Nombre, @IdAdultoMayor, @Descripcion);
 
-    SELECT SCOPE_IDENTITY();
+    DECLARE @IdGrupo INT = SCOPE_IDENTITY();
+
+    IF @IdCuidador IS NOT NULL
+    BEGIN
+        INSERT INTO dbo.CuidadorGrupo (id_grupo, id_cuidador, fechaIngreso, estadoAutorizacion)
+        VALUES (@IdGrupo, @IdCuidador, CONVERT(date, GETDATE()), 'autorizado');
+    END
+
+    SELECT @IdGrupo;
 END
 GO
 
@@ -1061,5 +1118,18 @@ BEGIN
     SELECT am.id_adultoMayor
     FROM dbo.AdultoMayor am
     WHERE am.id_usuario = @IdUsuario;
+END
+GO
+
+-- Obtener tipo de usuario
+CREATE OR ALTER PROCEDURE ObtenerTipoUsuario
+    @IdUsuario INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT tipoUsuario
+    FROM dbo.Usuario
+    WHERE id_usuario = @IdUsuario;
 END
 GO

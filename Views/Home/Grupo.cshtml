@@ -1,5 +1,8 @@
 @{
     ViewData["Title"] = "Grupos";
+    int idUsuario = Context.Session.GetInt32("IdUsuario") ?? 0;
+    bool esAdultoMayor = idUsuario > 0 && new Bridge.Models.BD().EsAdultoMayor(idUsuario);
+    List<Bridge.Models.Grupo> grupos = ViewBag.Grupos as List<Bridge.Models.Grupo> ?? new List<Bridge.Models.Grupo>();
 }
 
 <section class="grupo-page py-4 py-md-5">
@@ -12,15 +15,24 @@
 
             <div class="grupo-card">
                 <div class="grupo-list">
-                    @foreach (Grupo grupo in ViewBag.Grupos)
+                    @if (!grupos.Any())
                     {
-                        <a href="@Url.Action("Dashboard", "Home", new { idGrupo = grupo.id_grupo })"
-                           class="grupo-item">
-                            <span class="grupo-avatar">
-                                @(!string.IsNullOrEmpty(grupo.Nombre) ? grupo.Nombre.Substring(0, 1).ToUpper() : "G")
-                            </span>
-                            <span class="grupo-name">@grupo.Nombre</span>
-                        </a>
+                        <div class="text-center text-muted py-4">
+                            Aún no tenés grupos creados.
+                        </div>
+                    }
+                    else
+                    {
+                        @foreach (Bridge.Models.Grupo grupo in grupos)
+                        {
+                            <a href="@Url.Action("Dashboard", "Home", new { idGrupo = grupo.id_grupo })"
+                               class="grupo-item">
+                                <span class="grupo-avatar">
+                                    @(!string.IsNullOrEmpty(grupo.Nombre) ? grupo.Nombre.Substring(0, 1).ToUpper() : "G")
+                                </span>
+                                <span class="grupo-name">@grupo.Nombre</span>
+                            </a>
+                        }
                     }
                 </div>
 
@@ -45,6 +57,13 @@
                         <label for="nombre" class="form-label">Nombre del grupo</label>
                         <input type="text" class="form-control" id="nombre" name="nombre" required />
                     </div>
+                    @if (!esAdultoMayor)
+                    {
+                        <div class="mb-3">
+                            <label for="dniAdulto" class="form-label">DNI del adulto mayor</label>
+                            <input type="text" class="form-control" id="dniAdulto" name="dniAdulto" required />
+                        </div>
+                    }
                     <div class="mb-3">
                         <label for="descripcion" class="form-label">Descripción</label>
                         <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
@@ -58,3 +77,84 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        const grupos = @Html.Raw(Json.Serialize(ViewBag.Grupos ?? new List<Bridge.Models.Grupo>()));
+
+        function actualizarListaGrupos() {
+            const listaGrupos = document.querySelector('.grupo-list');
+            listaGrupos.innerHTML = '';
+
+            if (grupos.length === 0) {
+                listaGrupos.innerHTML = '<div class="text-center text-muted py-4">Aún no tenés grupos creados.</div>';
+            } else {
+                grupos.forEach(function (grupo) {
+                    const item = document.createElement('a');
+                    item.href = '@Url.Action("Dashboard", "Home")' + '?idGrupo=' + grupo.id_grupo;
+                    item.className = 'grupo-item';
+
+                    const avatar = document.createElement('span');
+                    avatar.className = 'grupo-avatar';
+                    avatar.textContent = grupo.Nombre ? grupo.Nombre.charAt(0).toUpperCase() : 'G';
+
+                    const name = document.createElement('span');
+                    name.className = 'grupo-name';
+                    name.textContent = grupo.Nombre;
+
+                    item.appendChild(avatar);
+                    item.appendChild(name);
+                    listaGrupos.appendChild(item);
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const crearGrupoModal = document.getElementById('crearGrupoModal');
+            const form = crearGrupoModal.querySelector('form');
+
+            crearGrupoModal.addEventListener('hidden.bs.modal', function () {
+                document.getElementById('nombre').value = '';
+                const dniAdulto = document.getElementById('dniAdulto');
+                if (dniAdulto) {
+                    dniAdulto.value = '';
+                }
+                document.getElementById('descripcion').value = '';
+            });
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const formData = new FormData(form);
+                const xhr = new XMLHttpRequest();
+                xhr.open(form.method, form.action, true);
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState !== 4) {
+                        return;
+                    }
+
+                    if (xhr.status === 200) {
+                        const response = JSON.parse(xhr.responseText);
+                        if (response.success) {
+                            grupos.push(response.grupo);
+                            actualizarListaGrupos();
+                            const modal = bootstrap.Modal.getInstance(crearGrupoModal);
+                            if (modal) {
+                                modal.hide();
+                            }
+                            window.location.href = response.redirectUrl;
+                            return;
+                        }
+
+                        alert(response.message || 'Error al crear el grupo.');
+                        return;
+                    }
+
+                    alert('No se pudo guardar el grupo. Inténtalo nuevamente.');
+                };
+                xhr.send(formData);
+            });
+        });
+    </script>
+}

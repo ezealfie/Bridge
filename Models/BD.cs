@@ -58,12 +58,40 @@ public class BD
         }
     }
 
+    public bool ExisteAdultoMayorPorDni(string dni)
+    {
+        if (string.IsNullOrWhiteSpace(dni))
+        {
+            return false;
+        }
+
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            int count = connection.QueryFirstOrDefault<int>(
+                @"SELECT COUNT(*)
+                  FROM dbo.AdultoMayor
+                  WHERE dni = @Dni",
+                new { Dni = dni.Trim() }
+            );
+
+            return count > 0;
+        }
+    }
+
     public int RegistrarUsuario(string emailOrNombre, string contrasenaOrApellido, string nombreOrEmail, string apellidoOrContrasena = "", string telefono = "", string tipoUsuario = "Cuidador", string? dniAdultoMayor = null, DateTime? fechaNacimientoAdultoMayor = null, string? condicionAdultoMayor = null)
     {
         string email;
         string contrasena;
         string nombre;
         string apellido;
+
+        bool esAdultoMayor = !string.IsNullOrWhiteSpace(tipoUsuario) &&
+                             tipoUsuario.Trim().StartsWith("adulto", StringComparison.OrdinalIgnoreCase);
+
+        if (esAdultoMayor && ExisteAdultoMayorPorDni(dniAdultoMayor ?? string.Empty))
+        {
+            return -1;
+        }
 
         if (emailOrNombre != null && emailOrNombre.Contains("@"))
         {
@@ -110,10 +138,10 @@ public class BD
                 return -1;
             }
 
-            bool esAdultoMayor = !string.IsNullOrWhiteSpace(tipoUsuario) &&
-                                 tipoUsuario.Trim().StartsWith("adulto", StringComparison.OrdinalIgnoreCase);
+            bool esAdultoMayorRegistro = !string.IsNullOrWhiteSpace(tipoUsuario) &&
+                                         tipoUsuario.Trim().StartsWith("adulto", StringComparison.OrdinalIgnoreCase);
 
-            if (esAdultoMayor)
+            if (esAdultoMayorRegistro)
             {
                 connection.Execute(
                     @"INSERT INTO dbo.AdultoMayor (dni, fecha_nacimiento, condicion, id_usuario, fecha_ingreso)
@@ -131,12 +159,11 @@ public class BD
             else
             {
                 connection.Execute(
-                    @"INSERT INTO dbo.Cuidador (id_usuario, rol)
-                      VALUES (@IdUsuario, @Rol)",
+                    @"INSERT INTO dbo.Cuidador (id_usuario)
+                      VALUES (@IdUsuario)",
                     new
                     {
-                        IdUsuario = idUsuario,
-                        Rol = "Cuidador"
+                        IdUsuario = idUsuario
                     }
                 );
             }
@@ -149,11 +176,21 @@ public class BD
     {
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            return connection.Query<Grupo>(
-                "ObtenerGruposUsuario",
-                new { IdUsuario = idUsuario },
-                commandType: CommandType.StoredProcedure
-            ).ToList();
+            const string sql = @"
+                SELECT DISTINCT
+                    g.id_grupo,
+                    g.Nombre,
+                    g.id_adultoMayor,
+                    g.descripcion
+                FROM dbo.Grupo g
+                LEFT JOIN dbo.AdultoMayor am ON am.id_adultoMayor = g.id_adultoMayor
+                LEFT JOIN dbo.CuidadorGrupo cg ON cg.id_grupo = g.id_grupo
+                LEFT JOIN dbo.Cuidador c ON c.id_cuidador = cg.id_cuidador
+                WHERE am.id_usuario = @IdUsuario
+                   OR c.id_usuario = @IdUsuario
+                ORDER BY g.id_grupo;";
+
+            return connection.Query<Grupo>(sql, new { IdUsuario = idUsuario }).ToList();
         }
     }
 
@@ -175,15 +212,30 @@ public class BD
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
             int count = connection.QueryFirstOrDefault<int>(
-                "EsCuidador",
-                new { IdUsuario = idUsuario },
-                commandType: CommandType.StoredProcedure
+                @"SELECT COUNT(*)
+                  FROM dbo.Cuidador
+                  WHERE id_usuario = @IdUsuario",
+                new { IdUsuario = idUsuario }
             );
-            return count > 0;
+
+            if (count > 0)
+            {
+                return true;
+            }
+
+            string tipoUsuario = connection.QueryFirstOrDefault<string>(
+                @"SELECT tipoUsuario
+                  FROM dbo.Usuario
+                  WHERE id_usuario = @IdUsuario",
+                new { IdUsuario = idUsuario }
+            ) ?? string.Empty;
+
+            return !string.IsNullOrWhiteSpace(tipoUsuario) &&
+                   tipoUsuario.Trim().StartsWith("cuidador", StringComparison.OrdinalIgnoreCase);
         }
     }
 
-    public int CrearGrupo(string nombre, int idAdultoMayor, string? descripcion = null)
+    public int CrearGrupo(string nombre, int idAdultoMayor, int? idCuidador = null, string? descripcion = null)
     {
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
@@ -193,7 +245,8 @@ public class BD
                 {
                     Nombre = nombre,
                     IdAdultoMayor = idAdultoMayor,
-                    Descripcion = descripcion
+                    Descripcion = descripcion,
+                    IdCuidador = idCuidador
                 },
                 commandType: CommandType.StoredProcedure
             );
@@ -241,6 +294,59 @@ public class BD
                 commandType: CommandType.StoredProcedure
             );
             return id ?? -1;
+        }
+    }
+
+    public int ObtenerIdAdultoMayorPorDni(string dni)
+    {
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            int? id = connection.QueryFirstOrDefault<int?>(
+                "ObtenerIdAdultoMayorPorDni",
+                new { Dni = dni },
+                commandType: CommandType.StoredProcedure
+            );
+            return id ?? -1;
+        }
+    }
+
+    public string ObtenerTipoUsuario(int idUsuario)
+    {
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            return connection.QueryFirstOrDefault<string>(
+                "ObtenerTipoUsuario",
+                new { IdUsuario = idUsuario },
+                commandType: CommandType.StoredProcedure
+            ) ?? string.Empty;
+        }
+    }
+
+    public bool EsAdultoMayor(int idUsuario)
+    {
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            int count = connection.QueryFirstOrDefault<int>(
+                @"SELECT COUNT(*)
+                  FROM dbo.AdultoMayor
+                  WHERE id_usuario = @IdUsuario",
+                new { IdUsuario = idUsuario }
+            );
+
+            if (count > 0)
+            {
+                return true;
+            }
+
+            string tipoUsuario = connection.QueryFirstOrDefault<string>(
+                @"SELECT tipoUsuario
+                  FROM dbo.Usuario
+                  WHERE id_usuario = @IdUsuario",
+                new { IdUsuario = idUsuario }
+            ) ?? string.Empty;
+
+            return !string.IsNullOrWhiteSpace(tipoUsuario) &&
+                   tipoUsuario.Trim().StartsWith("adulto", StringComparison.OrdinalIgnoreCase);
         }
     }
 }

@@ -108,20 +108,26 @@ public class SesionesController : Controller
             ViewBag.Message = ViewBag.Error;
             return View("Registrarse");
         }
-        else
+
+        bool esAdultoMayorYdniExistente = esAdultoMayor && !string.IsNullOrWhiteSpace(dni) && bd.ExisteAdultoMayorPorDni(dni);
+        if (esAdultoMayorYdniExistente)
         {
-            int idUsuario = bd.RegistrarUsuario(email, passInput, nombre, apellido, telefono, tipoUsuario, dni, fechaNacimiento, condicion);
-
-            if (idUsuario <= 0)
-            {
-                ViewBag.Error = "No se pudo completar el registro. Inténtalo nuevamente.";
-                ViewBag.Message = ViewBag.Error;
-                return View("Registrarse");
-            }
-
-            HttpContext.Session.SetInt32("IdUsuario", idUsuario);
-            return RedirectToAction("Grupo", "Home", new { idUsuario = idUsuario });
+            ViewBag.Error = "El DNI ingresado ya está registrado en el sistema para otro adulto mayor.";
+            ViewBag.Message = ViewBag.Error;
+            return View("Registrarse");
         }
+
+        int idUsuario = bd.RegistrarUsuario(email, passInput, nombre, apellido, telefono, tipoUsuario, dni, fechaNacimiento, condicion);
+
+        if (idUsuario <= 0)
+        {
+            ViewBag.Error = "No se pudo completar el registro. Inténtalo nuevamente.";
+            ViewBag.Message = ViewBag.Error;
+            return View("Registrarse");
+        }
+
+        HttpContext.Session.SetInt32("IdUsuario", idUsuario);
+        return RedirectToAction("Grupo", "Home", new { idUsuario = idUsuario });
     }
 
     public IActionResult Logout()

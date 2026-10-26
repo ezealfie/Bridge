@@ -57,7 +57,7 @@
         <section class="dashboard-section dashboard-group">
             <div class="dashboard-card dashboard-group-card">
                 <h2>Cambiar Grupo</h2>
-                <button type="button" onclick="location.href='@Url.Action("Grupo", "Home")'">Cambiar Grupo</button>
+                <button type="button" onclick="location.href='@Url.Action("Grupo", "Home", new { idUsuario = Context.Session.GetInt32("IdUsuario") ?? 0 })'">Cambiar Grupo</button>
             </div>
         </section>
     </div>
