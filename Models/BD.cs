@@ -58,7 +58,7 @@ public class BD
         }
     }
 
-    public void RegistrarUsuario(string emailOrNombre, string contrasenaOrApellido, string nombreOrEmail, string apellidoOrContrasena = "", string telefono = "", string tipoUsuario = "Cuidador")
+    public int RegistrarUsuario(string emailOrNombre, string contrasenaOrApellido, string nombreOrEmail, string apellidoOrContrasena = "", string telefono = "", string tipoUsuario = "Cuidador", string? dniAdultoMayor = null, DateTime? fechaNacimientoAdultoMayor = null, string? condicionAdultoMayor = null)
     {
         string email;
         string contrasena;
@@ -98,6 +98,50 @@ public class BD
                 },
                 commandType: CommandType.StoredProcedure
             );
+
+            int idUsuario = connection.QueryFirstOrDefault<int>(
+                "ObtenerIdUsuario",
+                new { Mail = email },
+                commandType: CommandType.StoredProcedure
+            );
+
+            if (idUsuario <= 0)
+            {
+                return -1;
+            }
+
+            bool esAdultoMayor = !string.IsNullOrWhiteSpace(tipoUsuario) &&
+                                 tipoUsuario.Trim().StartsWith("adulto", StringComparison.OrdinalIgnoreCase);
+
+            if (esAdultoMayor)
+            {
+                connection.Execute(
+                    @"INSERT INTO dbo.AdultoMayor (dni, fecha_nacimiento, condicion, id_usuario, fecha_ingreso)
+                      VALUES (@Dni, @FechaNacimiento, @Condicion, @IdUsuario, @FechaIngreso)",
+                    new
+                    {
+                        Dni = (dniAdultoMayor ?? string.Empty).Trim(),
+                        FechaNacimiento = fechaNacimientoAdultoMayor ?? new DateTime(1900, 1, 1),
+                        Condicion = string.IsNullOrWhiteSpace(condicionAdultoMayor) ? null : condicionAdultoMayor.Trim(),
+                        IdUsuario = idUsuario,
+                        FechaIngreso = DateTime.Today
+                    }
+                );
+            }
+            else
+            {
+                connection.Execute(
+                    @"INSERT INTO dbo.Cuidador (id_usuario, rol)
+                      VALUES (@IdUsuario, @Rol)",
+                    new
+                    {
+                        IdUsuario = idUsuario,
+                        Rol = "Cuidador"
+                    }
+                );
+            }
+
+            return idUsuario;
         }
     }
 
