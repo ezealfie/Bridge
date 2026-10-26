@@ -25,9 +25,36 @@
                 </div>
 
                 <div class="grupo-actions">
-                    <button type="button" class="grupo-btn">Agregar</button>
+                    <button type="button" class="grupo-btn" data-bs-toggle="modal" data-bs-target="#crearGrupoModal">Agregar</button>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<div class="modal fade" id="crearGrupoModal" tabindex="-1" aria-labelledby="crearGrupoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-action="CrearGrupo" asp-controller="Home" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="crearGrupoModalLabel">Crear grupo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre del grupo</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripción</label>
+                        <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar grupo</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

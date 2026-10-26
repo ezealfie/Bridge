@@ -70,4 +70,30 @@ public class HomeController : Controller
         ViewBag.Grupos = BD.ObtenerGruposUsuario(idUsuario);
         return View();
     }
+    [HttpPost]
+    public IActionResult CrearGrupo(string nombre, string? descripcion)
+    {
+        int? idUsuario = HttpContext.Session.GetInt32("IdUsuario");
+
+        if (idUsuario == null || string.IsNullOrWhiteSpace(nombre))
+        {
+            return RedirectToAction("Grupo", new { idUsuario = idUsuario ?? 0 });
+        }
+
+        int idAdultoMayor = _bd.ObtenerIdAdultoMayorPorUsuario(idUsuario.Value);
+
+        if (idAdultoMayor <= 0)
+        {
+            return RedirectToAction("Grupo", new { idUsuario = idUsuario.Value });
+        }
+
+        int idGrupo = _bd.CrearGrupo(nombre, idAdultoMayor, descripcion);
+
+        if (idGrupo <= 0)
+        {
+            return RedirectToAction("Grupo", new { idUsuario = idUsuario.Value });
+        }
+
+        return RedirectToAction("Dashboard", new { idGrupo });
+    }
 }

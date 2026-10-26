@@ -138,4 +138,65 @@ public class BD
             return count > 0;
         }
     }
+
+    public int CrearGrupo(string nombre, int idAdultoMayor, string? descripcion = null)
+    {
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            return connection.ExecuteScalar<int>(
+                "CrearGrupo",
+                new
+                {
+                    Nombre = nombre,
+                    IdAdultoMayor = idAdultoMayor,
+                    Descripcion = descripcion
+                },
+                commandType: CommandType.StoredProcedure
+            );
+        }
+    }
+
+    public int ObtenerIdCuidadorPorUsuario(int idUsuario)
+    {
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            int? id = connection.QueryFirstOrDefault<int?>(
+                "ObtenerIdCuidadorPorUsuario",
+                new { IdUsuario = idUsuario },
+                commandType: CommandType.StoredProcedure
+            );
+            return id ?? -1;
+        }
+    }
+
+    public bool AgregarCuidadorAGrupo(int idGrupo, int idCuidador)
+    {
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            int resultado = connection.ExecuteScalar<int>(
+                "AgregarCuidadorAGrupo",
+                new
+                {
+                    IdGrupo = idGrupo,
+                    IdCuidador = idCuidador,
+                    EstadoAutorizacion = "pendiente"
+                },
+                commandType: CommandType.StoredProcedure
+            );
+            return resultado > 0;
+        }
+    }
+
+    public int ObtenerIdAdultoMayorPorUsuario(int idUsuario)
+    {
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            int? id = connection.QueryFirstOrDefault<int?>(
+                "ObtenerIdAdultoMayorPorUsuario",
+                new { IdUsuario = idUsuario },
+                commandType: CommandType.StoredProcedure
+            );
+            return id ?? -1;
+        }
+    }
 }
