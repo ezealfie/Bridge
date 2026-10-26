@@ -90,9 +90,17 @@ public class SesionesController : Controller
     }
 
     [HttpPost]
-    public IActionResult RegistrarseVerificar(string email, string? password = null, string? contrasena = null, string nombre = "", string apellido = "", string telefono = "", string tipoUsuario = "Cuidador")
+    public IActionResult RegistrarseVerificar(string email, string? password = null, string? contrasena = null, string nombre = "", string apellido = "", string telefono = "", string tipoUsuario = "Cuidador", string? dni = null, DateTime? fechaNacimiento = null, string? condicion = null)
     {
         string passInput = !string.IsNullOrWhiteSpace(password) ? password : (contrasena ?? string.Empty);
+        bool esAdultoMayor = !string.IsNullOrWhiteSpace(tipoUsuario) && tipoUsuario.Trim().StartsWith("adulto", StringComparison.OrdinalIgnoreCase);
+
+        if (esAdultoMayor && (string.IsNullOrWhiteSpace(dni) || fechaNacimiento == null))
+        {
+            ViewBag.Error = "Para Adulto Mayor debes completar DNI y fecha de nacimiento.";
+            ViewBag.Message = ViewBag.Error;
+            return View("Registrarse");
+        }
 
         if (bd.UsuarioExiste(email) != -1)
         {
@@ -102,8 +110,15 @@ public class SesionesController : Controller
         }
         else
         {
-            bd.RegistrarUsuario(email, passInput, nombre, apellido, telefono, tipoUsuario);
-            int idUsuario = bd.ObtenerIdUsuario(email);
+            int idUsuario = bd.RegistrarUsuario(email, passInput, nombre, apellido, telefono, tipoUsuario, dni, fechaNacimiento, condicion);
+
+            if (idUsuario <= 0)
+            {
+                ViewBag.Error = "No se pudo completar el registro. Inténtalo nuevamente.";
+                ViewBag.Message = ViewBag.Error;
+                return View("Registrarse");
+            }
+
             HttpContext.Session.SetInt32("IdUsuario", idUsuario);
             return RedirectToAction("Grupo", "Home", new { idUsuario = idUsuario });
         }
