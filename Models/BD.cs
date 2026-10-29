@@ -367,4 +367,216 @@ public class BD
             );
         }
     }
+
+    public List<Grupo> ObtenerGruposUsuario(int idUsuario)
+    {
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            const string sql = @"
+                SELECT DISTINCT
+                    g.id_grupo,
+                    g.Nombre,
+                    g.id_adultoMayor,
+                    g.descripcion
+                FROM dbo.Grupo g
+                LEFT JOIN dbo.AdultoMayor am ON am.id_adultoMayor = g.id_adultoMayor
+                LEFT JOIN dbo.CuidadorGrupo cg ON cg.id_grupo = g.id_grupo
+                LEFT JOIN dbo.Cuidador c ON c.id_cuidador = cg.id_cuidador
+                WHERE am.id_usuario = @IdUsuario
+                   OR c.id_usuario = @IdUsuario
+                ORDER BY g.id_grupo;";
+
+            return connection.Query<Grupo>(sql, new { IdUsuario = idUsuario }).ToList();
+        }
+    }
+
+    public int ObtenerIdUsuario(string mail)
+    {
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            int? id = connection.QueryFirstOrDefault<int?>(
+                "ObtenerIdUsuario",
+                new { Mail = mail },
+                commandType: CommandType.StoredProcedure
+            );
+            return id ?? -1;
+        }
+    }
+
+    public bool EsCuidador(int idUsuario)
+    {
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            int count = connection.QueryFirstOrDefault<int>(
+                @"SELECT COUNT(*)
+                  FROM dbo.Cuidador
+                  WHERE id_usuario = @IdUsuario",
+                new { IdUsuario = idUsuario }
+            );
+
+            if (count > 0)
+            {
+                return true;
+            }
+
+            string tipoUsuario = connection.QueryFirstOrDefault<string>(
+                @"SELECT tipoUsuario
+                  FROM dbo.Usuario
+                  WHERE id_usuario = @IdUsuario",
+                new { IdUsuario = idUsuario }
+            ) ?? string.Empty;
+
+            return !string.IsNullOrWhiteSpace(tipoUsuario) &&
+                   tipoUsuario.Trim().StartsWith("cuidador", StringComparison.OrdinalIgnoreCase);
+        }
+    }
+
+    public int CrearGrupo(string nombre, int idAdultoMayor, int? idCuidador = null, string? descripcion = null)
+    {
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            return connection.ExecuteScalar<int>(
+                "CrearGrupo",
+                new
+                {
+                    Nombre = nombre,
+                    IdAdultoMayor = idAdultoMayor,
+                    Descripcion = descripcion,
+                    IdCuidador = idCuidador
+                },
+                commandType: CommandType.StoredProcedure
+            );
+        }
+    }
+
+    public int ObtenerIdCuidadorPorUsuario(int idUsuario)
+    {
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            int? id = connection.QueryFirstOrDefault<int?>(
+                "ObtenerIdCuidadorPorUsuario",
+                new { IdUsuario = idUsuario },
+                commandType: CommandType.StoredProcedure
+            );
+            return id ?? -1;
+        }
+    }
+
+    public bool AgregarCuidadorAGrupo(int idGrupo, int idCuidador)
+    {
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            int resultado = connection.ExecuteScalar<int>(
+                "AgregarCuidadorAGrupo",
+                new
+                {
+                    IdGrupo = idGrupo,
+                    IdCuidador = idCuidador,
+                    EstadoAutorizacion = "pendiente"
+                },
+                commandType: CommandType.StoredProcedure
+            );
+            return resultado > 0;
+        }
+    }
+
+    public int ObtenerIdAdultoMayorPorUsuario(int idUsuario)
+    {
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            int? id = connection.QueryFirstOrDefault<int?>(
+                "ObtenerIdAdultoMayorPorUsuario",
+                new { IdUsuario = idUsuario },
+                commandType: CommandType.StoredProcedure
+            );
+            return id ?? -1;
+        }
+    }
+
+    public int ObtenerIdAdultoMayorPorDni(string dni)
+    {
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            int? id = connection.QueryFirstOrDefault<int?>(
+                "ObtenerIdAdultoMayorPorDni",
+                new { Dni = dni },
+                commandType: CommandType.StoredProcedure
+            );
+            return id ?? -1;
+        }
+    }
+
+    public string ObtenerTipoUsuario(int idUsuario)
+    {
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            return connection.QueryFirstOrDefault<string>(
+                "ObtenerTipoUsuario",
+                new { IdUsuario = idUsuario },
+                commandType: CommandType.StoredProcedure
+            ) ?? string.Empty;
+        }
+    }
+
+    public bool EsAdultoMayor(int idUsuario)
+    {
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            int count = connection.QueryFirstOrDefault<int>(
+                @"SELECT COUNT(*)
+                  FROM dbo.AdultoMayor
+                  WHERE id_usuario = @IdUsuario",
+                new { IdUsuario = idUsuario }
+            );
+
+            if (count > 0)
+            {
+                return true;
+            }
+
+            string tipoUsuario = connection.QueryFirstOrDefault<string>(
+                @"SELECT tipoUsuario
+                  FROM dbo.Usuario
+                  WHERE id_usuario = @IdUsuario",
+                new { IdUsuario = idUsuario }
+            ) ?? string.Empty;
+
+            return !string.IsNullOrWhiteSpace(tipoUsuario) &&
+                   tipoUsuario.Trim().StartsWith("adulto", StringComparison.OrdinalIgnoreCase);
+        }
+    }
+    public Usuario ObtenerUsuarioPorId(int id_usuario)
+    {
+        Usuario usuario = new Usuario();
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            string query = @"SELECT *FROM Usuario WHERE id_usuario = @id_usuario";
+            usuario = connection.QueryFirstOrDefault<Usuario>(query, new { id_usuario });
+        }
+        return usuario;
+    }
+    public void ActualizarFotoPerfil(int id_usuario, string fotoPerfil)
+    {
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            string query = @"UPDATE Usuario SET fotoPerfil = @fotoPerfil WHERE id_usuario = @id_usuario";
+            connection.Execute(query, new { fotoPerfil = fotoPerfil, id_usuario = id_usuario });
+        }
+    }
+
+  public List<Recordatorio> ObtenerRecordatorios(int idGrupo)
+    {
+        List<Recordatorio> recordatorios = new List<Recordatorio>();
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            string query = @"SELECT *
+            FROM Recordatorio
+            INNER JOIN AdultoMayor ON Recordatorio.id_adultoMayor = AdultoMayor.id_adultoMayor
+            INNER JOIN Grupo ON AdultoMayor.id_adultoMayor = Grupo.id_adultoMayor
+            WHERE Grupo.id_grupo = @id_grupo";
+            recordatorios = connection.Query<Recordatorio>(query, new { id_grupo = idGrupo }).ToList();
+        }
+        return recordatorios;
+    }
+    public AdultoMayor ObtenerAdultoMayorPorGrupo(int idGrupo)
 }

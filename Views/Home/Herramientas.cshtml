@@ -1,5 +1,5 @@
 <main class="Herramientas-Flex">
-    <section>
+    <section class="Contactos">
         <h2>Acceso rapido</h2>
         <div>
             <h3>Contactos</h3>
@@ -7,10 +7,10 @@
             {
                 <a class="primary-btn" href="@Url.Action()">@ViewBag.NombreCuidador: @ViewBag.TelefonoCuidador</a>
             }
-            <a class="primary-btn" href="@Url.Action()">Agregar</a>
+            <a class="btn-register" href="@Url.Action()">Agregar</a>
         </div>
-    </section>
-    <section>
+    </section> 
+    <section class="Ejercicios">
         <h3>Ejercicios</h3>
         @foreach (Ejercicio ejercicio in @ViewBag.Proximos3Ejercicios)
         {
@@ -21,7 +21,7 @@
             </div>
         }
     </section>
-    <section>
+    <section class="Articulos">
         <h3>Educación</h3>
         @foreach (Articulo articulo in @ViewBag.Proximos3Articulos)
         {
