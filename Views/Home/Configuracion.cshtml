@@ -1,0 +1,333 @@
+@{
+    string fotoPerfil = ViewBag.user as string;
+}
+
+<div class="config-page">
+
+    <!-- Encabezado + cerrar sesión -->
+    <div class="config-header">
+        <div>
+            <p class="config-kicker">Cuenta y privacidad</p>
+            <h1>Configuración</h1>
+        </div>
+        <a class="btn-logout" href="@Url.Action("Logout", "Sesiones")">Cerrar sesión</a>
+    </div>
+
+    <div class="config-grid">
+
+        <!-- Foto de perfil -->
+        <section class="config-card profile-card">
+            <div class="avatar-upload-wrap">
+                <div class="avatar-preview" id="avatarPreview">
+                    @if (!string.IsNullOrEmpty(fotoPerfil))
+                    {
+                        <img src="@fotoPerfil" alt="Foto de perfil" />
+                    }
+                    else
+                    {
+                        <span>US</span>
+                    }
+                </div>
+
+                <form method="post" enctype="multipart/form-data" action="@Url.Action("CambiarFotoPerfil", "Home")">
+                <input type="file" id="fotoPerfilInput" name="fotoPerfilInput" accept="image/*" onchange="this.form.submit()">
+                <label for="fotoPerfilInput" class="upload-btn">Cambiar foto</label>
+            </form>
+            </div>
+        </section>
+    </div>
+
+    <!-- Políticas de privacidad -->
+    <section class="config-card policy-card">
+        <div class="section-title-row">
+            <h3>Políticas de privacidad</h3>
+        </div>
+
+        <div class="policy-list">
+            <div class="policy-item">
+                <div>
+                    <h4>Perfil público</h4>
+                    <p>Permite que otros usuarios vean tu perfil y tu foto.</p>
+                </div>
+                <button type="button" class="toggle-policy active" data-policy="perfilPublico">Activado</button>
+            </div>
+
+            <div class="policy-item">
+                <div>
+                    <h4>Notificaciones por correo</h4>
+                    <p>Recibí avisos y novedades en tu email.</p>
+                </div>
+                <button type="button" class="toggle-policy" data-policy="notificacionesEmail">Desactivado</button>
+            </div>
+
+            <div class="policy-item">
+                <div>
+                    <h4>Compartir datos de uso</h4>
+                    <p>Nos ayuda a mejorar la experiencia de la plataforma.</p>
+                </div>
+                <button type="button" class="toggle-policy" data-policy="datosUso">Desactivado</button>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+    document.querySelectorAll('.toggle-policy').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var activo = btn.classList.toggle('active');
+            btn.textContent = activo ? 'Activado' : 'Desactivado';
+            // Acá podés enviar btn.dataset.policy y 'activo' al servidor con fetch/POST
+        });
+    });
+</script>
+
+<style>
+    .config-page {
+        max-width: 1100px;
+        margin: 2.5rem auto 0;
+        padding: 0 1rem 4rem;
+    }
+
+    .config-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .config-kicker {
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #0a7d81;
+        background: #d7f7f8;
+        display: inline-block;
+        padding: 0.45rem 0.85rem;
+        border-radius: 999px;
+        margin-bottom: 0.7rem;
+    }
+
+    .config-header h1 {
+        margin: 0;
+        text-align: left !important;
+    }
+
+    .btn-logout {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #0f172a;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 999px;
+        padding: 0.85rem 1.5rem;
+        font-weight: 700;
+        transition: opacity 0.2s ease;
+    }
+
+    .btn-logout:hover {
+        opacity: 0.9;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .config-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .config-card {
+        background: #ffffff;
+        border: 1px solid rgba(15, 76, 92, 0.1);
+        border-radius: 28px;
+        box-shadow: 0 18px 45px rgba(0, 117, 121, 0.08);
+        padding: 1.5rem;
+    }
+
+    .profile-card {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+    }
+
+    .avatar-upload-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+        flex-shrink: 0;
+    }
+
+    .avatar-preview {
+        width: 82px;
+        height: 82px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: linear-gradient(135deg, #0a7d81, #00a9af);
+        color: #fff;
+        box-shadow: 0 12px 26px rgba(0, 169, 175, 0.2);
+    }
+
+    .avatar-preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .avatar-preview span {
+        font-size: 1.35rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+    }
+
+    #fotoPerfilInput {
+        display: none;
+    }
+
+    .upload-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #d7f7f8;
+        color: #0a7d81;
+        border: 1px solid rgba(0, 169, 175, 0.2);
+        border-radius: 999px;
+        padding: 0.5rem 0.9rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: opacity 0.2s ease;
+    }
+
+    .upload-btn:hover {
+        opacity: 0.92;
+    }
+
+    .profile-meta {
+        flex: 1;
+    }
+
+    .badge {
+        display: inline-flex;
+        background: #e6fbfb;
+        color: #0a7d81;
+        border-radius: 999px;
+        padding: 0.35rem 0.75rem;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 0.75rem;
+    }
+
+    .profile-meta h2 {
+        margin: 0 0 0.8rem;
+        font-size: clamp(1.5rem, 2vw, 2.1rem);
+        text-align: left !important;
+    }
+
+    .profile-meta p {
+        margin: 0.35rem 0;
+        color: #4b5563;
+        text-align: left !important;
+    }
+
+    .section-title-row {
+        margin-bottom: 1.2rem;
+    }
+
+    .section-title-row h3 {
+        margin: 0;
+        text-align: left !important;
+        font-size: 1.3rem;
+    }
+
+    .info-list {
+        display: grid;
+        gap: 0.75rem;
+    }
+
+    .info-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        background: #f8fbfc;
+        border: 1px solid rgba(15, 76, 92, 0.08);
+        border-radius: 16px;
+        padding: 0.85rem 1rem;
+    }
+
+    .label {
+        font-size: 0.82rem;
+        color: #4b5563;
+        font-weight: 700;
+    }
+
+    .value {
+        font-size: 0.92rem;
+        font-weight: 700;
+        color: #0f172a;
+        text-align: right;
+        word-break: break-word;
+    }
+
+    .policy-card {
+        padding: 1.5rem;
+    }
+
+    .policy-list {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .policy-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        border: 1px solid rgba(15, 76, 92, 0.1);
+        background: #fbfefe;
+        border-radius: 18px;
+        padding: 1rem 1.1rem;
+    }
+
+    .policy-item h4 {
+        margin: 0 0 0.35rem;
+        text-align: left !important;
+        font-size: 1rem;
+    }
+
+    .policy-item p {
+        margin: 0;
+        font-size: 0.88rem;
+        color: #5f6b7a;
+        text-align: left !important;
+    }
+
+    .toggle-policy {
+        min-width: 128px;
+        padding: 0.8rem 1rem;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        border: 1px solid rgba(15, 76, 92, 0.1);
+        background: #e5e7eb;
+        color: #111827;
+    }
+
+    .toggle-policy.active {
+        background: #d7f7f8;
+        color: #0a7d81;
+        border-color: rgba(0, 169, 175, 0.2);
+    }
+
+  

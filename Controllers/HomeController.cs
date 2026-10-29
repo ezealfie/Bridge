@@ -26,8 +26,10 @@ public class HomeController : Controller
     {
         return View();
     }
-    public IActionResult Configuracion()
+   public IActionResult Configuracion()
     {
+        Usuario usuario = _bd.ObtenerUsuarioPorId(HttpContext.Session.GetInt32("IdUsuario") ?? 0);
+        ViewBag.user = usuario.fotoPerfil;
         return View();
     }
     public IActionResult Herramientas()
@@ -46,7 +48,18 @@ public class HomeController : Controller
     {
         return View();
     }
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+   [HttpPost]
+    public IActionResult CambiarFotoPerfil(IFormFile fotoPerfilInput)
+    {
+        Usuario usuario = _bd.ObtenerUsuarioPorId(HttpContext.Session.GetInt32("IdUsuario") ?? 0);
+
+        MemoryStream ms = new MemoryStream();
+        fotoPerfilInput.CopyTo(ms);
+        usuario.fotoPerfil = "data:" + fotoPerfilInput.ContentType + ";base64," + Convert.ToBase64String(ms.ToArray());
+
+        _bd.ActualizarFotoPerfil(usuario.id_usuario, usuario.fotoPerfil);
+        return RedirectToAction("Configuracion");
+    }
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

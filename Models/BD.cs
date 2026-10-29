@@ -349,4 +349,23 @@ public class BD
                    tipoUsuario.Trim().StartsWith("adulto", StringComparison.OrdinalIgnoreCase);
         }
     }
+    public Usuario ObtenerUsuarioPorId(int id_usuario)
+    {
+        Usuario usuario = new Usuario();
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            string query = @"SELECT *FROM Usuario WHERE id_usuario = @id_usuario";
+            usuario = connection.QueryFirstOrDefault<Usuario>(query, new { id_usuario });
+        }
+        return usuario;
+    }
+    public void ActualizarFotoPerfil(int id_usuario, string? fotoPerfil = null)
+    {
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            string query = @"UPDATE Usuario SET fotoPerfil = @fotoPerfil WHERE id_usuario = @id_usuario";
+            connection.Execute(query, new { fotoPerfil = fotoPerfil ?? null, id_usuario = id_usuario });
+        }
+    }
+
 }
