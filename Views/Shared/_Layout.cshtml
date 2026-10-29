@@ -1,6 +1,8 @@
 @{
+    BD bd = new BD();
     bool usuarioLogueado = ViewContext.HttpContext.Session.GetInt32("IdUsuario").HasValue;
-}
+    Usuario usuario = bd.ObtenerUsuarioPorId(ViewContext.HttpContext.Session.GetInt32("IdUsuario") ?? 0);
+}   
 
 <!DOCTYPE html>
 <html lang="en">
@@ -46,9 +48,22 @@
                     <a href="@Url.Action("AdultoMayor", "Home")">Adulto mayor</a>
                     <a href="@Url.Action("Cuidadores", "Home")">Familia y Cuidadores</a>
                 </div>
-                <div class="nav-group nav-group--right">
-                    <a class="profile-link" href="@Url.Action("Configuracion", "Home")"><img src="" alt="Aca va la foto de perfil"></a>
-                </div>
+                //si la imagen del usuario es null aparece avatar.png sino aparece la imagen del usuario
+                //<div class="nav-group nav-group--right">
+                  //  <a class="profile-link" href="@Url.Action("Configuracion", "Home")"><img src="~/Imagenes/avatar.png" alt="Aca va la foto de perfil" style="width: 30px; height: 30px; border-radius: 50%;"></a>
+                //</div>
+                if (usuario.fotoPerfil != null)
+                {
+                    <div class="nav-group nav-group--right">
+                        <a class="profile-link" href="@Url.Action("Configuracion", "Home")"><img src="@usuario.fotoPerfil" alt="Foto de perfil" style="width: 30px; height: 30px; border-radius: 50%;"></a>
+                    </div>
+                }
+                else
+                {
+                    <div class="nav-group nav-group--right">
+                        <a class="profile-link" href="@Url.Action("Configuracion", "Home")"><img src="~/Imagenes/avatar.png" alt="Aca va la foto de perfil" style="width: 30px; height: 30px; border-radius: 50%;"></a>
+                    </div>
+                }
             }
         </nav>
     </header>
