@@ -34,6 +34,7 @@ public class HomeController : Controller
     }
     public IActionResult Herramientas()
     {
+        ViewBag.Proximos3Cuidadores = _bd.ObtenerProximos3Cuidadores(HttpContext.Session.GetInt32("IdGrupo") ?? 0);
         return View();
     }
     public IActionResult Cuidadores()

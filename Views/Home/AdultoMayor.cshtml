@@ -6,7 +6,7 @@
     var episodios = ViewBag.Episodios;
     var documentos = ViewBag.Documentos;
     BD bd = new BD();
-    var nombreAdultoMayor = bd.ObtenerNombreAdulto(HttpContext.Session.GetInt32("IdUsuario") ?? 0);
+    var nombreAdultoMayor = bd.ObtenerNombreAdulto(Context.Session.GetInt32("IdUsuario") ?? 0);
 }
 
 <div class="adulto-page">
@@ -22,6 +22,7 @@
                     <div class="reminder-item">
                         <div class="reminder-meta">
                             <span>@recordatorio.fechaHora</span>
+                            <span>@recordatorio.descripcion</span>
                         </div>
                         <button type="button" onclick="location.href='@Url.Action("Recordatorios", "Home")'">
                             @recordatorio.nombre
@@ -69,7 +70,7 @@
                 <div class="medical-row">
                     <span class="medical-label">Medicaciones</span>
                     <div class="medical-content">
-                        @if (medicaciones.Any())
+                        @if (medicaciones != null && medicaciones.Count > 0)
                         {
                             <ul>
                                 @foreach (var medicamento in medicaciones)
@@ -88,7 +89,7 @@
                 <div class="medical-row">
                     <span class="medical-label">Episodios</span>
                     <div class="medical-content">
-                        @if (episodios.Any())
+                        @if (episodios != null && episodios.Count > 0)
                         {
                             <ul class="episode-list">
                                 @foreach (var episodio in episodios)
@@ -111,7 +112,7 @@
                 <div class="medical-row">
                     <span class="medical-label">Documentos</span>
                     <div class="medical-content">
-                        @if (documentos.Any())
+                        @if (documentos != null && documentos.Count > 0)
                         {
                             <ul>
                                 @foreach (var documento in documentos)
