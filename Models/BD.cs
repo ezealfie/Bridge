@@ -20,6 +20,19 @@ public class BD
         }
     }
 
+    public string ObtenerNombreGrupo(int IdGrupo)
+    {
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            return connection.QueryFirstOrDefault<string>(
+                @"SELECT Nombre
+                  FROM dbo.Grupo
+                  WHERE id_grupo = @IdGrupo",
+                new { IdGrupo = IdGrupo }
+            ) ?? string.Empty;
+        }
+    }
+
     public List<Evento> ObtenerProximos5Eventos(int idGrupo)
     {
         using (SqlConnection connection = new SqlConnection(_connectionString))

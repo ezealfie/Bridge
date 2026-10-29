@@ -64,17 +64,30 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
-    public IActionResult Dashboard(int idGrupo)
+    public IActionResult Dashboard(int? idGrupo)
     {  
-        BD bd = new BD();
-        HttpContext.Session.SetInt32("IdGrupo", idGrupo);
-        int? idGrupoSession = HttpContext.Session.GetInt32("IdGrupo");
-        if (idGrupoSession == null)
+        int? idUsuario = HttpContext.Session.GetInt32("IdUsuario");
+
+        if (idGrupo == null || idGrupo <= 0)
         {
-            return RedirectToAction("Login", "Sesiones");
+            idGrupo = HttpContext.Session.GetInt32("IdGrupo");
         }
-        ViewBag.NombreAdulto = _bd.ObtenerNombreAdulto(idGrupo);
-        ViewBag.Proximos5Eventos = _bd.ObtenerProximos5Eventos(idGrupo);
+
+        if (idGrupo == null || idGrupo <= 0)
+        {
+            return RedirectToAction("Grupo", new { idUsuario = idUsuario ?? 0 });
+        }
+
+        if (string.IsNullOrWhiteSpace(_bd.ObtenerNombreGrupo(idGrupo.Value)))
+        {
+            return RedirectToAction("Grupo", new { idUsuario = idUsuario ?? 0 });
+        }
+
+        HttpContext.Session.SetInt32("IdGrupo", idGrupo.Value);
+
+        ViewBag.NombreGrupo = _bd.ObtenerNombreGrupo(idGrupo.Value);
+        ViewBag.NombreAdulto = _bd.ObtenerNombreAdulto(idGrupo.Value);
+        ViewBag.Proximos5Eventos = _bd.ObtenerProximos5Eventos(idGrupo.Value);
         return View();
     }
     public IActionResult Grupo(int? idUsuario)
