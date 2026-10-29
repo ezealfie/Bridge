@@ -359,12 +359,12 @@ public class BD
         }
         return usuario;
     }
-    public void ActualizarFotoPerfil(int id_usuario, string? fotoPerfil = null)
+    public void ActualizarFotoPerfil(int id_usuario, string fotoPerfil)
     {
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
             string query = @"UPDATE Usuario SET fotoPerfil = @fotoPerfil WHERE id_usuario = @id_usuario";
-            connection.Execute(query, new { fotoPerfil = fotoPerfil ?? null, id_usuario = id_usuario });
+            connection.Execute(query, new { fotoPerfil = fotoPerfil, id_usuario = id_usuario });
         }
     }
 
