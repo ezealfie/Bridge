@@ -1,0 +1,35 @@
+<main class="Herramientas-Flex">
+    <section class="Contactos">
+        <h2>Acceso rapido</h2>
+        <div>
+            <h3>Contactos</h3>
+            @foreach (Cuidador cuidador in @ViewBag.Proximos3Cuidadores)
+            {
+                <a class="primary-btn" href="@Url.Action()">@ViewBag.NombreCuidador: @ViewBag.TelefonoCuidador</a>
+            }
+            <a class="btn-register" href="@Url.Action()">Agregar</a>
+        </div>
+    </section> 
+    <section class="Ejercicios">
+        <h3>Ejercicios</h3>
+        @foreach (Ejercicio ejercicio in @ViewBag.Proximos3Ejercicios)
+        {
+            <div>
+                <h4>@ViewBag.NombreEjercicio</h4>
+                <p>@ViewBag.DescripcionEjercicio</p>
+                <a class="primary-btn" href="@Url.Action()">Hacer</a>
+            </div>
+        }
+    </section>
+    <section class="Articulos">
+        <h3>Educación</h3>
+        @foreach (Articulo articulo in @ViewBag.Proximos3Articulos)
+        {
+            <div>
+                <h4>@ViewBag.NombreArticulo</h4>
+                <p>@ViewBag.DescripcionArticulo</p>
+                <a class="primary-btn" href="@Url.Action()">Leer</a>
+            </div>
+        }
+    </section>
+</main>
