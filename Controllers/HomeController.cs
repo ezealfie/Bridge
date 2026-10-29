@@ -40,8 +40,25 @@ public class HomeController : Controller
     {
         return View();
     }
+    public IActionResult AgregarInfoMedica()
+    {
+        return View();
+    }
+    public IActionResult EditarAdultoMayor()
+    {
+        return View();
+    }
+    public IActionResult Recordatorios()
+    {
+        return View();
+    }
     public IActionResult AdultoMayor()
     {
+        ViewBag.Recordatorios = _bd.ObtenerRecordatorios(HttpContext.Session.GetInt32("IdGrupo") ?? 0);
+        ViewBag.AdultoMayor = _bd.ObtenerAdultoMayorPorGrupo(HttpContext.Session.GetInt32("IdGrupo") ?? 0);
+        ViewBag.Medicaciones = _bd.ObtenerMedicaciones(HttpContext.Session.GetInt32("IdGrupo") ?? 0);
+        ViewBag.Episodios = _bd.ObtenerEpisodios(HttpContext.Session.GetInt32("IdGrupo") ?? 0);
+        ViewBag.Documentos = _bd.ObtenerDocumentos(HttpContext.Session.GetInt32("IdGrupo") ?? 0);
         return View();
     }
     public IActionResult Privacy()

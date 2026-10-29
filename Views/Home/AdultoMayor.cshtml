@@ -1,0 +1,311 @@
+@{
+    ViewData["Title"] = "Adulto mayor";
+    var recordatorios = ViewBag.Recordatorios;
+    var adultoMayor = ViewBag.AdultoMayor;
+    var medicaciones = ViewBag.Medicaciones;
+    var episodios = ViewBag.Episodios;
+    var documentos = ViewBag.Documentos;
+    BD bd = new BD();
+    var nombreAdultoMayor = bd.ObtenerNombreAdulto(HttpContext.Session.GetInt32("IdUsuario") ?? 0);
+}
+
+<div class="adulto-page">
+    <h1 class="adulto-title">Adulto mayor</h1>
+
+    <div class="adulto-grid">
+        <section class="adulto-card">
+            <h2>Recordatorios</h2>
+
+            <div class="reminder-list">
+                @foreach (var recordatorio in recordatorios)
+                {
+                    <div class="reminder-item">
+                        <div class="reminder-meta">
+                            <span>@recordatorio.fechaHora</span>
+                        </div>
+                        <button type="button" onclick="location.href='@Url.Action("Recordatorios", "Home")'">
+                            @recordatorio.nombre
+                        </button>
+                    </div>
+                }
+            </div>
+
+            <div class="card-action">
+                <button type="button" onclick="location.href='@Url.Action("Recordatorios", "Home")'">Agregar / Ver más</button>
+            </div>
+        </section>
+
+        <section class="adulto-card">
+            <h2>Datos personales</h2>
+
+            <div class="field-list">
+                <div class="field-row">
+                    <label>Nombre</label>
+                    <input type="text" value="@nombreAdultoMayor" readonly />
+                </div>
+                <div class="field-row">
+                    <label>DNI</label>
+                    <input type="text" value="@adultoMayor.dni" readonly />
+                </div>
+                <div class="field-row">
+                    <label>Fecha de nacimiento</label>
+                    <input type="text" value="@adultoMayor.fecha_nacimiento.ToString("dd/MM/yyyy")" readonly />
+                </div>
+                <div class="field-row">
+                    <label>Condición</label>
+                    <input type="text" value="@adultoMayor.condicion" readonly />
+                </div>
+            </div>
+
+            <div class="card-action">
+                <button type="button" onclick="location.href='@Url.Action("EditarAdultoMayor", "Home")'">Editar</button>
+            </div>
+        </section>
+
+        <section class="adulto-card">
+            <h2>Información médica</h2>
+
+            <div class="medical-list">
+                <div class="medical-row">
+                    <span class="medical-label">Medicaciones</span>
+                    <div class="medical-content">
+                        @if (medicaciones.Any())
+                        {
+                            <ul>
+                                @foreach (var medicamento in medicaciones)
+                                {
+                                    <li>@medicamento</li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p>No hay medicaciones registradas.</p>
+                        }
+                    </div>
+                </div>
+
+                <div class="medical-row">
+                    <span class="medical-label">Episodios</span>
+                    <div class="medical-content">
+                        @if (episodios.Any())
+                        {
+                            <ul class="episode-list">
+                                @foreach (var episodio in episodios)
+                                {
+                                    <li>
+                                        <strong>@episodio.Fecha</strong>
+                                        <span>@episodio.Hora</span>
+                                        <p>@episodio.Descripcion</p>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p>No hay episodios registrados.</p>
+                        }
+                    </div>
+                </div>
+
+                <div class="medical-row">
+                    <span class="medical-label">Documentos</span>
+                    <div class="medical-content">
+                        @if (documentos.Any())
+                        {
+                            <ul>
+                                @foreach (var documento in documentos)
+                                {
+                                    <li>@documento</li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p>No hay documentos cargados.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-action">
+                <button type="button" onclick="location.href='@Url.Action("AgregarInfoMedica", "Home")'">Agregar / Ver más</button>
+            </div>
+        </section>
+    </div>
+</div>
+
+<style>
+    .adulto-page {
+        padding: 1.5rem 0 2.5rem;
+    }
+
+    .adulto-title {
+        margin: 0 0 1.5rem;
+        font-size: clamp(2rem, 3vw, 2.8rem);
+        color: #0d2b30;
+        text-align: center;
+    }
+
+    .adulto-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.4rem;
+        align-items: start;
+    }
+
+    .adulto-card {
+        background: #ffffff;
+        border: 2px solid #3ec7ca;
+        border-radius: 24px;
+        box-shadow: 0 8px 24px rgba(0, 169, 175, 0.08);
+        padding: 1.2rem 1.1rem 1rem;
+        display: flex;
+        flex-direction: column;
+        min-height: 520px;
+    }
+
+    .adulto-card h2 {
+        margin: 0 0 1rem;
+        font-size: 1.6rem;
+        text-align: center;
+        color: #0f2a2d;
+    }
+
+    .reminder-list,
+    .field-list,
+    .medical-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .reminder-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .reminder-meta {
+        min-width: 104px;
+        display: flex;
+        flex-direction: column;
+        gap: 0.12rem;
+        font-size: 0.75rem;
+        color: #355d64;
+        font-weight: 700;
+    }
+
+    .reminder-button {
+        flex: 1;
+        min-height: 2.7rem;
+        border-radius: 999px;
+        border: none;
+        color: #fff;
+        font-weight: 600;
+        padding: 0.7rem 1rem;
+        width: auto;
+    }
+
+    .tone-1 { background: #1fa8b3; }
+    .tone-2 { background: #2ebec2; }
+    .tone-3 { background: #0d8f95; }
+    .tone-4 { background: #6ec5c8; }
+
+    .card-action {
+        margin-top: auto;
+        padding-top: 1rem;
+        display: flex;
+        justify-content: center;
+    }
+
+    .card-action button {
+        min-width: 180px;
+    }
+
+    .field-row {
+        display: grid;
+        grid-template-columns: 110px 1fr;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .field-row label {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #234d52;
+        text-align: left;
+    }
+
+    .field-row input {
+        border: 1px solid #b7dfe1;
+        background: #f7fdfe;
+        border-radius: 12px;
+        height: 2.4rem;
+        padding: 0.5rem 0.8rem;
+        color: #1d2f36;
+        font-size: 0.9rem;
+        pointer-events: none;
+    }
+
+    .medical-row {
+        display: grid;
+        grid-template-columns: 130px 1fr;
+        gap: 0.7rem;
+        align-items: start;
+    }
+
+    .medical-label {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #234d52;
+        padding-top: 0.25rem;
+    }
+
+    .medical-content {
+        background: #f6fdfd;
+        border: 1px solid #cfe9eb;
+        border-radius: 14px;
+        padding: 0.7rem 0.8rem;
+    }
+
+    .medical-content ul {
+        margin: 0;
+        padding-left: 1.1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+        color: #1b3940;
+    }
+
+    .medical-content li,
+    .medical-content p {
+        font-size: 0.88rem;
+        line-height: 1.5;
+    }
+
+    .episode-list {
+        list-style: none;
+        padding-left: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.7rem;
+    }
+
+    .episode-list li {
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+    }
+
+    .episode-list strong,
+    .episode-list span {
+        font-size: 0.78rem;
+        color: #1c5c60;
+    }
+
+    .episode-list p {
+        margin: 0;
+        color: #2d4048;
+    }
+</style>

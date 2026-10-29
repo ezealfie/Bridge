@@ -367,5 +367,85 @@ public class BD
             connection.Execute(query, new { fotoPerfil = fotoPerfil, id_usuario = id_usuario });
         }
     }
+    public List<Recordatorio> ObtenerRecordatorios(int idGrupo)
+    {
+        List<Recordatorio> recordatorios = new List<Recordatorio>();
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            string query = @"SELECT *
+            FROM Recordatorio
+            INNER JOIN AdultoMayor ON Recordatorio.id_adultoMayor = AdultoMayor.id_adultoMayor
+            INNER JOIN Grupo ON AdultoMayor.id_adultoMayor = Grupo.id_adultoMayor
+            WHERE Grupo.id_grupo = @id_grupo";
+            recordatorios = connection.Query<Recordatorio>(query, new { id_grupo = idGrupo }).ToList();
+        }
+        return recordatorios;
+    }
+    public AdultoMayor ObtenerAdultoMayorPorGrupo(int idGrupo)
+    {
+        AdultoMayor adultoMayor = new AdultoMayor();
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            string query = @"SELECT AdultoMayor.*
+                FROM AdultoMayor
+                INNER JOIN Grupo ON AdultoMayor.id_adultoMayor = Grupo.id_adultoMayor
+                WHERE Grupo.id_grupo = @id_grupo";
+            adultoMayor = connection.QueryFirstOrDefault<AdultoMayor>(query, new { id_grupo = idGrupo });
+        }
+        return adultoMayor;
+    }
+   public List<Medicacion> ObtenerMedicaciones(int idGrupo)
+{
+    List<Medicacion> medicaciones = new List<Medicacion>();
+    using (SqlConnection connection = new SqlConnection(_connectionString))
+    {
+        string query = @"SELECT 
+                           *
+                        FROM Medicacion
+                        INNER JOIN MedicacionRegistro ON Medicacion.id_medicacion = MedicacionRegistro.id_medicacion
+                        INNER JOIN RegistroMedico ON MedicacionRegistro.id_registro = RegistroMedico.id_registro
+                        INNER JOIN AdultoMayor ON RegistroMedico.id_adultoMayor = AdultoMayor.id_adultoMayor
+                        INNER JOIN Grupo ON AdultoMayor.id_adultoMayor = Grupo.id_adultoMayor
+                        WHERE Grupo.id_grupo = @id_grupo";
 
+        medicaciones = connection.Query<Medicacion>(query, new { id_grupo = idGrupo }).ToList();
+    }
+    return medicaciones;
+}
+
+public List<Episodio> ObtenerEpisodios(int idGrupo)
+{
+    List<Episodio> episodios = new List<Episodio>();
+    using (SqlConnection connection = new SqlConnection(_connectionString))
+    {
+        string query = @"SELECT 
+                            *
+                        FROM Episodio
+                        INNER JOIN RegistroMedico ON Episodio.id_registro = RegistroMedico.id_registro
+                        INNER JOIN AdultoMayor ON RegistroMedico.id_adultoMayor = AdultoMayor.id_adultoMayor
+                        INNER JOIN Grupo ON AdultoMayor.id_adultoMayor = Grupo.id_adultoMayor
+                        WHERE Grupo.id_grupo = @id_grupo";
+
+        episodios = connection.Query<Episodio>(query, new { id_grupo = idGrupo }).ToList();
+    }
+    return episodios;
+}
+
+public List<Documento> ObtenerDocumentos(int idGrupo)
+{
+    List<Documento> documentos = new List<Documento>();
+    using (SqlConnection connection = new SqlConnection(_connectionString))
+    {
+        string query = @"SELECT 
+                            *
+                        FROM Documento
+                        INNER JOIN RegistroMedico ON Documento.id_registro = RegistroMedico.id_registro
+                        INNER JOIN AdultoMayor ON RegistroMedico.id_adultoMayor = AdultoMayor.id_adultoMayor
+                        INNER JOIN Grupo ON AdultoMayor.id_adultoMayor = Grupo.id_adultoMayor
+                        WHERE Grupo.id_grupo = @id_grupo";
+
+        documentos = connection.Query<Documento>(query, new { id_grupo = idGrupo }).ToList();
+    }
+    return documentos;
+}
 }
