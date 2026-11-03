@@ -372,10 +372,18 @@ public class BD
         List<Recordatorio> recordatorios = new List<Recordatorio>();
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = @"SELECT *
+            string query = @"
+            SELECT 
+                Recordatorio.id_recordatorio,
+                Recordatorio.nombre,
+                Recordatorio.descripcion,
+                Recordatorio.fechaHora,
+                Recordatorio.id_adultoMayor
             FROM Recordatorio
-            INNER JOIN AdultoMayor ON Recordatorio.id_adultoMayor = AdultoMayor.id_adultoMayor
-            INNER JOIN Grupo ON AdultoMayor.id_adultoMayor = Grupo.id_adultoMayor
+            INNER JOIN AdultoMayor 
+                ON Recordatorio.id_adultoMayor = AdultoMayor.id_adultoMayor
+            INNER JOIN Grupo 
+                ON AdultoMayor.id_adultoMayor = Grupo.id_adultoMayor
             WHERE Grupo.id_grupo = @id_grupo";
             recordatorios = connection.Query<Recordatorio>(query, new { id_grupo = idGrupo }).ToList();
         }
