@@ -375,7 +375,7 @@ public class BD
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
             string query = @"SELECT 
-                            *
+                            Medicacion.*
                             FROM Medicacion
                             INNER JOIN MedicacionRegistro ON Medicacion.id_medicacion = MedicacionRegistro.id_medicacion
                             INNER JOIN RegistroMedico ON MedicacionRegistro.id_registro = RegistroMedico.id_registro
@@ -394,7 +394,7 @@ public class BD
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
             string query = @"SELECT 
-                                *
+                                Episodio.*
                             FROM Episodio
                             INNER JOIN RegistroMedico ON Episodio.id_registro = RegistroMedico.id_registro
                             INNER JOIN AdultoMayor ON RegistroMedico.id_adultoMayor = AdultoMayor.id_adultoMayor
@@ -412,7 +412,7 @@ public class BD
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
             string query = @"SELECT 
-                                *
+                                Documento.*
                             FROM Documento
                             INNER JOIN RegistroMedico ON Documento.id_registro = RegistroMedico.id_registro
                             INNER JOIN AdultoMayor ON RegistroMedico.id_adultoMayor = AdultoMayor.id_adultoMayor
