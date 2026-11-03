@@ -1,0 +1,246 @@
+@using Bridge.Models
+@{
+	ViewData["Title"] = "Familia y Cuidadores";
+
+	List<MensajeViewModel> mensajes = ViewBag.UltimosMensajes as List<MensajeViewModel> ?? new List<MensajeViewModel>();
+	List<CuidadorGrupoViewModel> cuidadores = ViewBag.Cuidadores as List<CuidadorGrupoViewModel> ?? new List<CuidadorGrupoViewModel>();
+	List<Evento> eventosDelMes = ViewBag.EventosDelMes as List<Evento> ?? new List<Evento>();
+
+	bool esPropietario = ViewBag.EsPropietario ?? false;
+	int anioActual = ViewBag.AnioActual ?? DateTime.Today.Year;
+	int mesActualNumero = DateTime.Today.Month;
+	string mesActual = ViewBag.MesActual ?? DateTime.Today.ToString("MMMM");
+
+	DateTime primerDiaMes = new DateTime(anioActual, mesActualNumero, 1);
+	int diasEnMes = DateTime.DaysInMonth(anioActual, mesActualNumero);
+	int desplazamientoInicio = ((int)primerDiaMes.DayOfWeek + 6) % 7;
+	DateTime mesAnterior = primerDiaMes.AddMonths(-1);
+	int diasMesAnterior = DateTime.DaysInMonth(mesAnterior.Year, mesAnterior.Month);
+	List<int> diasConEventos = eventosDelMes
+		.Where(e => e.fechaHora.Month == mesActualNumero && e.fechaHora.Year == anioActual)
+		.Select(e => e.fechaHora.Day)
+		.Distinct()
+		.ToList();
+
+	List<CuidadorGrupoViewModel> cuidadoresAutorizados = cuidadores
+		.Where(c => c.estadoAutorizacion.Equals("autorizado", StringComparison.OrdinalIgnoreCase))
+		.ToList();
+
+	List<CuidadorGrupoViewModel> cuidadoresPendientes = cuidadores
+		.Where(c => c.estadoAutorizacion.Equals("pendiente", StringComparison.OrdinalIgnoreCase))
+		.ToList();
+}
+
+<div class="cuidadores-page" data-es-propietario="@esPropietario.ToString().ToLowerInvariant()" data-url-agregar="@Url.Action("AgregarCuidador", "Home")" data-url-eliminar="@Url.Action("EliminarCuidador", "Home")">
+	<section class="landing-brand">
+		<h1 class="Logo">BRIDGE</h1>
+		<h3 class="subtitle">Conservando la vida</h3>
+	</section>
+
+	<section class="dashboard-header">
+		<div>
+			<p class="dashboard-eyebrow">Familia y Cuidadores</p>
+			<h2>@ViewBag.NombreGrupo</h2>
+		</div>
+	</section>
+
+	<div class="cuidadores-grid">
+		<section class="dashboard-card cuidadores-card">
+			<div class="panel-header">
+				<h3>Últimos Mensajes</h3>
+				<a class="panel-link" href="@Url.Action("Herramientas", "Home")">Ver más</a>
+			</div>
+
+			@if (!mensajes.Any())
+			{
+				<p class="dashboard-empty">Todavía no hay mensajes en este grupo.</p>
+			}
+			else
+			{
+				<div class="mensajes-lista">
+					@foreach (MensajeViewModel mensaje in mensajes)
+					{
+						<article class="mensaje-item">
+							@if (!string.IsNullOrWhiteSpace(mensaje.fotoPerfil))
+							{
+								<img class="avatar" src="@mensaje.fotoPerfil" alt="Foto de @mensaje.nombreCuidador" />
+							}
+							else
+							{
+								<div class="avatar avatar-placeholder">👤</div>
+							}
+							<div class="mensaje-contenido">
+								<div class="mensaje-top">
+									<strong>@mensaje.nombreCuidador</strong>
+									<span>@mensaje.fechaHora.ToString("dd/MM HH:mm")</span>
+								</div>
+								<p>@mensaje.contenido</p>
+							</div>
+						</article>
+					}
+				</div>
+			}
+		</section>
+
+		<section class="dashboard-card cuidadores-card">
+			<div class="panel-header">
+				<h3>Calendario compartido</h3>
+				<a class="panel-link" href="@Url.Action("Dashboard", "Home")">Ver</a>
+			</div>
+
+			<div class="calendar-box">
+				<p class="calendar-title">@char.ToUpper(mesActual[0])@mesActual.Substring(1) @anioActual</p>
+				<div class="calendar-grid calendar-weekdays">
+					<span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span>
+				</div>
+
+				<div class="calendar-grid">
+					@for (int i = 0; i < desplazamientoInicio; i++)
+					{
+						int diaPrevio = (diasMesAnterior - desplazamientoInicio + 1) + i;
+						<span class="calendar-day muted">@diaPrevio</span>
+					}
+
+					@for (int dia = 1; dia <= diasEnMes; dia++)
+					{
+						bool esHoy = anioActual == DateTime.Today.Year && mesActualNumero == DateTime.Today.Month && dia == DateTime.Today.Day;
+						bool tieneEvento = diasConEventos.Contains(dia);
+
+						string clases = "calendar-day";
+						if (esHoy) clases += " today";
+						if (tieneEvento) clases += " with-event";
+
+						<span class="@clases">@dia</span>
+					}
+
+					@{
+						int celdasCompletas = desplazamientoInicio + diasEnMes;
+						int faltantes = (7 - (celdasCompletas % 7)) % 7;
+					}
+					@for (int dia = 1; dia <= faltantes; dia++)
+					{
+						<span class="calendar-day muted">@dia</span>
+					}
+				</div>
+			</div>
+		</section>
+
+		<section class="dashboard-card cuidadores-card">
+			<div class="panel-header">
+				<h3>Cuidadores autorizados</h3>
+				@if (esPropietario)
+				{
+					<button id="btnAbrirAgregar" type="button" class="panel-button">Agregar</button>
+				}
+			</div>
+
+			@if (!cuidadores.Any())
+			{
+				<p class="dashboard-empty">Aún no hay cuidadores en este grupo.</p>
+			}
+			else
+			{
+				<div class="cuidadores-lista">
+					@if (!cuidadoresAutorizados.Any())
+					{
+						<p class="dashboard-empty">No hay cuidadores autorizados por el momento.</p>
+					}
+					else
+					{
+						@foreach (CuidadorGrupoViewModel cuidador in cuidadoresAutorizados)
+						{
+							<article class="cuidador-item">
+								<div class="cuidador-identidad">
+									@if (!string.IsNullOrWhiteSpace(cuidador.fotoPerfil))
+									{
+										<img class="avatar" src="@cuidador.fotoPerfil" alt="Foto de @cuidador.nombre" />
+									}
+									else
+									{
+										<div class="avatar avatar-placeholder">👤</div>
+									}
+
+									<div>
+										<p class="nombre-cuidador">@cuidador.nombre</p>
+										<div class="badges">
+											<span class="badge badge-ok">Autorizado</span>
+											@if (cuidador.esPropietario)
+											{
+												<span class="badge badge-owner">Propietario</span>
+											}
+										</div>
+									</div>
+								</div>
+
+								@if (esPropietario && !cuidador.esPropietario)
+								{
+									<button type="button" class="btn-danger-outline btn-eliminar" data-id="@cuidador.id_cuidador" data-nombre="@cuidador.nombre">Eliminar</button>
+								}
+							</article>
+						}
+					}
+
+					@if (cuidadoresPendientes.Any())
+					{
+						<p class="subtitulo-lista">Pendientes</p>
+						@foreach (CuidadorGrupoViewModel cuidador in cuidadoresPendientes)
+						{
+							<article class="cuidador-item">
+								<div class="cuidador-identidad">
+									@if (!string.IsNullOrWhiteSpace(cuidador.fotoPerfil))
+									{
+										<img class="avatar" src="@cuidador.fotoPerfil" alt="Foto de @cuidador.nombre" />
+									}
+									else
+									{
+										<div class="avatar avatar-placeholder">👤</div>
+									}
+									<div>
+										<p class="nombre-cuidador">@cuidador.nombre</p>
+										<div class="badges">
+											<span class="badge badge-pending">Pendiente</span>
+										</div>
+									</div>
+								</div>
+
+								@if (esPropietario)
+								{
+									<button type="button" class="btn-danger-outline btn-eliminar" data-id="@cuidador.id_cuidador" data-nombre="@cuidador.nombre">Eliminar</button>
+								}
+							</article>
+						}
+					}
+				</div>
+			}
+		</section>
+	</div>
+</div>
+
+@if (esPropietario)
+{
+	<div id="modalAgregar" class="bridge-modal" aria-hidden="true">
+		<div class="bridge-modal__content">
+			<h4>Agregar cuidador</h4>
+			<p>Ingresá el nombre de usuario o mail del cuidador.</p>
+			<input id="identificadorCuidador" type="text" placeholder="usuario@mail.com o nombreUsuario" />
+			<p id="agregarMensaje" class="modal-message"></p>
+			<div class="modal-actions">
+				<button id="btnConfirmarAgregar" type="button">Confirmar</button>
+				<button id="btnCerrarAgregar" type="button" class="btn-secondary">Cancelar</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="modalEliminar" class="bridge-modal" aria-hidden="true">
+		<div class="bridge-modal__content">
+			<h4>Eliminar cuidador</h4>
+			<p id="textoEliminar"></p>
+			<p id="eliminarMensaje" class="modal-message"></p>
+			<div class="modal-actions">
+				<button id="btnConfirmarEliminar" type="button">Eliminar</button>
+				<button id="btnCerrarEliminar" type="button" class="btn-secondary">Cancelar</button>
+			</div>
+		</div>
+	</div>
+}
+

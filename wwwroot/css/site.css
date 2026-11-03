@@ -1363,3 +1363,302 @@ footer.footer .FooterH4 {
         font-size: 1rem;
     }
 }
+
+  /* ===== FAMILIA Y CUIDADORES ===== */
+  .cuidadores-page {
+    width: 100%;
+  }
+
+  .cuidadores-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .cuidadores-card {
+    border: 1px solid rgba(0, 169, 175, 0.28);
+    border-radius: 18px;
+    padding: 1rem;
+    background: #ffffff;
+    box-shadow: 0 10px 22px rgba(0, 169, 175, 0.08);
+    min-height: 420px;
+  }
+
+  .panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .panel-header h3 {
+    margin: 0;
+    text-align: left !important;
+    font-size: 1.15rem;
+  }
+
+  .panel-link {
+    color: var(--color-primario-oscuro);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  .panel-link:hover {
+    text-decoration: underline;
+  }
+
+  .panel-button {
+    padding: 0.55rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .mensajes-lista,
+  .cuidadores-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .mensaje-item,
+  .cuidador-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.65rem;
+    border: 1px solid var(--color-borde);
+    border-radius: 14px;
+    padding: 0.7rem;
+    background: #f9fdfd;
+  }
+
+  .avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(0, 169, 175, 0.22);
+    flex-shrink: 0;
+  }
+
+  .avatar-placeholder {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    background: #eef8f8;
+  }
+
+  .mensaje-contenido {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .mensaje-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem;
+    margin-bottom: 0.1rem;
+  }
+
+  .mensaje-top span {
+    color: var(--color-texto-suave);
+    font-size: 0.8rem;
+  }
+
+  .mensaje-contenido p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.94rem;
+  }
+
+  .calendar-box {
+    border: 1px solid var(--color-borde);
+    border-radius: 14px;
+    padding: 0.8rem;
+    background: #f9fdfd;
+  }
+
+  .calendar-title {
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+  }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.35rem;
+  }
+
+  .calendar-weekdays span {
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.78rem;
+    color: var(--color-texto-suave);
+  }
+
+  .calendar-day {
+    height: 31px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.86rem;
+    border: 1px solid transparent;
+  }
+
+  .calendar-day.muted {
+    color: #a8b4bf;
+  }
+
+  .calendar-day.today {
+    background: var(--color-primario);
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  .calendar-day.with-event {
+    border-color: rgba(0, 169, 175, 0.55);
+    position: relative;
+  }
+
+  .calendar-day.with-event::after {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--color-primario-oscuro);
+    position: absolute;
+    bottom: 4px;
+  }
+
+  .cuidador-identidad {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    min-width: 0;
+  }
+
+  .nombre-cuidador {
+    font-weight: 700;
+    margin-bottom: 0.15rem;
+  }
+
+  .badges {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    font-size: 0.74rem;
+    padding: 0.2rem 0.55rem;
+    font-weight: 700;
+  }
+
+  .badge-ok {
+    color: #0a7d81;
+    background: #d7f7f8;
+  }
+
+  .badge-owner {
+    color: #7a5b00;
+    background: #fff2c7;
+  }
+
+  .badge-pending {
+    color: #7b6170;
+    background: #f5e8ef;
+  }
+
+  .btn-danger-outline {
+    border: 1px solid #d93025;
+    background: #ffffff;
+    color: #d93025;
+    border-radius: 999px;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.74rem;
+    font-weight: 700;
+  }
+
+  .btn-danger-outline:hover {
+    box-shadow: none;
+    transform: none;
+    background: #fff4f3;
+  }
+
+  .subtitulo-lista {
+    margin-top: 0.45rem;
+    font-weight: 700;
+    color: var(--color-texto-suave);
+    font-size: 0.85rem;
+  }
+
+  .bridge-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(15, 23, 42, 0.35);
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .bridge-modal.is-open {
+    display: flex;
+  }
+
+  .bridge-modal__content {
+    background: #ffffff;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 440px;
+    padding: 1rem;
+    border: 1px solid rgba(0, 169, 175, 0.2);
+  }
+
+  .bridge-modal__content h4 {
+    margin: 0 0 0.4rem;
+    text-align: left !important;
+  }
+
+  .bridge-modal__content input {
+    margin-top: 0.7rem;
+  }
+
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 0.8rem;
+  }
+
+  .btn-secondary {
+    background: #eef3f4;
+    color: #24343f;
+  }
+
+  .modal-message {
+    margin-top: 0.55rem;
+    color: #d93025;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 1100px) {
+    .cuidadores-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cuidadores-card {
+      min-height: auto;
+    }
+  }

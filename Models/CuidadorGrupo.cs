@@ -7,4 +7,5 @@ public class CuidadorGrupo
     public int id_cuidador { get; set; }
     public DateTime fechaIngreso { get; set; }
     public string estadoAutorizacion { get; set; } = string.Empty;
+    public bool esPropietario { get; set; }
 }

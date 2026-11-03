@@ -8,6 +8,18 @@ public class BD
 {
     private readonly string _connectionString = @"Server=localhost;Database=Bridge;Integrated Security=True;TrustServerCertificate=True;";
 
+    private bool ExisteColumnaEsPropietario(SqlConnection connection)
+    {
+        const string query = @"
+            SELECT COUNT(1)
+            FROM sys.columns
+            WHERE Name = N'esPropietario'
+              AND Object_ID = Object_ID(N'dbo.CuidadorGrupo');";
+
+        int cantidad = connection.ExecuteScalar<int>(query);
+        return cantidad > 0;
+    }
+
     public string ObtenerNombreAdulto(int IdGrupo)
     {
         using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -423,7 +435,7 @@ public class BD
                     FROM AdultoMayor
                     INNER JOIN Grupo ON AdultoMayor.id_adultoMayor = Grupo.id_adultoMayor
                     WHERE Grupo.id_grupo = @id_grupo";
-                adultoMayor = connection.QueryFirstOrDefault<AdultoMayor>(query, new { id_grupo = idGrupo });
+                adultoMayor = connection.QueryFirstOrDefault<AdultoMayor>(query, new { id_grupo = idGrupo }) ?? new AdultoMayor();
             }
             return adultoMayor;
         }
@@ -493,61 +505,13 @@ public class BD
                                 u.nombre,
                                 u.telefono
                             FROM Cuidador c
-                            INNER JOIN Usuario u ON u.id_usuario = c.id_usuario
-                            INNER JOIN CuidadorGrupo cg ON cg.id_cuidador = c.id_cuidador
-                            INNER JOIN Grupo g ON g.id_grupo = cg.id_grupo
+                            INNER JOIN CuidadorGrupo cg ON c.id_cuidador = cg.id_cuidador
+                            INNER JOIN Grupo g ON cg.id_grupo = g.id_grupo
                             WHERE g.id_grupo = @id_grupo
                             ORDER BY u.nombre ASC";
 
             cuidadores = connection.Query<Usuario>(query, new { id_grupo = idGrupo }).ToList();
         }
         return cuidadores;
-    }
-
-    public List<Ejercicio> ObtenerProximos3Ejercicios(int idGrupo)
-    {
-        List<Ejercicio> ejercicios = new List<Ejercicio>();
-
-        using (SqlConnection connection = new SqlConnection(_connectionString))
-        {
-            string query = @"SELECT TOP 3
-                                e.id_ejercicio,
-                                e.nombre,
-                                e.descripcion,
-                                e.fechaPublicacion
-                            FROM Ejercicio e
-                            ORDER BY e.id_ejercicio ASC";
-
-            ejercicios = connection.Query<Ejercicio>(query).ToList();
-        }
-
-        return ejercicios;
-    }
-
-    public List<Articulo> ObtenerProximos3Articulos(int idGrupo)
-    {
-        List<Articulo> articulos = new List<Articulo>();
-
-        using (SqlConnection connection = new SqlConnection(_connectionString))
-        {
-            string query = @"SELECT TOP 3
-                                a.id_articulo,
-                                a.nombre,
-                                a.descripcion,
-                                a.fechaPublicacion,
-                                a.autor
-                            FROM Articulo a
-                            WHERE EXISTS (
-                                SELECT 1
-                                FROM AdultoMayor am
-                                INNER JOIN Grupo g ON g.id_adultoMayor = am.id_adultoMayor
-                                WHERE g.id_grupo = @id_grupo
-                            )
-                            ORDER BY a.fechaPublicacion DESC, a.id_articulo DESC";
-
-            articulos = connection.Query<Articulo>(query, new { id_grupo = idGrupo }).ToList();
-        }
-
-        return articulos;
     }
 }

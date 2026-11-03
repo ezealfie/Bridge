@@ -132,4 +132,141 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
+
+    const cuidadoresPage = document.querySelector('.cuidadores-page');
+    if (cuidadoresPage && cuidadoresPage.dataset.esPropietario === 'true') {
+        const modalAgregar = document.getElementById('modalAgregar');
+        const modalEliminar = document.getElementById('modalEliminar');
+        const btnAbrirAgregar = document.getElementById('btnAbrirAgregar');
+        const btnCerrarAgregar = document.getElementById('btnCerrarAgregar');
+        const btnConfirmarAgregar = document.getElementById('btnConfirmarAgregar');
+        const identificadorCuidador = document.getElementById('identificadorCuidador');
+        const agregarMensaje = document.getElementById('agregarMensaje');
+        const textoEliminar = document.getElementById('textoEliminar');
+        const eliminarMensaje = document.getElementById('eliminarMensaje');
+        const btnConfirmarEliminar = document.getElementById('btnConfirmarEliminar');
+        const btnCerrarEliminar = document.getElementById('btnCerrarEliminar');
+
+        const urlAgregar = cuidadoresPage.dataset.urlAgregar;
+        const urlEliminar = cuidadoresPage.dataset.urlEliminar;
+
+        let cuidadorSeleccionado = 0;
+
+        if (btnAbrirAgregar && modalAgregar && identificadorCuidador && agregarMensaje) {
+            btnAbrirAgregar.addEventListener('click', function () {
+                identificadorCuidador.value = '';
+                agregarMensaje.textContent = '';
+                modalAgregar.classList.add('is-open');
+            });
+        }
+
+        if (btnCerrarAgregar && modalAgregar) {
+            btnCerrarAgregar.addEventListener('click', function () {
+                modalAgregar.classList.remove('is-open');
+            });
+        }
+
+        if (btnCerrarEliminar && modalEliminar) {
+            btnCerrarEliminar.addEventListener('click', function () {
+                modalEliminar.classList.remove('is-open');
+            });
+        }
+
+        if (btnConfirmarAgregar && identificadorCuidador && agregarMensaje && urlAgregar) {
+            btnConfirmarAgregar.addEventListener('click', async function () {
+                const identificador = identificadorCuidador.value.trim();
+                if (!identificador) {
+                    agregarMensaje.textContent = 'Ingresá un identificador válido.';
+                    return;
+                }
+
+                const body = new URLSearchParams();
+                body.append('identificador', identificador);
+
+                try {
+                    const response = await fetch(urlAgregar, {
+                        method: 'POST',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                        },
+                        body: body.toString()
+                    });
+
+                    const data = await response.json();
+                    if (data.success) {
+                        window.location.reload();
+                        return;
+                    }
+
+                    agregarMensaje.textContent = data.message || 'No se pudo agregar el cuidador.';
+                } catch (error) {
+                    agregarMensaje.textContent = 'No se pudo conectar con el servidor.';
+                }
+            });
+        }
+
+        document.querySelectorAll('.btn-eliminar').forEach(function (boton) {
+            boton.addEventListener('click', function () {
+                cuidadorSeleccionado = parseInt(boton.dataset.id || '0', 10);
+                const nombre = boton.dataset.nombre || 'este cuidador';
+
+                if (textoEliminar) {
+                    textoEliminar.textContent = `¿Seguro que querés eliminar a ${nombre} del grupo?`;
+                }
+
+                if (eliminarMensaje) {
+                    eliminarMensaje.textContent = '';
+                }
+
+                if (modalEliminar) {
+                    modalEliminar.classList.add('is-open');
+                }
+            });
+        });
+
+        if (btnConfirmarEliminar && eliminarMensaje && urlEliminar) {
+            btnConfirmarEliminar.addEventListener('click', async function () {
+                if (!cuidadorSeleccionado) {
+                    return;
+                }
+
+                const body = new URLSearchParams();
+                body.append('idCuidadorAEliminar', cuidadorSeleccionado.toString());
+
+                try {
+                    const response = await fetch(urlEliminar, {
+                        method: 'POST',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                        },
+                        body: body.toString()
+                    });
+
+                    const data = await response.json();
+                    if (data.success) {
+                        window.location.reload();
+                        return;
+                    }
+
+                    eliminarMensaje.textContent = data.message || 'No se pudo eliminar el cuidador.';
+                } catch (error) {
+                    eliminarMensaje.textContent = 'No se pudo conectar con el servidor.';
+                }
+            });
+        }
+
+        [modalAgregar, modalEliminar].forEach(function (modal) {
+            if (!modal) {
+                return;
+            }
+
+            modal.addEventListener('click', function (event) {
+                if (event.target === modal) {
+                    modal.classList.remove('is-open');
+                }
+            });
+        });
+    }
 });
