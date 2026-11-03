@@ -224,17 +224,6 @@ public class BD
         }
     }
 
-    public void ActualizarFotoPerfil(int id_usuario, string fotoPerfil)
-    {
-        using (SqlConnection connection = new SqlConnection(_connectionString))
-        {
-            connection.Execute(
-                @"UPDATE Usuario SET fotoPerfil = @fotoPerfil WHERE id_usuario = @id_usuario",
-                new { fotoPerfil = fotoPerfil, id_usuario = id_usuario }
-            );
-        }
-    }
-
     public int RegistrarUsuario(string emailOrNombre, string contrasenaOrApellido, string nombreOrEmail, string apellidoOrContrasena = "", string telefono = "", string tipoUsuario = "Cuidador", string? dniAdultoMayor = null, DateTime? fechaNacimientoAdultoMayor = null, string? condicionAdultoMayor = null)
     {
         string email;
@@ -289,41 +278,6 @@ public class BD
                 new { Mail = email },
                 commandType: CommandType.StoredProcedure
             );
-        }
-    }
-
-    public List<Grupo> ObtenerGruposUsuario(int idUsuario)
-    {
-        using (SqlConnection connection = new SqlConnection(_connectionString))
-        {
-            const string sql = @"
-                SELECT DISTINCT
-                    g.id_grupo,
-                    g.Nombre,
-                    g.id_adultoMayor,
-                    g.descripcion
-                FROM dbo.Grupo g
-                LEFT JOIN dbo.AdultoMayor am ON am.id_adultoMayor = g.id_adultoMayor
-                LEFT JOIN dbo.CuidadorGrupo cg ON cg.id_grupo = g.id_grupo
-                LEFT JOIN dbo.Cuidador c ON c.id_cuidador = cg.id_cuidador
-                WHERE am.id_usuario = @IdUsuario
-                   OR c.id_usuario = @IdUsuario
-                ORDER BY g.id_grupo;";
-
-            return connection.Query<Grupo>(sql, new { IdUsuario = idUsuario }).ToList();
-        }
-    }
-
-    public int ObtenerIdUsuario(string mail)
-    {
-        using (SqlConnection connection = new SqlConnection(_connectionString))
-        {
-            int? id = connection.QueryFirstOrDefault<int?>(
-                "ObtenerIdUsuario",
-                new { Mail = mail },
-                commandType: CommandType.StoredProcedure
-            );
-            return id ?? -1;
         }
     }
 
