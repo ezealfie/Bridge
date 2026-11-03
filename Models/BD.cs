@@ -291,42 +291,6 @@ public class BD
             );
         }
     }
-
-    public List<Grupo> ObtenerGruposUsuario(int idUsuario)
-    {
-        using (SqlConnection connection = new SqlConnection(_connectionString))
-        {
-            const string sql = @"
-                SELECT DISTINCT
-                    g.id_grupo,
-                    g.Nombre,
-                    g.id_adultoMayor,
-                    g.descripcion
-                FROM dbo.Grupo g
-                LEFT JOIN dbo.AdultoMayor am ON am.id_adultoMayor = g.id_adultoMayor
-                LEFT JOIN dbo.CuidadorGrupo cg ON cg.id_grupo = g.id_grupo
-                LEFT JOIN dbo.Cuidador c ON c.id_cuidador = cg.id_cuidador
-                WHERE am.id_usuario = @IdUsuario
-                   OR c.id_usuario = @IdUsuario
-                ORDER BY g.id_grupo;";
-
-            return connection.Query<Grupo>(sql, new { IdUsuario = idUsuario }).ToList();
-        }
-    }
-
-    public int ObtenerIdUsuario(string mail)
-    {
-        using (SqlConnection connection = new SqlConnection(_connectionString))
-        {
-            int? id = connection.QueryFirstOrDefault<int?>(
-                "ObtenerIdUsuario",
-                new { Mail = mail },
-                commandType: CommandType.StoredProcedure
-            );
-            return id ?? -1;
-        }
-    }
-
     public bool AgregarCuidadorAGrupo(int idGrupo, int idCuidador)
     {
         using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -369,15 +333,6 @@ public class BD
             ) ?? string.Empty;
         }
     }
-    public void ActualizarFotoPerfil(int id_usuario, string fotoPerfil)
-    {
-        using (SqlConnection connection = new SqlConnection(_connectionString))
-        {
-            string query = @"UPDATE Usuario SET fotoPerfil = @fotoPerfil WHERE id_usuario = @id_usuario";
-            connection.Execute(query, new { fotoPerfil = fotoPerfil, id_usuario = id_usuario });
-        }
-    }
-
   public List<Recordatorio> ObtenerRecordatorios(int idGrupo)
     {
         List<Recordatorio> recordatorios = new List<Recordatorio>();
@@ -459,20 +414,81 @@ public class BD
         }
         return documentos;
     }
-    public List<Cuidador> ObtenerProximos3Cuidadores(int idGrupo)
+    public List<Usuario> ObtenerProximos3Cuidadores(int idGrupo)
     {
-        List<Cuidador> cuidadores = new List<Cuidador>();
+        List<Usuario> cuidadores = new List<Usuario>();
+
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = @"SELECT TOP 3 c.*
+            string query = @"SELECT TOP 3
+                                c.id_cuidador,
+                                c.id_usuario,
+                                u.nombre,
+                                u.apellido,
+                                u.telefono
                             FROM Cuidador c
-                            INNER JOIN CuidadorGrupo cg ON c.id_cuidador = cg.id_cuidador
-                            INNER JOIN Grupo g ON cg.id_grupo = g.id_grupo
+                            INNER JOIN Usuario u ON u.id_usuario = c.id_usuario
+                            INNER JOIN CuidadorGrupo cg ON cg.id_cuidador = c.id_cuidador
+                            INNER JOIN Grupo g ON g.id_grupo = cg.id_grupo
                             WHERE g.id_grupo = @id_grupo
-                            ORDER BY c.nombre ASC";
+                            ORDER BY u.nombre ASC";
 
-            cuidadores = connection.Query<Cuidador>(query, new { id_grupo = idGrupo }).ToList();
+            cuidadores = connection.Query<Usuario>(query, new { id_grupo = idGrupo }).ToList();
         }
         return cuidadores;
+    }
+
+    public List<Ejercicio> ObtenerProximos3Ejercicios(int idGrupo)
+    {
+        List<Ejercicio> ejercicios = new List<Ejercicio>();
+
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            string query = @"SELECT TOP 3
+                                e.id_ejercicio,
+                                e.nombre,
+                                e.descripcion,
+                                e.fechaPublicacion
+                            FROM Ejercicio e
+                            WHERE e.id_ejercicio IN (
+                                SELECT DISTINCT ea.id_ejercicio
+                                FROM EjercicioAdulto ea
+                                INNER JOIN AdultoMayor am ON am.id_adultoMayor = ea.id_adultoMayor
+                                INNER JOIN Grupo g ON g.id_adultoMayor = am.id_adultoMayor
+                                WHERE g.id_grupo = @id_grupo
+                            )
+                            ORDER BY e.fechaPublicacion DESC, e.id_ejercicio DESC";
+
+            ejercicios = connection.Query<Ejercicio>(query, new { id_grupo = idGrupo }).ToList();
+        }
+
+        return ejercicios;
+    }
+
+    public List<Articulo> ObtenerProximos3Articulos(int idGrupo)
+    {
+        List<Articulo> articulos = new List<Articulo>();
+
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            string query = @"SELECT TOP 3
+                                a.id_articulo,
+                                a.nombre,
+                                a.descripcion,
+                                a.fechaPublicacion,
+                                a.autor
+                            FROM Articulo a
+                            WHERE EXISTS (
+                                SELECT 1
+                                FROM AdultoMayor am
+                                INNER JOIN Grupo g ON g.id_adultoMayor = am.id_adultoMayor
+                                WHERE g.id_grupo = @id_grupo
+                            )
+                            ORDER BY a.fechaPublicacion DESC, a.id_articulo DESC";
+
+            articulos = connection.Query<Articulo>(query, new { id_grupo = idGrupo }).ToList();
+        }
+
+        return articulos;
     }
 }
