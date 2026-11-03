@@ -223,16 +223,7 @@ public class BD
             return usuario;
         }
     }
-    public void ActualizarFotoPerfil(int id_usuario, string fotoPerfil)
-    {
-        using (SqlConnection connection = new SqlConnection(_connectionString))
-        {
-            connection.Execute(
-                @"UPDATE Usuario SET fotoPerfil = @fotoPerfil WHERE id_usuario = @id_usuario",
-                new { fotoPerfil = fotoPerfil, id_usuario = id_usuario }
-            );
-        }
-    }
+
     public int RegistrarUsuario(string emailOrNombre, string contrasenaOrApellido, string nombreOrEmail, string apellidoOrContrasena = "", string telefono = "", string tipoUsuario = "Cuidador", string? dniAdultoMayor = null, DateTime? fechaNacimientoAdultoMayor = null, string? condicionAdultoMayor = null)
     {
         string email;
@@ -322,6 +313,41 @@ public class BD
                 );
             }
             return idUsuario;
+
+            if (idUsuario <= 0)
+            {
+                return -1;
+            }
+
+            if (esAdultoMayor)
+            {
+                if (string.IsNullOrWhiteSpace(dniAdultoMayor) || fechaNacimientoAdultoMayor == null)
+                {
+                    return -1;
+                }
+
+                connection.Execute(
+                    "InsertarAdultoMayor",
+                    new
+                    {
+                        Dni = dniAdultoMayor.Trim(),
+                        FechaNacimiento = fechaNacimientoAdultoMayor.Value.Date,
+                        Condicion = string.IsNullOrWhiteSpace(condicionAdultoMayor) ? null : condicionAdultoMayor.Trim(),
+                        IdUsuario = idUsuario,
+                        FechaIngreso = DateTime.Today
+                    },
+                    commandType: CommandType.StoredProcedure
+                );
+            }
+            else
+            {
+                connection.Execute(
+                    "InsertarCuidador",
+                    new { IdUsuario = idUsuario },
+                    commandType: CommandType.StoredProcedure
+                );
+            }
+            return idUsuario;
         }
     }
     public bool AgregarCuidadorAGrupo(int idGrupo, int idCuidador)
@@ -371,10 +397,18 @@ public class BD
         List<Recordatorio> recordatorios = new List<Recordatorio>();
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = @"SELECT *
+            string query = @"
+            SELECT 
+                Recordatorio.id_recordatorio,
+                Recordatorio.nombre,
+                Recordatorio.descripcion,
+                Recordatorio.fechaHora,
+                Recordatorio.id_adultoMayor
             FROM Recordatorio
-            INNER JOIN AdultoMayor ON Recordatorio.id_adultoMayor = AdultoMayor.id_adultoMayor
-            INNER JOIN Grupo ON AdultoMayor.id_adultoMayor = Grupo.id_adultoMayor
+            INNER JOIN AdultoMayor 
+                ON Recordatorio.id_adultoMayor = AdultoMayor.id_adultoMayor
+            INNER JOIN Grupo 
+                ON AdultoMayor.id_adultoMayor = Grupo.id_adultoMayor
             WHERE Grupo.id_grupo = @id_grupo";
             recordatorios = connection.Query<Recordatorio>(query, new { id_grupo = idGrupo }).ToList();
         }
@@ -399,7 +433,7 @@ public class BD
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
             string query = @"SELECT 
-                            *
+                            Medicacion.*
                             FROM Medicacion
                             INNER JOIN MedicacionRegistro ON Medicacion.id_medicacion = MedicacionRegistro.id_medicacion
                             INNER JOIN RegistroMedico ON MedicacionRegistro.id_registro = RegistroMedico.id_registro
@@ -418,7 +452,7 @@ public class BD
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
             string query = @"SELECT 
-                                *
+                                Episodio.*
                             FROM Episodio
                             INNER JOIN RegistroMedico ON Episodio.id_registro = RegistroMedico.id_registro
                             INNER JOIN AdultoMayor ON RegistroMedico.id_adultoMayor = AdultoMayor.id_adultoMayor
@@ -436,7 +470,7 @@ public class BD
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
             string query = @"SELECT 
-                                *
+                                Documento.*
                             FROM Documento
                             INNER JOIN RegistroMedico ON Documento.id_registro = RegistroMedico.id_registro
                             INNER JOIN AdultoMayor ON RegistroMedico.id_adultoMayor = AdultoMayor.id_adultoMayor
