@@ -278,6 +278,8 @@ public class BD
                 new { Mail = email },
                 commandType: CommandType.StoredProcedure
             );
+
+            return idUsuario;
         }
     }
 
