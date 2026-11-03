@@ -21,11 +21,12 @@
                 {
                     <div class="reminder-item">
                         <div class="reminder-meta">
-                            <span>@recordatorio.fechaHora</span>
-                            <span>@recordatorio.descripcion</span>
+                        <strong>@recordatorio.nombre</strong>
+                            <p>@recordatorio.fechaHora</p>
+                            <p>@recordatorio.descripcion</p>
                         </div>
                         <button type="button" onclick="location.href='@Url.Action("Recordatorios", "Home")'">
-                            @recordatorio.nombre
+                            Entrar
                         </button>
                     </div>
                 }
@@ -75,7 +76,10 @@
                             <ul>
                                 @foreach (var medicamento in medicaciones)
                                 {
-                                    <li>@medicamento</li>
+                                    <li>
+                                    <p><strong>@medicamento.Nombre</strong></p>
+                                    <p>@medicamento.descripcion</p>
+                                    </li>
                                 }
                             </ul>
                         }
@@ -95,9 +99,10 @@
                                 @foreach (var episodio in episodios)
                                 {
                                     <li>
-                                        <strong>@episodio.Fecha</strong>
-                                        <span>@episodio.Hora</span>
-                                        <p>@episodio.Descripcion</p>
+                                        <strong>@episodio.titulo</strong>
+                                        <strong>@episodio.fecha_hora</strong>
+                                        <p>@episodio.descripcion</p>
+                                        <p>Causa: @episodio.causa</p>
                                     </li>
                                 }
                             </ul>
@@ -117,7 +122,11 @@
                             <ul>
                                 @foreach (var documento in documentos)
                                 {
-                                    <li>@documento</li>
+                                    <li>
+                                    <p><strong>@documento.titulo</strong></p>
+                                    <p>@documento.fecha_hora</p>
+                                    <p>@documento.descripcion</p>
+                                    </li>
                                 }
                             </ul>
                         }
@@ -179,6 +188,13 @@
         display: flex;
         flex-direction: column;
         gap: 0.8rem;
+    }
+
+    .reminder-list {
+        max-height: 300px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-right: 0.25rem;
     }
 
     .reminder-item {
@@ -268,6 +284,9 @@
         border: 1px solid #cfe9eb;
         border-radius: 14px;
         padding: 0.7rem 0.8rem;
+        max-height: 180px;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
 
     .medical-content ul {

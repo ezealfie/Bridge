@@ -850,16 +850,17 @@ footer.footer a img {
 }
 
 .Herramientas-Flex .Contactos .btn-register {
-    align-self: flex-start;
-    display: inline-flex !important;
-    align-items: center;
     justify-content: center;
     min-width: 7.5rem;
-    margin-top: 0.5rem !important;
+    margin-right: auto;    
+    margin-left: auto;
+    display: block;
+    text-decoration: none !important;
     border-radius: 999px;
     padding: 0.8rem 1.5rem;
     font-size: 1rem;
     line-height: 1;
+    text-align: center;
 }
 .btn-register {
   background: #ffffff !important;
