@@ -279,6 +279,39 @@ public class BD
                 commandType: CommandType.StoredProcedure
             );
 
+            if (idUsuario <= 0)
+            {
+                return -1;
+            }
+
+            if (esAdultoMayor)
+            {
+                if (string.IsNullOrWhiteSpace(dniAdultoMayor) || fechaNacimientoAdultoMayor == null)
+                {
+                    return -1;
+                }
+
+                connection.Execute(
+                    "InsertarAdultoMayor",
+                    new
+                    {
+                        Dni = dniAdultoMayor.Trim(),
+                        FechaNacimiento = fechaNacimientoAdultoMayor.Value.Date,
+                        Condicion = string.IsNullOrWhiteSpace(condicionAdultoMayor) ? null : condicionAdultoMayor.Trim(),
+                        IdUsuario = idUsuario,
+                        FechaIngreso = DateTime.Today
+                    },
+                    commandType: CommandType.StoredProcedure
+                );
+            }
+            else
+            {
+                connection.Execute(
+                    "InsertarCuidador",
+                    new { IdUsuario = idUsuario },
+                    commandType: CommandType.StoredProcedure
+                );
+            }
             return idUsuario;
         }
     }
