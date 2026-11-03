@@ -223,7 +223,6 @@ public class BD
             return usuario;
         }
     }
-
     public void ActualizarFotoPerfil(int id_usuario, string fotoPerfil)
     {
         using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -234,7 +233,6 @@ public class BD
             );
         }
     }
-
     public int RegistrarUsuario(string emailOrNombre, string contrasenaOrApellido, string nombreOrEmail, string apellidoOrContrasena = "", string telefono = "", string tipoUsuario = "Cuidador", string? dniAdultoMayor = null, DateTime? fechaNacimientoAdultoMayor = null, string? condicionAdultoMayor = null)
     {
         string email;
@@ -289,6 +287,41 @@ public class BD
                 new { Mail = email },
                 commandType: CommandType.StoredProcedure
             );
+
+            if (idUsuario <= 0)
+            {
+                return -1;
+            }
+
+            if (esAdultoMayor)
+            {
+                if (string.IsNullOrWhiteSpace(dniAdultoMayor) || fechaNacimientoAdultoMayor == null)
+                {
+                    return -1;
+                }
+
+                connection.Execute(
+                    "InsertarAdultoMayor",
+                    new
+                    {
+                        Dni = dniAdultoMayor.Trim(),
+                        FechaNacimiento = fechaNacimientoAdultoMayor.Value.Date,
+                        Condicion = string.IsNullOrWhiteSpace(condicionAdultoMayor) ? null : condicionAdultoMayor.Trim(),
+                        IdUsuario = idUsuario,
+                        FechaIngreso = DateTime.Today
+                    },
+                    commandType: CommandType.StoredProcedure
+                );
+            }
+            else
+            {
+                connection.Execute(
+                    "InsertarCuidador",
+                    new { IdUsuario = idUsuario },
+                    commandType: CommandType.StoredProcedure
+                );
+            }
+            return idUsuario;
         }
     }
     public bool AgregarCuidadorAGrupo(int idGrupo, int idCuidador)
@@ -424,7 +457,6 @@ public class BD
                                 c.id_cuidador,
                                 c.id_usuario,
                                 u.nombre,
-                                u.apellido,
                                 u.telefono
                             FROM Cuidador c
                             INNER JOIN Usuario u ON u.id_usuario = c.id_usuario
@@ -450,16 +482,9 @@ public class BD
                                 e.descripcion,
                                 e.fechaPublicacion
                             FROM Ejercicio e
-                            WHERE e.id_ejercicio IN (
-                                SELECT DISTINCT ea.id_ejercicio
-                                FROM EjercicioAdulto ea
-                                INNER JOIN AdultoMayor am ON am.id_adultoMayor = ea.id_adultoMayor
-                                INNER JOIN Grupo g ON g.id_adultoMayor = am.id_adultoMayor
-                                WHERE g.id_grupo = @id_grupo
-                            )
-                            ORDER BY e.fechaPublicacion DESC, e.id_ejercicio DESC";
+                            ORDER BY e.id_ejercicio ASC";
 
-            ejercicios = connection.Query<Ejercicio>(query, new { id_grupo = idGrupo }).ToList();
+            ejercicios = connection.Query<Ejercicio>(query).ToList();
         }
 
         return ejercicios;

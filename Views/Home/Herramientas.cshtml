@@ -1,3 +1,7 @@
+@
+{
+    ViewData["Title"] = "Herramientas";
+}
 <main class="Herramientas-Flex">
     <section class="Contactos">
         <h2>Acceso rapido</h2>
@@ -5,7 +9,7 @@
             <h3>Contactos</h3>
             @foreach (Usuario cuidador in ViewBag.Proximos3Cuidadores)
             {
-                <a class="primary-btn" href="@Url.Action()">@cuidador.nombre @cuidador.apellido: @cuidador.telefono</a>
+                <a class="primary-btn" href="@Url.Action()">@cuidador.nombre: @cuidador.telefono</a>
             }
             <a class="btn-register" href="@Url.Action()">Agregar</a>
         </div>
