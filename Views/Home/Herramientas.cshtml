@@ -8,9 +8,9 @@
             <h3>Contactos</h3>
             @foreach (Usuario cuidador in ViewBag.Proximos3Cuidadores)
             {
-                <a class="primary-btn" href="@Url.Action()">@cuidador.nombre: @cuidador.telefono</a>
+                <a class="primary-btn" href="@Url.Action("VerContacto", "Home", new { id = cuidador.id_usuario })">@cuidador.nombre: @cuidador.telefono</a>
             }
-            <a class="btn-register" href="@Url.Action()">Agregar</a>
+            <a class="btn-register" href="@Url.Action("AgregarContacto", "Home")">Agregar</a>
         </div>
     </section>
     <section class="Ejercicios">
@@ -20,7 +20,7 @@
             <div>
                 <h4>@ejercicio.nombre</h4>
                 <p>@ejercicio.descripcion</p>
-                <a class="primary-btn" href="@Url.Action()">Hacer</a>
+                <a class="primary-btn" href="@Url.Action("HacerEjercicio", "Home", new { id = ejercicio.id_ejercicio })">Hacer</a>
             </div>
         }
     </section>
@@ -31,7 +31,7 @@
             <div>
                 <h4>@articulo.nombre</h4>
                 <p>@articulo.descripcion</p>
-                <a class="primary-btn" href="@Url.Action()">Leer</a>
+                <a class="primary-btn" href="@Url.Action("LeerArticulo", "Home", new { id = articulo.id_articulo })">Leer</a>
             </div>
         }
     </section>
