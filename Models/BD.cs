@@ -503,15 +503,70 @@ public class BD
                                 c.id_cuidador,
                                 c.id_usuario,
                                 u.nombre,
+                                u.apellido,
                                 u.telefono
                             FROM Cuidador c
-                            INNER JOIN CuidadorGrupo cg ON c.id_cuidador = cg.id_cuidador
-                            INNER JOIN Grupo g ON cg.id_grupo = g.id_grupo
+                            INNER JOIN Usuario u ON u.id_usuario = c.id_usuario
+                            INNER JOIN CuidadorGrupo cg ON cg.id_cuidador = c.id_cuidador
+                            INNER JOIN Grupo g ON g.id_grupo = cg.id_grupo
                             WHERE g.id_grupo = @id_grupo
                             ORDER BY u.nombre ASC";
 
             cuidadores = connection.Query<Usuario>(query, new { id_grupo = idGrupo }).ToList();
         }
         return cuidadores;
+    }
+    public List<Ejercicio> ObtenerProximos3Ejercicios(int idGrupo)
+    {
+        List<Ejercicio> ejercicios = new List<Ejercicio>();
+
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            string query = @"SELECT TOP 3
+                                e.id_ejercicio,
+                                e.nombre,
+                                e.descripcion,
+                                e.fechaPublicacion
+                            FROM Ejercicio e
+                            WHERE e.id_ejercicio IN (
+                                SELECT DISTINCT ea.id_ejercicio
+                                FROM EjercicioAdulto ea
+                                INNER JOIN AdultoMayor am ON am.id_adultoMayor = ea.id_adultoMayor
+                                INNER JOIN Grupo g ON g.id_adultoMayor = am.id_adultoMayor
+                                WHERE g.id_grupo = @id_grupo
+                            )
+                            ORDER BY e.fechaPublicacion DESC, e.id_ejercicio DESC";
+
+            ejercicios = connection.Query<Ejercicio>(query, new { id_grupo = idGrupo }).ToList();
+        }
+
+        return ejercicios;
+    }
+
+    public List<Articulo> ObtenerProximos3Articulos(int idGrupo)
+    {
+        List<Articulo> articulos = new List<Articulo>();
+
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            string query = @"SELECT TOP 3
+                                a.id_articulo,
+                                a.nombre,
+                                a.descripcion,
+                                a.fechaPublicacion,
+                                a.autor
+                            FROM Articulo a
+                            WHERE EXISTS (
+                                SELECT 1
+                                FROM AdultoMayor am
+                                INNER JOIN Grupo g ON g.id_adultoMayor = am.id_adultoMayor
+                                WHERE g.id_grupo = @id_grupo
+                            )
+                            ORDER BY a.fechaPublicacion DESC, a.id_articulo DESC";
+
+            articulos = connection.Query<Articulo>(query, new { id_grupo = idGrupo }).ToList();
+        }
+
+        return articulos;
     }
 }
