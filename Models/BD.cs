@@ -8,6 +8,18 @@ public class BD
 {
     private readonly string _connectionString = @"Server=localhost;Database=Bridge;Integrated Security=True;TrustServerCertificate=True;";
 
+    private bool ExisteColumnaEsPropietario(SqlConnection connection)
+    {
+        const string query = @"
+            SELECT COUNT(1)
+            FROM sys.columns
+            WHERE Name = N'esPropietario'
+              AND Object_ID = Object_ID(N'dbo.CuidadorGrupo');";
+
+        int cantidad = connection.ExecuteScalar<int>(query);
+        return cantidad > 0;
+    }
+
     public string ObtenerNombreAdulto(int IdGrupo)
     {
         using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -398,7 +410,7 @@ public class BD
                     FROM AdultoMayor
                     INNER JOIN Grupo ON AdultoMayor.id_adultoMayor = Grupo.id_adultoMayor
                     WHERE Grupo.id_grupo = @id_grupo";
-                adultoMayor = connection.QueryFirstOrDefault<AdultoMayor>(query, new { id_grupo = idGrupo });
+                adultoMayor = connection.QueryFirstOrDefault<AdultoMayor>(query, new { id_grupo = idGrupo }) ?? new AdultoMayor();
             }
             return adultoMayor;
         }
@@ -465,11 +477,228 @@ public class BD
                             FROM Cuidador c
                             INNER JOIN CuidadorGrupo cg ON c.id_cuidador = cg.id_cuidador
                             INNER JOIN Grupo g ON cg.id_grupo = g.id_grupo
+                            INNER JOIN Usuario u ON c.id_usuario = u.id_usuario
                             WHERE g.id_grupo = @id_grupo
-                            ORDER BY c.nombre ASC";
+                            ORDER BY u.nombre ASC";
 
             cuidadores = connection.Query<Cuidador>(query, new { id_grupo = idGrupo }).ToList();
         }
         return cuidadores;
+    }
+
+    public List<MensajeViewModel> ObtenerUltimosMensajes(int idGrupo, int cantidad = 3)
+    {
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            const string query = @"
+                SELECT TOP (@Cantidad)
+                    m.id_mensaje,
+                    u.nombre AS nombreCuidador,
+                    u.fotoPerfil,
+                    m.contenido,
+                    m.fechaHora
+                FROM Mensaje m
+                INNER JOIN Cuidador c ON m.id_cuidador = c.id_cuidador
+                INNER JOIN Usuario u ON c.id_usuario = u.id_usuario
+                WHERE m.id_grupo = @IdGrupo
+                ORDER BY m.fechaHora DESC;";
+
+            List<MensajeViewModel> mensajes = connection.Query<MensajeViewModel>(query, new
+            {
+                IdGrupo = idGrupo,
+                Cantidad = cantidad
+            }).ToList();
+
+            return mensajes;
+        }
+    }
+
+    public List<CuidadorGrupoViewModel> ObtenerCuidadoresDelGrupo(int idGrupo)
+    {
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            bool tieneEsPropietario = ExisteColumnaEsPropietario(connection);
+            string query = tieneEsPropietario
+                ? @"
+                    SELECT
+                        c.id_cuidador,
+                        cg.id_cuidadorGrupo,
+                        u.nombre,
+                        u.fotoPerfil,
+                        cg.estadoAutorizacion,
+                        cg.esPropietario
+                    FROM CuidadorGrupo cg
+                    INNER JOIN Cuidador c ON cg.id_cuidador = c.id_cuidador
+                    INNER JOIN Usuario u ON c.id_usuario = u.id_usuario
+                    WHERE cg.id_grupo = @IdGrupo
+                    ORDER BY cg.esPropietario DESC, u.nombre ASC;"
+                : @"
+                    SELECT
+                        c.id_cuidador,
+                        cg.id_cuidadorGrupo,
+                        u.nombre,
+                        u.fotoPerfil,
+                        cg.estadoAutorizacion,
+                        CAST(0 AS bit) AS esPropietario
+                    FROM CuidadorGrupo cg
+                    INNER JOIN Cuidador c ON cg.id_cuidador = c.id_cuidador
+                    INNER JOIN Usuario u ON c.id_usuario = u.id_usuario
+                    WHERE cg.id_grupo = @IdGrupo
+                    ORDER BY u.nombre ASC;";
+
+            List<CuidadorGrupoViewModel> cuidadores = connection.Query<CuidadorGrupoViewModel>(query, new { IdGrupo = idGrupo }).ToList();
+            return cuidadores;
+        }
+    }
+
+    public List<Evento> ObtenerEventosDelMes(int idGrupo, int anio, int mes)
+    {
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            const string query = @"
+                SELECT e.*
+                FROM Evento e
+                INNER JOIN AdultoMayor am ON e.id_adultoMayor = am.id_adultoMayor
+                INNER JOIN Grupo g ON am.id_adultoMayor = g.id_adultoMayor
+                WHERE g.id_grupo = @IdGrupo
+                  AND YEAR(e.fechaHora) = @Anio
+                  AND MONTH(e.fechaHora) = @Mes;";
+
+            List<Evento> eventos = connection.Query<Evento>(query, new
+            {
+                IdGrupo = idGrupo,
+                Anio = anio,
+                Mes = mes
+            }).ToList();
+
+            return eventos;
+        }
+    }
+
+    public bool EsPropietarioDelGrupo(int idGrupo, int idCuidador)
+    {
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            if (!ExisteColumnaEsPropietario(connection))
+            {
+                return false;
+            }
+
+            const string query = @"
+                SELECT COUNT(1)
+                FROM CuidadorGrupo
+                WHERE id_grupo = @IdGrupo
+                  AND id_cuidador = @IdCuidador
+                  AND esPropietario = 1;";
+
+            int cantidad = connection.ExecuteScalar<int>(query, new
+            {
+                IdGrupo = idGrupo,
+                IdCuidador = idCuidador
+            });
+
+            return cantidad > 0;
+        }
+    }
+
+    public bool EliminarCuidadorDeGrupo(int idGrupo, int idCuidadorAEliminar)
+    {
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            if (!ExisteColumnaEsPropietario(connection))
+            {
+                return false;
+            }
+
+            const string query = @"
+                DELETE FROM CuidadorGrupo
+                WHERE id_grupo = @IdGrupo
+                  AND id_cuidador = @IdCuidadorAEliminar
+                  AND esPropietario = 0;";
+
+            int filas = connection.Execute(query, new
+            {
+                IdGrupo = idGrupo,
+                IdCuidadorAEliminar = idCuidadorAEliminar
+            });
+
+            return filas > 0;
+        }
+    }
+
+    public int AgregarCuidadorPorIdentificador(int idGrupo, string identificador)
+    {
+        if (string.IsNullOrWhiteSpace(identificador))
+        {
+            return -1;
+        }
+
+        string identificadorNormalizado = identificador.Trim();
+
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            if (!ExisteColumnaEsPropietario(connection))
+            {
+                return -3;
+            }
+
+            const string queryBuscarCuidador = @"
+                SELECT TOP 1 c.id_cuidador
+                FROM Cuidador c
+                INNER JOIN Usuario u ON c.id_usuario = u.id_usuario
+                WHERE u.mail = @Identificador
+                   OR u.nombreUsuario = @Identificador;";
+
+            int? idCuidador = connection.QueryFirstOrDefault<int?>(queryBuscarCuidador, new
+            {
+                Identificador = identificadorNormalizado
+            });
+
+            if (!idCuidador.HasValue || idCuidador.Value <= 0)
+            {
+                return -1;
+            }
+
+            const string queryYaEsMiembro = @"
+                SELECT COUNT(1)
+                FROM CuidadorGrupo
+                WHERE id_grupo = @IdGrupo
+                  AND id_cuidador = @IdCuidador;";
+
+            int cantidadMiembro = connection.ExecuteScalar<int>(queryYaEsMiembro, new
+            {
+                IdGrupo = idGrupo,
+                IdCuidador = idCuidador.Value
+            });
+
+            if (cantidadMiembro > 0)
+            {
+                return -2;
+            }
+
+            const string queryExistePropietario = @"
+                SELECT COUNT(1)
+                FROM CuidadorGrupo
+                WHERE id_grupo = @IdGrupo
+                  AND esPropietario = 1;";
+
+            int cantidadPropietarios = connection.ExecuteScalar<int>(queryExistePropietario, new { IdGrupo = idGrupo });
+            if (cantidadPropietarios <= 0)
+            {
+                return -3;
+            }
+
+            const string queryInsertar = @"
+                INSERT INTO CuidadorGrupo (id_grupo, id_cuidador, fechaIngreso, estadoAutorizacion, esPropietario)
+                VALUES (@IdGrupo, @IdCuidador, CONVERT(date, GETDATE()), 'pendiente', 0);";
+
+            connection.Execute(queryInsertar, new
+            {
+                IdGrupo = idGrupo,
+                IdCuidador = idCuidador.Value
+            });
+
+            return 1;
+        }
     }
 }

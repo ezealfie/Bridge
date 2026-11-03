@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 using Bridge.Models;
 
@@ -39,7 +40,97 @@ public class HomeController : Controller
     }
     public IActionResult Cuidadores()
     {
+        int idGrupo = HttpContext.Session.GetInt32("IdGrupo") ?? 0;
+        int idUsuario = HttpContext.Session.GetInt32("IdUsuario") ?? 0;
+
+        if (idGrupo <= 0)
+        {
+            return RedirectToAction("Grupo");
+        }
+
+        int idCuidador = _bd.ObtenerIdCuidadorPorUsuario(idUsuario);
+        bool esPropietario = idCuidador > 0 && _bd.EsPropietarioDelGrupo(idGrupo, idCuidador);
+
+        ViewBag.UltimosMensajes = _bd.ObtenerUltimosMensajes(idGrupo, 3);
+        ViewBag.Cuidadores = _bd.ObtenerCuidadoresDelGrupo(idGrupo);
+        ViewBag.EventosDelMes = _bd.ObtenerEventosDelMes(idGrupo, DateTime.Today.Year, DateTime.Today.Month);
+        ViewBag.NombreGrupo = _bd.ObtenerNombreGrupo(idGrupo);
+        ViewBag.EsPropietario = esPropietario;
+        ViewBag.IdGrupoActual = idGrupo;
+        ViewBag.MesActual = CultureInfo.GetCultureInfo("es-AR").DateTimeFormat.GetMonthName(DateTime.Today.Month);
+        ViewBag.AnioActual = DateTime.Today.Year;
+
         return View();
+    }
+
+    [HttpPost]
+    public IActionResult AgregarCuidador(string identificador)
+    {
+        int idGrupo = HttpContext.Session.GetInt32("IdGrupo") ?? 0;
+        int idUsuario = HttpContext.Session.GetInt32("IdUsuario") ?? 0;
+
+        if (idGrupo <= 0 || idUsuario <= 0)
+        {
+            return Json(new { success = false, message = "Sesión inválida." });
+        }
+
+        int idCuidadorSolicitante = _bd.ObtenerIdCuidadorPorUsuario(idUsuario);
+        bool esPropietario = idCuidadorSolicitante > 0 && _bd.EsPropietarioDelGrupo(idGrupo, idCuidadorSolicitante);
+        if (!esPropietario)
+        {
+            return StatusCode(403, new { success = false, message = "No tienes permisos para agregar cuidadores." });
+        }
+
+        int resultado = _bd.AgregarCuidadorPorIdentificador(idGrupo, identificador);
+        return resultado switch
+        {
+            1 => Json(new { success = true, message = "Cuidador agregado correctamente." }),
+            -1 => Json(new { success = false, message = "No se encontró un cuidador con ese identificador." }),
+            -2 => Json(new { success = false, message = "Ese cuidador ya pertenece al grupo." }),
+            -3 => Json(new { success = false, message = "No es posible realizar la operación con los permisos actuales." }),
+            _ => Json(new { success = false, message = "No se pudo agregar el cuidador." })
+        };
+    }
+
+    [HttpPost]
+    public IActionResult EliminarCuidador(int idCuidadorAEliminar)
+    {
+        int idGrupo = HttpContext.Session.GetInt32("IdGrupo") ?? 0;
+        int idUsuario = HttpContext.Session.GetInt32("IdUsuario") ?? 0;
+
+        if (idGrupo <= 0 || idUsuario <= 0)
+        {
+            return Json(new { success = false, message = "Sesión inválida." });
+        }
+
+        int idCuidadorSolicitante = _bd.ObtenerIdCuidadorPorUsuario(idUsuario);
+        bool esPropietario = idCuidadorSolicitante > 0 && _bd.EsPropietarioDelGrupo(idGrupo, idCuidadorSolicitante);
+        if (!esPropietario)
+        {
+            return StatusCode(403, new { success = false, message = "No tienes permisos para eliminar cuidadores." });
+        }
+
+        if (idCuidadorAEliminar <= 0)
+        {
+            return Json(new { success = false, message = "Cuidador inválido." });
+        }
+
+        if (idCuidadorAEliminar == idCuidadorSolicitante)
+        {
+            return Json(new { success = false, message = "No puedes eliminarte a ti mismo siendo propietario." });
+        }
+
+        if (_bd.EsPropietarioDelGrupo(idGrupo, idCuidadorAEliminar))
+        {
+            return Json(new { success = false, message = "No se puede eliminar al propietario del grupo." });
+        }
+
+        bool eliminado = _bd.EliminarCuidadorDeGrupo(idGrupo, idCuidadorAEliminar);
+        return Json(new
+        {
+            success = eliminado,
+            message = eliminado ? "Cuidador eliminado correctamente." : "No se pudo eliminar el cuidador."
+        });
     }
     public IActionResult AgregarInfoMedica()
     {
