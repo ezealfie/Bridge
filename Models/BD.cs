@@ -500,10 +500,8 @@ public class BD
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
             string query = @"SELECT TOP 3
-                                c.id_cuidador,
-                                c.id_usuario,
+                                u.id_usuario,
                                 u.nombre,
-                                u.apellido,
                                 u.telefono
                             FROM Cuidador c
                             INNER JOIN Usuario u ON u.id_usuario = c.id_usuario

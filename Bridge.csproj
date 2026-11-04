@@ -4,6 +4,14 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="TP06Programacion\**\*" />
+    <Content Remove="TP06Programacion\**\*" />
+    <EmbeddedResource Remove="TP06Programacion\**\*" />
+    <None Remove="TP06Programacion\**\*" />
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.89" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.3.13" />

@@ -1002,7 +1002,7 @@ footer.footer .FooterH4 {
     width: 100vw;
     margin-left: calc(50% - 50vw);
     background: var(--color-secundario);
-    padding: 2.2rem 0 1.5rem;
+    padding: 8rem 0 8rem;
     min-height: 0;
     box-sizing: border-box;
     display: flex;
@@ -1030,11 +1030,11 @@ footer.footer .FooterH4 {
 }
 
 .landing-brand .subtitle {
-    margin-top: 0.55rem;
+    margin-top: 1.5rem;
     color: var(--color-texto);
     font-family: "League Spartan", sans-serif;
     font-size: clamp(1.2rem, 2vw, 1.7rem);
-    line-height: 1.35;
+    line-height: 1.5;
     font-weight: 400;
 }
 
@@ -1137,7 +1137,7 @@ footer.footer .FooterH4 {
 .hero-panel {
     max-width: 1200px;
     margin: 2rem auto 0;
-    padding: 0 1.25rem;
+    padding: 2.5rem 1.25rem 2.5rem;
     display: grid;
     grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
     align-items: center;
@@ -1364,7 +1364,7 @@ footer.footer .FooterH4 {
     }
 }
 
-  /* ===== FAMILIA Y CUIDADORES ===== */
+/* ===== FAMILIA Y CUIDADORES ===== */
   .cuidadores-page {
     width: 100%;
   }
