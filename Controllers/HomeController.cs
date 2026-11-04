@@ -27,6 +27,10 @@ public class HomeController : Controller
     {
         return View();
     }
+    public IActionResult Calendario()
+    {
+        return View();
+    }
    public IActionResult Configuracion()
     {
         Usuario usuario = _bd.ObtenerUsuarioPorId(HttpContext.Session.GetInt32("IdUsuario") ?? 0);
@@ -146,6 +150,10 @@ public class HomeController : Controller
         return View();
     }
     public IActionResult Recordatorios()
+    {
+        return View();
+    }
+    public IActionResult mensajes()
     {
         return View();
     }
