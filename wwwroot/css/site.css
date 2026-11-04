@@ -1364,7 +1364,7 @@ footer.footer .FooterH4 {
     }
 }
 
-/* ===== FAMILIA Y CUIDADORES ===== */
+  /* ===== FAMILIA Y CUIDADORES ===== */
   .cuidadores-page {
     width: 100%;
   }
@@ -1412,6 +1412,40 @@ footer.footer .FooterH4 {
   .panel-button {
     padding: 0.55rem 1rem;
     font-size: 0.8rem;
+  }
+
+  .cuidadores-page button,
+  .cuidadores-page .panel-button,
+  .bridge-modal__content button,
+  .modal-actions button {
+    background: linear-gradient(135deg, #1fa8b3 0%, #0d8f95 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 999px;
+    padding: 0.78rem 1.1rem;
+    font-family: "Montserrat", sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    box-shadow: 0 12px 22px rgba(0, 169, 175, 0.18);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  }
+
+  .cuidadores-page button:hover,
+  .cuidadores-page .panel-button:hover,
+  .bridge-modal__content button:hover,
+  .modal-actions button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 28px rgba(0, 169, 175, 0.22);
+    filter: brightness(1.02);
+  }
+
+  .cuidadores-page button:focus-visible,
+  .cuidadores-page .panel-button:focus-visible,
+  .bridge-modal__content button:focus-visible,
+  .modal-actions button:focus-visible {
+    outline: 3px solid rgba(31, 168, 179, 0.32);
+    outline-offset: 2px;
   }
 
   .mensajes-lista,
@@ -1643,8 +1677,10 @@ footer.footer .FooterH4 {
   }
 
   .btn-secondary {
-    background: #eef3f4;
-    color: #24343f;
+    background: linear-gradient(135deg, #1fa8b3 0%, #0d8f95 100%);
+    color: #ffffff;
+    border: none;
+    box-shadow: 0 12px 22px rgba(0, 169, 175, 0.18);
   }
 
   .modal-message {
