@@ -50,10 +50,10 @@ public class SesionesController : Controller
 
                 if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
                 {
-                    return Json(new { success = true, redirectUrl = Url.Action("Grupo", "Home", new { idUsuario = id }) });
+                    return Json(new { success = true, redirectUrl = Url.Action("Grupo", "Home") });
                 }
 
-                return RedirectToAction("Grupo", "Home", new { idUsuario = id });
+                return RedirectToAction("Grupo", "Home");
             }
             else
             {
@@ -127,7 +127,7 @@ public class SesionesController : Controller
         }
 
         HttpContext.Session.SetInt32("IdUsuario", idUsuario);
-        return RedirectToAction("Grupo", "Home", new { idUsuario = idUsuario });
+        return RedirectToAction("Grupo", "Home");
     }
 
     public IActionResult Logout()

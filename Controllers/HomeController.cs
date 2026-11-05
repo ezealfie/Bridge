@@ -190,6 +190,11 @@ public class HomeController : Controller
     {  
         int? idUsuario = HttpContext.Session.GetInt32("IdUsuario");
 
+        if (idUsuario == null || idUsuario <= 0)
+        {
+            return RedirectToAction("Login", "Sesiones");
+        }
+
         if (idGrupo == null || idGrupo <= 0)
         {
             idGrupo = HttpContext.Session.GetInt32("IdGrupo");
@@ -197,12 +202,28 @@ public class HomeController : Controller
 
         if (idGrupo == null || idGrupo <= 0)
         {
-            return RedirectToAction("Grupo", new { idUsuario = idUsuario ?? 0 });
+            return RedirectToAction("Grupo");
         }
 
         if (string.IsNullOrWhiteSpace(_bd.ObtenerNombreGrupo(idGrupo.Value)))
         {
-            return RedirectToAction("Grupo", new { idUsuario = idUsuario ?? 0 });
+            return RedirectToAction("Grupo");
+        }
+
+        bool perteneceAlGrupo = false;
+        List<Grupo> gruposUsuario = _bd.ObtenerGruposUsuario(idUsuario.Value);
+        foreach (Grupo grupo in gruposUsuario)
+        {
+            if (grupo.id_grupo == idGrupo.Value)
+            {
+                perteneceAlGrupo = true;
+                break;
+            }
+        }
+
+        if (perteneceAlGrupo == false)
+        {
+            return RedirectToAction("Grupo");
         }
 
         HttpContext.Session.SetInt32("IdGrupo", idGrupo.Value);
@@ -214,14 +235,19 @@ public class HomeController : Controller
     }
     public IActionResult Grupo(int? idUsuario)
     {   
-        int? usuarioActual = idUsuario ?? HttpContext.Session.GetInt32("IdUsuario");
+        int? idSesion = HttpContext.Session.GetInt32("IdUsuario");
 
-        if (usuarioActual == null || usuarioActual <= 0)
+        if (idSesion == null || idSesion <= 0)
         {
             return RedirectToAction("Login", "Sesiones");
         }
 
-        ViewBag.Grupos = _bd.ObtenerGruposUsuario(usuarioActual.Value);
+        if (idUsuario != null && idUsuario != idSesion)
+        {
+            return RedirectToAction("Grupo");
+        }
+
+        ViewBag.Grupos = _bd.ObtenerGruposUsuario(idSesion.Value);
         return View();
     }
     [HttpPost]
@@ -236,7 +262,7 @@ public class HomeController : Controller
                 return Json(new { success = false, message = "Faltan datos obligatorios para crear el grupo." });
             }
 
-            return RedirectToAction("Grupo", new { idUsuario = idUsuario ?? 0 });
+            return RedirectToAction("Grupo");
         }
 
         int idAdultoMayor;
@@ -255,7 +281,7 @@ public class HomeController : Controller
                     return Json(new { success = false, message = "Debes ingresar el DNI del adulto mayor." });
                 }
 
-                return RedirectToAction("Grupo", new { idUsuario = idUsuario.Value });
+                return RedirectToAction("Grupo");
             }
 
             idAdultoMayor = _bd.ObtenerIdAdultoMayorPorDni(dniAdulto.Trim());
@@ -268,7 +294,7 @@ public class HomeController : Controller
                 return Json(new { success = false, message = "No se encontró el adulto mayor asociado." });
             }
 
-            return RedirectToAction("Grupo", new { idUsuario = idUsuario.Value });
+            return RedirectToAction("Grupo");
         }
 
         int idCuidador = _bd.ObtenerIdCuidadorPorUsuario(idUsuario.Value);
@@ -281,7 +307,7 @@ public class HomeController : Controller
                 return Json(new { success = false, message = "No se pudo guardar el grupo. Verificá que el adulto mayor no tenga ya un grupo asignado." });
             }
 
-            return RedirectToAction("Grupo", new { idUsuario = idUsuario.Value });
+            return RedirectToAction("Grupo");
         }
 
         if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
