@@ -295,7 +295,6 @@ select {
     text-decoration: none !important;
     line-height: 1 !important;
     box-shadow: 0 12px 24px rgba(0, 169, 175, 0.18) !important;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease !important;
 }
 
 .primary-btn:hover,
@@ -1128,7 +1127,8 @@ footer.footer .FooterH4 {
         align-self: center;
     }
 
-    .service-image {
+    .service-item img,
+    .service-thumb {
         width: 170px;
         height: 170px;
     }
@@ -1187,17 +1187,29 @@ footer.footer .FooterH4 {
     margin: 2.5rem auto 0;
     padding: 0 1.25rem;
     display: grid;
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
     align-items: center;
     gap: 2.5rem;
 }
 
-.calendar-placeholder {
+.calendar-preview {
     width: 100%;
-    min-height: 360px;
-    border-radius: 1.5rem;
-    background: rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(0, 169, 175, 0.12);
+    display: flex;
+    justify-content: center;
+}
+
+.calendar-preview-box {
+    width: min(100%, 520px);
+    min-height: 280px;
+    border: 1px solid rgba(0, 169, 175, 0.28);
+    border-radius: 18px;
+    padding: 1rem 1rem 0.75rem;
+    background: linear-gradient(180deg, #ffffff 0%, #f3fbfb 100%);
+    box-shadow: 0 12px 28px rgba(13, 141, 146, 0.08);
+}
+
+.calendar-preview-grid {
+    min-height: 200px;
 }
 
 .calendar-copy {
@@ -1231,6 +1243,10 @@ footer.footer .FooterH4 {
     .calendar-callout {
         grid-template-columns: 1fr;
         gap: 1.5rem;
+    }
+
+    .calendar-preview-box {
+        width: 100%;
     }
 
     .calendar-copy {
@@ -1698,3 +1714,42 @@ footer.footer .FooterH4 {
       min-height: auto;
     }
   }
+
+.service-item img,
+.service-thumb {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    display: block;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    justify-self: center;
+    align-self: center;
+    overflow: hidden;
+}
+
+@media (max-width: 767px) {
+    .service-item {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+        gap: 1.1rem;
+        padding: 1.25rem 1rem;
+    }
+
+    .service-body h3,
+    .service-body p,
+    .service-body .secondary-btn {
+        text-align: center !important;
+        align-self: center;
+    }
+
+    .service-item img,
+    .service-thumb {
+        width: 170px;
+        height: 170px;
+    }
+}

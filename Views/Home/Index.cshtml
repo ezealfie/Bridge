@@ -1,5 +1,18 @@
 @{
     ViewData["Title"] = "Inicio";
+
+    DateTime hoy = DateTime.Today;
+    int anioActual = hoy.Year;
+    int mesActualNumero = hoy.Month;
+    string mesActual = hoy.ToString("MMMM", new System.Globalization.CultureInfo("es-ES"));
+
+    DateTime primerDiaMes = new DateTime(anioActual, mesActualNumero, 1);
+    int diasEnMes = DateTime.DaysInMonth(anioActual, mesActualNumero);
+    int desplazamientoInicio = ((int)primerDiaMes.DayOfWeek + 6) % 7;
+    int diasMesAnterior = DateTime.DaysInMonth(primerDiaMes.AddMonths(-1).Year, primerDiaMes.AddMonths(-1).Month);
+    int celdasTotales = 42;
+    int diasPrevios = desplazamientoInicio;
+    int diasSiguientes = celdasTotales - (diasPrevios + diasEnMes);
 }
 
 <main class="home-page">
@@ -25,7 +38,7 @@
         <h2>¿Qué podés hacer?</h2>
         <div class="service-list">
             <article class="service-item">
-                <div class="service-image" aria-hidden="true"></div>
+                 <img class="service-thumb" src="~/Imagenes/landing2.png" alt="Organización de la salud" />
                 <div class="service-body">
                     <h3>Organización de la salud</h3>
                     <p>
@@ -35,7 +48,7 @@
                 </div>
             </article>
             <article class="service-item">
-                <div class="service-image" aria-hidden="true"></div>
+                <img class="service-thumb" src="~/Imagenes/landing3.png" alt="Familia y cuidadores" />
                 <div class="service-body">
                     <h3>Familia y cuidadores</h3>
                     <p>
@@ -45,7 +58,8 @@
                 </div>
             </article>
             <article class="service-item">
-                <div class="service-image" aria-hidden="true"></div>
+                <img class="service-thumb" src="~/Imagenes/landing4.png" alt="Herramientas y bienestar" />
+
                 <div class="service-body">
                     <h3>Herramientas y bienestar</h3>
                     <p>
@@ -57,7 +71,33 @@
         </div>
     </section>
     <section class="calendar-callout">
-        <div class="calendar-placeholder" aria-hidden="true"></div>
+        <div class="calendar-preview" aria-label="Calendario compartido ejemplar">
+            <div class="calendar-box calendar-preview-box">
+                <p class="calendar-title">@char.ToUpper(mesActual[0])@mesActual.Substring(1) @anioActual</p>
+                <div class="calendar-grid calendar-weekdays">
+                    <span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span>
+                </div>
+                <div class="calendar-grid calendar-preview-grid">
+                    @for (int i = 0; i < desplazamientoInicio; i++)
+                    {
+                        int diaPrevio = (diasMesAnterior - desplazamientoInicio + 1) + i;
+                        <span class="calendar-day muted">@diaPrevio</span>
+                    }
+
+                    @for (int dia = 1; dia <= diasEnMes; dia++)
+                    {
+                        bool esHoy = anioActual == hoy.Year && mesActualNumero == hoy.Month && dia == hoy.Day;
+                        string claseDia = esHoy ? "calendar-day today" : "calendar-day";
+                        <span class="@claseDia">@dia</span>
+                    }
+
+                    @for (int dia = 1; dia <= diasSiguientes; dia++)
+                    {
+                        <span class="calendar-day muted">@dia</span>
+                    }
+                </div>
+            </div>
+        </div>
         <div class="calendar-copy">
             <h3>Organizá tu calendario con el resto de los cuidadores</h3>
             <a class="primary-btn" href="@Url.Action("Login", "Sesiones")">Leer más</a>
