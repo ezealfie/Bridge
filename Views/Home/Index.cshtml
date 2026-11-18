@@ -1,11 +1,9 @@
 @{
     ViewData["Title"] = "Inicio";
-
     DateTime hoy = DateTime.Today;
     int anioActual = hoy.Year;
     int mesActualNumero = hoy.Month;
     string mesActual = hoy.ToString("MMMM", new System.Globalization.CultureInfo("es-ES"));
-
     DateTime primerDiaMes = new DateTime(anioActual, mesActualNumero, 1);
     int diasEnMes = DateTime.DaysInMonth(anioActual, mesActualNumero);
     int desplazamientoInicio = ((int)primerDiaMes.DayOfWeek + 6) % 7;

@@ -1,6 +1,6 @@
 @{
     ViewData["Title"] = "Panel de control";
-    var eventos = ViewBag.Proximos5Eventos as List<Bridge.Models.Evento> ?? new List<Bridge.Models.Evento>();
+    Evento eventos = ViewBag.Proximos5Eventos as List<Bridge.Models.Evento> ?? new List<Bridge.Models.Evento>();
 }
 <div class="dashboard-page">
     <section class="landing-brand">

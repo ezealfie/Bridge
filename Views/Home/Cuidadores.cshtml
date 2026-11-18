@@ -1,16 +1,13 @@
 @using Bridge.Models
 @{
 	ViewData["Title"] = "Familia y Cuidadores";
-
 	List<MensajeViewModel> mensajes = ViewBag.UltimosMensajes as List<MensajeViewModel> ?? new List<MensajeViewModel>();
 	List<CuidadorGrupoViewModel> cuidadores = ViewBag.Cuidadores as List<CuidadorGrupoViewModel> ?? new List<CuidadorGrupoViewModel>();
 	List<Evento> eventosDelMes = ViewBag.EventosDelMes as List<Evento> ?? new List<Evento>();
-
 	bool esPropietario = ViewBag.EsPropietario ?? false;
 	int anioActual = ViewBag.AnioActual ?? DateTime.Today.Year;
 	int mesActualNumero = DateTime.Today.Month;
 	string mesActual = ViewBag.MesActual ?? DateTime.Today.ToString("MMMM");
-
 	DateTime primerDiaMes = new DateTime(anioActual, mesActualNumero, 1);
 	int diasEnMes = DateTime.DaysInMonth(anioActual, mesActualNumero);
 	int desplazamientoInicio = ((int)primerDiaMes.DayOfWeek + 6) % 7;
@@ -21,11 +18,9 @@
 		.Select(e => e.fechaHora.Day)
 		.Distinct()
 		.ToList();
-
 	List<CuidadorGrupoViewModel> cuidadoresAutorizados = cuidadores
 		.Where(c => c.estadoAutorizacion.Equals("autorizado", StringComparison.OrdinalIgnoreCase))
 		.ToList();
-
 	List<CuidadorGrupoViewModel> cuidadoresPendientes = cuidadores
 		.Where(c => c.estadoAutorizacion.Equals("pendiente", StringComparison.OrdinalIgnoreCase))
 		.ToList();

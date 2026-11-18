@@ -1,12 +1,12 @@
 @{
     ViewData["Title"] = "Adulto mayor";
-    var recordatorios = ViewBag.Recordatorios;
-    var adultoMayor = ViewBag.AdultoMayor;
-    var medicaciones = ViewBag.Medicaciones;
-    var episodios = ViewBag.Episodios;
-    var documentos = ViewBag.Documentos;
+    Recordatorio recordatorios = ViewBag.Recordatorios;
+    AdultoMayor adultoMayor = ViewBag.AdultoMayor;
+    Medicacion medicaciones = ViewBag.Medicaciones;
+    Episodio episodios = ViewBag.Episodios;
+    Documento documentos = ViewBag.Documentos;
     BD bd = new BD();
-    var nombreAdultoMayor = bd.ObtenerNombreAdulto(Context.Session.GetInt32("IdUsuario") ?? 0);
+    string nombreAdultoMayor = bd.ObtenerNombreAdulto(Context.Session.GetInt32("IdUsuario") ?? 0);
 }
 
 <div class="adulto-page">
@@ -15,9 +15,8 @@
     <div class="adulto-grid">
         <section class="adulto-card">
             <h2>Recordatorios</h2>
-
             <div class="reminder-list">
-                @foreach (var recordatorio in recordatorios)
+                @foreach (Recordatorio recordatorio in recordatorios)
                 {
                     <div class="reminder-item">
                         <div class="reminder-meta">

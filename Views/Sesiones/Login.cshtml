@@ -1,21 +1,18 @@
 @{
     ViewData["Title"] = "Iniciar sesión";
 }
-
-<div class="auth-shell">
-    <div class="auth-card auth-card--login">
+<main class="auth-shell">
+    <section class="auth-card auth-card--login">
         <div class="auth-card__illustration" aria-hidden="true">
             <div class="auth-badge">Bridge</div>
             <h2>Bienvenido de nuevo</h2>
             <p>Accedé a tu espacio para cuidar, acompañar y acompañarte mejor.</p>
         </div>
-
         <div class="auth-card__form">
             <div class="auth-header">
                 <span class="auth-kicker">Acceso</span>
                 <h1>Iniciar sesión</h1>
             </div>
-
             <form id="login-form" action="@Url.Action("LoginVerificar", "Sesiones")" method="POST" novalidate>
                 <div class="field-group">
                     <label for="usuario">Correo electrónico</label>
@@ -41,10 +38,9 @@
                     @ViewBag.Message
                 </div>
             </form>
-
             <p class="auth-footer">
                 ¿No tenés cuenta? <a href="@Url.Action("Registrarse", "Sesiones")">Registrate</a>
             </p>
         </div>
-    </div>
-</div>
+    </section>
+</main>

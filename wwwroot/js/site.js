@@ -1,16 +1,9 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-
-document.addEventListener('DOMContentLoaded', function () {
+﻿document.addEventListener('DOMContentLoaded', function () {
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
-
     const showMessage = (selector, message) => {
         const box = document.querySelector(selector);
         if (!box) return;
-
         if (message && message.trim()) {
             box.textContent = message.trim();
             box.style.display = 'block';
@@ -19,21 +12,16 @@ document.addEventListener('DOMContentLoaded', function () {
             box.style.display = 'none';
         }
     };
-
     if (loginForm) {
         loginForm.addEventListener('submit', function (event) {
             event.preventDefault();
-
             const email = loginForm.querySelector('input[name="email"]')?.value.trim();
             const password = loginForm.querySelector('input[name="password"]')?.value.trim();
-
             if (!email || !password) {
                 showMessage('#login-error', 'Completa email y contraseña para continuar.');
                 return;
             }
-
             const formData = new FormData(loginForm);
-
             fetch(loginForm.action, {
                 method: 'POST',
                 body: formData,
@@ -43,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(async response => {
                 const text = await response.text();
-
                 try {
                     const data = JSON.parse(text);
 
@@ -51,7 +38,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         window.location.href = data.redirectUrl;
                         return;
                     }
-
                     showMessage('#login-error', data.message || 'No se pudo iniciar sesión.');
                 } catch (error) {
                     if (response.ok) {
@@ -66,7 +52,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     }
-
     if (registerForm) {
         const registerMessage = document.getElementById('register-error')?.textContent.trim();
         if (registerMessage) {
@@ -76,7 +61,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const adultoMayorFields = registerForm.querySelector('#adulto-mayor-fields');
             const dniInput = registerForm.querySelector('input[name="dni"]');
             const fechaNacimientoInput = registerForm.querySelector('input[name="fechaNacimiento"]');
-
             const actualizarCamposPorTipoUsuario = () => {
                 const esAdultoMayor = (tipoUsuarioSelect?.value || '').toLowerCase().includes('adulto');
 
@@ -98,7 +82,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }
             };
-
             actualizarCamposPorTipoUsuario();
 
             if (tipoUsuarioSelect) {
@@ -132,7 +115,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
-
     const cuidadoresPage = document.querySelector('.cuidadores-page');
     if (cuidadoresPage && cuidadoresPage.dataset.esPropietario === 'true') {
         const modalAgregar = document.getElementById('modalAgregar');
@@ -146,12 +128,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const eliminarMensaje = document.getElementById('eliminarMensaje');
         const btnConfirmarEliminar = document.getElementById('btnConfirmarEliminar');
         const btnCerrarEliminar = document.getElementById('btnCerrarEliminar');
-
         const urlAgregar = cuidadoresPage.dataset.urlAgregar;
         const urlEliminar = cuidadoresPage.dataset.urlEliminar;
-
         let cuidadorSeleccionado = 0;
-
         if (btnAbrirAgregar && modalAgregar && identificadorCuidador && agregarMensaje) {
             btnAbrirAgregar.addEventListener('click', function () {
                 identificadorCuidador.value = '';
@@ -159,19 +138,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 modalAgregar.classList.add('is-open');
             });
         }
-
         if (btnCerrarAgregar && modalAgregar) {
             btnCerrarAgregar.addEventListener('click', function () {
                 modalAgregar.classList.remove('is-open');
             });
         }
-
         if (btnCerrarEliminar && modalEliminar) {
             btnCerrarEliminar.addEventListener('click', function () {
                 modalEliminar.classList.remove('is-open');
             });
         }
-
         if (btnConfirmarAgregar && identificadorCuidador && agregarMensaje && urlAgregar) {
             btnConfirmarAgregar.addEventListener('click', async function () {
                 const identificador = identificadorCuidador.value.trim();
@@ -179,10 +155,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     agregarMensaje.textContent = 'Ingresá un identificador válido.';
                     return;
                 }
-
                 const body = new URLSearchParams();
                 body.append('identificador', identificador);
-
                 try {
                     const response = await fetch(urlAgregar, {
                         method: 'POST',
@@ -192,7 +166,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         },
                         body: body.toString()
                     });
-
                     const data = await response.json();
                     if (data.success) {
                         window.location.reload();
@@ -205,7 +178,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
         }
-
         document.querySelectorAll('.btn-eliminar').forEach(function (boton) {
             boton.addEventListener('click', function () {
                 cuidadorSeleccionado = parseInt(boton.dataset.id || '0', 10);
@@ -224,16 +196,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
         });
-
         if (btnConfirmarEliminar && eliminarMensaje && urlEliminar) {
             btnConfirmarEliminar.addEventListener('click', async function () {
                 if (!cuidadorSeleccionado) {
                     return;
                 }
-
                 const body = new URLSearchParams();
                 body.append('idCuidadorAEliminar', cuidadorSeleccionado.toString());
-
                 try {
                     const response = await fetch(urlEliminar, {
                         method: 'POST',
@@ -243,25 +212,21 @@ document.addEventListener('DOMContentLoaded', function () {
                         },
                         body: body.toString()
                     });
-
                     const data = await response.json();
                     if (data.success) {
                         window.location.reload();
                         return;
                     }
-
                     eliminarMensaje.textContent = data.message || 'No se pudo eliminar el cuidador.';
                 } catch (error) {
                     eliminarMensaje.textContent = 'No se pudo conectar con el servidor.';
                 }
             });
         }
-
         [modalAgregar, modalEliminar].forEach(function (modal) {
             if (!modal) {
                 return;
             }
-
             modal.addEventListener('click', function (event) {
                 if (event.target === modal) {
                     modal.classList.remove('is-open');
