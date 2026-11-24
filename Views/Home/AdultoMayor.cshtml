@@ -41,20 +41,20 @@
 
             <div class="field-list">
                 <div class="field-row">
-                    <label>Nombre</label>
-                    <input type="text" value="@nombreAdultoMayor" readonly />
+                    <label for="nombreAdulto">Nombre</label>
+                    <input id="nombreAdulto" type="text" value="@nombreAdultoMayor" readonly />
                 </div>
                 <div class="field-row">
-                    <label>DNI</label>
-                    <input type="text" value="@adultoMayor.dni" readonly />
+                    <label for="dniAdulto">DNI</label>
+                    <input id="dniAdulto" type="text" value="@adultoMayor.dni" readonly />
                 </div>
                 <div class="field-row">
-                    <label>Fecha de nacimiento</label>
-                    <input type="text" value="@adultoMayor.fecha_nacimiento.ToString("dd/MM/yyyy")" readonly />
+                    <label for="fechaNacimientoAdulto">Fecha de nacimiento</label>
+                    <input id="fechaNacimientoAdulto" type="text" value="@adultoMayor.fecha_nacimiento.ToString("dd/MM/yyyy")" readonly />
                 </div>
                 <div class="field-row">
-                    <label>Condición</label>
-                    <input type="text" value="@adultoMayor.condicion" readonly />
+                    <label for="condicionAdulto">Condición</label>
+                    <input id="condicionAdulto" type="text" value="@adultoMayor.condicion" readonly />
                 </div>
             </div>
 

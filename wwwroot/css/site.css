@@ -7,6 +7,12 @@
     --color-secundario: #d7f7f8;
     --color-borde: #0f4c5c1f;
     --color-error: #d93025;
+    --radius-sm: 14px;
+    --radius-md: 1.15rem;
+    --radius-lg: 1.5rem;
+    --radius-xl: 1.8rem;
+    --radius-2xl: 2rem;
+    --radius-pill: 999px;
     --shadow-soft: 0 20px 50px #1118271f;
     --shadow-card: 0 18px 45px #00757924;
 }
@@ -61,7 +67,7 @@ button {
     background-color: var(--color-primario);
     color: var(--color-blanco);
     border: none;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     padding: 0.85rem 1.7rem;
     font-size: 0.82rem;
     font-family: "Montserrat", sans-serif;
@@ -90,7 +96,7 @@ button:hover {
     grid-template-columns: 1.1fr 1fr;
     background: rgba(255, 255, 255, 0.9);
     border: 1px solid rgba(255, 255, 255, 0.7);
-    border-radius: 32px;
+    border-radius: var(--radius-2xl);
     overflow: hidden;
     box-shadow: var(--shadow-card);
     backdrop-filter: blur(10px);
@@ -126,7 +132,7 @@ button:hover {
     background: rgba(255, 255, 255, 0.14);
     border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 0.45rem 0.8rem;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     font-size: 0.72rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -136,7 +142,7 @@ button:hover {
 
 .auth-card__illustration h2 {
     color: #ffffff !important;
-    text-align: left !important;
+    text-align: left;
     font-size: clamp(2rem, 4vw, 3rem);
     line-height: 1.1;
     margin: 0 0 0.9rem;
@@ -162,7 +168,7 @@ button:hover {
     display: inline-block;
     color: var(--color-primario-oscuro);
     background: var(--color-secundario);
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     padding: 0.35rem 0.75rem;
     font-size: 0.72rem;
     text-transform: uppercase;
@@ -174,7 +180,7 @@ button:hover {
 .auth-header h1 {
     margin: 0;
     font-size: clamp(2rem, 3vw, 2.5rem);
-    text-align: left !important;
+    text-align: left;
 }
 
 #login-form,
@@ -208,7 +214,7 @@ select {
     width: 100%;
     border: 1px solid var(--color-borde);
     background: #f9fdfd;
-    border-radius: 14px;
+    border-radius: var(--radius-sm);
     height: 3.1rem;
     padding: 0.9rem 1rem;
     font-size: 0.96rem;
@@ -275,45 +281,47 @@ select {
 }
 
 .primary-btn,
-.secondary-btn {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: auto !important;
-    min-width: 7.5rem !important;
-    min-height: 2.9rem !important;
-    margin-top: 0 !important;
-    border: 1px solid #ffffff !important;
-    border-radius: 999px !important;
-    padding: 0.8rem 1.5rem !important;
-    background: linear-gradient(135deg, var(--color-primario) 0%, #0ea9af 100%) !important;
-    color: #ffffff !important;
-    font-family: "Montserrat", sans-serif !important;
-    font-size: 1rem !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.02em !important;
-    text-decoration: none !important;
-    line-height: 1 !important;
-    box-shadow: 0 12px 24px rgba(0, 169, 175, 0.18) !important;
+.secondary-btn,
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    min-width: 7.5rem;
+    min-height: 2.9rem;
+    margin-top: 0;
+    border: 1px solid var(--color-blanco);
+    border-radius: var(--radius-pill);
+    padding: 0.8rem 1.5rem;
+    background: linear-gradient(135deg, var(--color-primario) 0%, #0ea9af 100%);
+    color: #ffffff;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    line-height: 1;
+    box-shadow: 0 12px 24px rgba(0, 169, 175, 0.18);
 }
 
 .primary-btn:hover,
-.secondary-btn:hover {
-    opacity: 0.96 !important;
-    transform: translateY(-1px) !important;
-    box-shadow: 0 16px 28px rgba(0, 169, 175, 0.24) !important;
-    color: #ffffff !important;
-    text-decoration: none !important;
+.secondary-btn:hover,
+.btn-primary:hover {
+    opacity: 0.96;
+    transform: translateY(-1px);
+    box-shadow: 0 16px 28px rgba(0, 169, 175, 0.24);
+    color: var(--color-blanco);
+    text-decoration: none;
 }
 
 .primary-btn {
-    display: block !important;
-    width: 100% !important;
-    margin-top: 0.25rem !important;
+    display: block;
+    width: 100%;
+    margin-top: 0.25rem;
 }
 
 .secondary-btn {
-    display: inline-flex !important;
+    display: inline-flex;
 }
 
 .auth-footer {
@@ -443,7 +451,7 @@ footer.footer a img {
 
 .dashboard-header h1 {
   margin: 0;
-  text-align: left !important;
+  text-align: left;
   color: #ffffff;
   font-size: clamp(2.2rem, 4vw, 3.5rem);
   line-height: 1.1;
@@ -465,7 +473,7 @@ footer.footer a img {
   position: relative;
   background: linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(245,251,252,0.96) 100%);
   border: 1px solid rgba(0, 169, 175, 0.18);
-  border-radius: 1.5rem;
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
   padding: 1.4rem;
   min-height: 100%;
@@ -484,7 +492,7 @@ footer.footer a img {
 .dashboard-card h2 {
   margin: 0 0 1rem;
   padding-top: 0.3rem;
-  text-align: left !important;
+  text-align: left;
   color: var(--dash-texto);
   font-size: clamp(1.4rem, 2.1vw, 2.1rem);
   line-height: 1.2;
@@ -506,9 +514,8 @@ footer.footer a img {
   gap: 0.9rem;
   background: rgba(255, 255, 255, 0.96);
   border: 1px solid rgba(0, 169, 175, 0.1);
-  border-radius: 1.15rem;
+  border-radius: var(--radius-md);
   padding: 0.8rem;
-  box-shadow: 0 8px 18px rgba(13, 141, 146, 0.06);
 }
 
 .event-date {
@@ -548,7 +555,7 @@ footer.footer a img {
 
 .event-content h3 {
   margin: 0 0 0.35rem;
-  text-align: left !important;
+  text-align: left;
   color: var(--dash-texto);
   font-size: 1.1rem;
   line-height: 1.2;
@@ -593,7 +600,7 @@ footer.footer a img {
   background: linear-gradient(135deg, var(--dash-primario) 0%, var(--dash-primario-oscuro) 100%);
   color: #ffffff;
   border: none;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   padding: 0.82rem 1.1rem;
   font-family: "Montserrat", sans-serif;
   font-size: 0.8rem;
@@ -650,7 +657,7 @@ footer.footer a img {
   margin: 0;
   color: #1f2937;
   font-size: clamp(2.1rem, 4vw, 2.9rem);
-  text-align: center !important;
+  text-align: center;
   text-shadow: 0 8px 20px rgba(13, 141, 146, 0.18);
 }
 
@@ -658,7 +665,7 @@ footer.footer a img {
   position: relative;
   background: linear-gradient(160deg, #0d8d92 0%, #00a9af 42%, #82dfe2 100%);
   border: 1px solid rgba(255, 255, 255, 0.35);
-  border-radius: 1.8rem;
+  border-radius: var(--radius-xl);
   box-shadow: var(--shadow-card);
   padding: 1.4rem;
   overflow: hidden;
@@ -704,14 +711,12 @@ footer.footer a img {
   background: rgba(255, 255, 255, 0.92);
   color: #24313d;
   text-decoration: none;
-  box-shadow: 0 10px 24px rgba(12, 92, 95, 0.12);
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .grupo-item:hover {
   transform: translateY(-2px);
   border-color: rgba(255, 255, 255, 0.45);
-  box-shadow: 0 14px 28px rgba(12, 92, 95, 0.16);
 }
 
 .grupo-avatar {
@@ -746,7 +751,7 @@ footer.footer a img {
 
 .grupo-btn {
   border: none;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: rgba(255, 255, 255, 0.18);
   color: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.4);
@@ -754,20 +759,18 @@ footer.footer a img {
   font-family: "Montserrat", sans-serif;
   font-size: 0.9rem;
   font-weight: 700;
-  box-shadow: 0 12px 20px rgba(9, 95, 99, 0.18);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .grupo-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 24px rgba(0, 169, 175, 0.22);
 }
 
 /* ===== HERRAMIENTAS ===== */
 .Herramientas-Flex {
     width: min(100%, 1360px);
     margin: 0 auto;
-    padding: 1rem 0 2rem;
+    padding: 2rem 0;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 2.3rem;
@@ -789,7 +792,7 @@ footer.footer a img {
     line-height: 1.1;
     letter-spacing: -0.04em;
     font-weight: 800;
-    text-align: center !important;
+    text-align: center;
 }
 
 .Herramientas-Flex .Contactos > div,
@@ -831,21 +834,21 @@ footer.footer a img {
 .Herramientas-Flex .Contactos .primary-btn,
 .Herramientas-Flex .Ejercicios .primary-btn,
 .Herramientas-Flex .Articulos .primary-btn {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 100% !important;
-    min-height: 3.2rem !important;
-    margin: 0 !important;
-    padding: 0.9rem 1rem !important;
-    border-radius: 999px !important;
-    font-size: 1.12rem !important;
-    line-height: 1.2 !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 3.2rem;
+    margin: 0;
+    padding: 0.9rem 1rem;
+    border-radius: var(--radius-pill);
+    font-size: 1.12rem;
+    line-height: 1.2;
 }
 
 .Herramientas-Flex .Contactos .primary-btn {
-    background: linear-gradient(135deg, #00A9AF 0%, #1aaeb1 100%) !important;
-    font-size: 1.02rem !important;
+    background: linear-gradient(135deg, #00A9AF 0%, #1aaeb1 100%);
+    font-size: 1.02rem;
 }
 
 .Herramientas-Flex .Contactos .btn-register {
@@ -855,7 +858,7 @@ footer.footer a img {
     margin-left: auto;
     display: block;
     text-decoration: none !important;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     padding: 0.8rem 1.5rem;
     font-size: 1rem;
     line-height: 1;
@@ -878,7 +881,7 @@ footer.footer a img {
     font-size: clamp(1.5rem, 1.8vw, 2.3rem);
     line-height: 1.2;
     color: var(--color-texto);
-    text-align: center !important;
+    text-align: center;
 }
 
 .Herramientas-Flex .Ejercicios p,
@@ -914,7 +917,7 @@ footer.footer a img {
   }
 
   .dashboard-header h1 {
-    text-align: left !important;
+    text-align: left;
   }
 
   .dashboard-card {
@@ -964,7 +967,7 @@ footer.footer .footer-brand {
 
 footer.footer .FooterH3,
 footer.footer .FooterH4 {
-    text-align: left !important;
+    text-align: left;
     margin: 0;
     color: var(--color-texto);
 }
@@ -1016,7 +1019,7 @@ footer.footer .FooterH4 {
     display: block;
     width: 100%;
     margin: 0;
-    text-align: center !important;
+    text-align: center;
 }
 
 .landing-brand .Logo {
@@ -1045,7 +1048,7 @@ footer.footer .FooterH4 {
 
 .services-section h2 {
     margin: 0 0 2rem;
-    text-align: center !important;
+    text-align: center;
     color: var(--color-texto);
     font-size: clamp(2rem, 3vw, 2.8rem);
     line-height: 1.2;
@@ -1068,9 +1071,8 @@ footer.footer .FooterH4 {
     padding: 1.4rem 1.6rem 1.4rem 1.2rem;
     background: rgba(255, 255, 255, 0.92);
     border: 2px solid rgba(0, 169, 175, 0.9);
-    border-radius: 2rem;
-    box-shadow: 0 18px 40px rgba(13, 141, 146, 0.08);
-}
+    border-radius: var(--radius-2xl);
+  }
 
 .service-image {
     width: 220px;
@@ -1094,7 +1096,7 @@ footer.footer .FooterH4 {
     font-family: "Montserrat", sans-serif;
     font-size: clamp(1.55rem, 2vw, 2.2rem);
     line-height: 1.2;
-    text-align: left !important;
+    text-align: left;
 }
 
 .service-body p {
@@ -1123,7 +1125,7 @@ footer.footer .FooterH4 {
     .service-body h3,
     .service-body p,
     .service-body .secondary-btn {
-        text-align: center !important;
+        text-align: center;
         align-self: center;
     }
 
@@ -1171,7 +1173,7 @@ footer.footer .FooterH4 {
 .hero-image {
     width: 100%;
     min-height: 420px;
-    border-radius: 2rem;
+    border-radius: var(--radius-2xl);
     overflow: hidden;
 }
 
@@ -1179,7 +1181,7 @@ footer.footer .FooterH4 {
     display: block;
     width: 100%;
     height: 100%;
-    border-radius: 2rem;
+    border-radius: var(--radius-2xl);
 }
 
 .calendar-callout {
@@ -1205,7 +1207,6 @@ footer.footer .FooterH4 {
     border-radius: 18px;
     padding: 1rem 1rem 0.75rem;
     background: linear-gradient(180deg, #ffffff 0%, #f3fbfb 100%);
-    box-shadow: 0 12px 28px rgba(13, 141, 146, 0.08);
 }
 
 .calendar-preview-grid {
@@ -1226,7 +1227,7 @@ footer.footer .FooterH4 {
     font-family: "Montserrat", sans-serif;
     font-size: clamp(2rem, 2.5vw, 3rem);
     line-height: 1.2;
-    text-align: left !important;
+    text-align: left;
     max-width: 540px;
 }
 
@@ -1254,7 +1255,7 @@ footer.footer .FooterH4 {
     }
 
     .calendar-copy h3 {
-        text-align: center !important;
+        text-align: center;
         max-width: 100%;
     }
 
@@ -1275,8 +1276,7 @@ footer.footer .FooterH4 {
    width: 100vw;
     margin-left: calc(50% - 50vw);
     background: var(--color-secundario);
-    padding-top: 3%;
-    padding-bottom: 3%;
+    padding: 4rem 1.25rem;
     min-height: 0;
     box-sizing: border-box;
     display: flex;
@@ -1290,7 +1290,7 @@ footer.footer .FooterH4 {
     display: block;
     width: 100%;
     margin: 0;
-    text-align: center !important;
+    text-align: center;
 }
 
 .sobreNosotros-hero h1 {
@@ -1322,8 +1322,7 @@ footer.footer .FooterH4 {
     width: 25%;
     border-radius: 0.8rem;
     display: block;
-    box-shadow: 0 12px 25px rgba(17, 24, 39, 0.08);
-}
+  }
 
 .sobreNosotros-block {
     max-width: 760px;
@@ -1338,7 +1337,7 @@ footer.footer .FooterH4 {
     font-size: clamp(1.5rem, 2vw, 2rem);
     line-height: 1.2;
     color: var(--color-texto);
-    text-align: center !important;
+    text-align: center;
     font-weight: bold;
 }
 
@@ -1357,7 +1356,7 @@ footer.footer .FooterH4 {
 }
 
 .sobreNosotros-block--values {
-    margin-bottom: 0;
+    margin-bottom: 2rem;
 }
 
 @media (max-width: 767px) {
@@ -1383,6 +1382,7 @@ footer.footer .FooterH4 {
 /* ===== FAMILIA Y CUIDADORES ===== */
 .cuidadores-page {
     width: 100%;
+    padding: 2rem 0;
   }
 
   .cuidadores-grid {
@@ -1396,8 +1396,7 @@ footer.footer .FooterH4 {
     border-radius: 18px;
     padding: 1rem;
     background: #ffffff;
-    box-shadow: 0 10px 22px rgba(0, 169, 175, 0.08);
-    min-height: 420px;
+      min-height: 420px;
   }
 
   .panel-header {
@@ -1410,7 +1409,7 @@ footer.footer .FooterH4 {
 
   .panel-header h3 {
     margin: 0;
-    text-align: left !important;
+    text-align: left;
     font-size: 1.15rem;
   }
 
@@ -1437,7 +1436,7 @@ footer.footer .FooterH4 {
     background: linear-gradient(135deg, #1fa8b3 0%, #0d8f95 100%);
     color: #ffffff;
     border: none;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     padding: 0.78rem 1.1rem;
     font-family: "Montserrat", sans-serif;
     font-size: 0.8rem;
@@ -1478,7 +1477,7 @@ footer.footer .FooterH4 {
     justify-content: space-between;
     gap: 0.65rem;
     border: 1px solid var(--color-borde);
-    border-radius: 14px;
+    border-radius: var(--radius-sm);
     padding: 0.7rem;
     background: #f9fdfd;
   }
@@ -1527,7 +1526,7 @@ footer.footer .FooterH4 {
 
   .calendar-box {
     border: 1px solid var(--color-borde);
-    border-radius: 14px;
+    border-radius: var(--radius-sm);
     padding: 0.8rem;
     background: #f9fdfd;
   }
@@ -1608,7 +1607,7 @@ footer.footer .FooterH4 {
   .badge {
     display: inline-flex;
     align-items: center;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     font-size: 0.74rem;
     padding: 0.2rem 0.55rem;
     font-weight: 700;
@@ -1633,7 +1632,7 @@ footer.footer .FooterH4 {
     border: 1px solid #d93025;
     background: #ffffff;
     color: #d93025;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     padding: 0.4rem 0.8rem;
     font-size: 0.74rem;
     font-weight: 700;
@@ -1678,7 +1677,7 @@ footer.footer .FooterH4 {
 
   .bridge-modal__content h4 {
     margin: 0 0 0.4rem;
-    text-align: left !important;
+    text-align: left;
   }
 
   .bridge-modal__content input {
@@ -1743,7 +1742,7 @@ footer.footer .FooterH4 {
     .service-body h3,
     .service-body p,
     .service-body .secondary-btn {
-        text-align: center !important;
+        text-align: center;
         align-self: center;
     }
 
@@ -1828,6 +1827,16 @@ footer.footer .FooterH4 {
   .config-grid {
     grid-template-columns: 1fr;
   }
+  .cuidadores-grid {
+    grid-template-columns: 1fr;
+  }
+  .cuidadores-card {
+    min-width: 0;
+    min-height: 0;
+  }
+  .panel-header {
+    flex-wrap: wrap;
+  }
   .sobreNosotros-gallery {
     display: grid;
     grid-template-columns: 1fr;
@@ -1836,7 +1845,8 @@ footer.footer .FooterH4 {
   }
   .sobreNosotros-gallery img {
     width: 100%;
-    height: 220px;
+    height: auto;
+    aspect-ratio: 655 / 353;
     object-fit: cover;
   }
 }
@@ -1871,8 +1881,7 @@ footer.footer .FooterH4 {
         background: #ffffff;
         border: 2px solid #3ec7ca;
         border-radius: 24px;
-        box-shadow: 0 8px 24px rgba(0, 169, 175, 0.08);
-        padding: 1.2rem 1.1rem 1rem;
+            padding: 1.2rem 1.1rem 1rem;
         display: flex;
         flex-direction: column;
         min-height: 520px;
@@ -1919,7 +1928,7 @@ footer.footer .FooterH4 {
     .reminder-button {
         flex: 1;
         min-height: 2.7rem;
-        border-radius: 999px;
+        border-radius: var(--radius-pill);
         border: none;
         color: #fff;
         font-weight: 600;
@@ -1985,7 +1994,7 @@ footer.footer .FooterH4 {
     .medical-content {
         background: #f6fdfd;
         border: 1px solid #cfe9eb;
-        border-radius: 14px;
+        border-radius: var(--radius-sm);
         padding: 0.7rem 0.8rem;
         max-height: 180px;
         overflow-y: auto;
@@ -2057,13 +2066,13 @@ footer.footer .FooterH4 {
         background: #d7f7f8;
         display: inline-block;
         padding: 0.45rem 0.85rem;
-        border-radius: 999px;
+        border-radius: var(--radius-pill);
         margin-bottom: 0.7rem;
     }
 
     .config-header h1 {
         margin: 0;
-        text-align: left !important;
+        text-align: left;
     }
 
     .btn-logout {
@@ -2073,7 +2082,7 @@ footer.footer .FooterH4 {
         background: var(--color-primario-oscuro);
         color: #fff;
         text-decoration: none;
-        border-radius: 999px;
+        border-radius: var(--radius-pill);
         padding: 0.85rem 1.5rem;
         font-weight: 700;
         transition: opacity 0.2s ease;
@@ -2096,8 +2105,7 @@ footer.footer .FooterH4 {
         background: #ffffff;
         border: 1px solid rgba(15, 76, 92, 0.1);
         border-radius: 28px;
-        box-shadow: 0 18px 45px rgba(0, 117, 121, 0.08);
-        padding: 1.5rem;
+            padding: 1.5rem;
     }
 
     .profile-card {
@@ -2151,7 +2159,7 @@ footer.footer .FooterH4 {
         background: #d7f7f8;
         color: #0a7d81;
         border: 1px solid rgba(0, 169, 175, 0.2);
-        border-radius: 999px;
+        border-radius: var(--radius-pill);
         padding: 0.5rem 0.9rem;
         font-size: 0.75rem;
         font-weight: 700;
@@ -2171,7 +2179,7 @@ footer.footer .FooterH4 {
         display: inline-flex;
         background: #e6fbfb;
         color: #0a7d81;
-        border-radius: 999px;
+        border-radius: var(--radius-pill);
         padding: 0.35rem 0.75rem;
         font-size: 0.72rem;
         font-weight: 700;
@@ -2183,22 +2191,22 @@ footer.footer .FooterH4 {
     .profile-meta h2 {
         margin: 0 0 0.8rem;
         font-size: clamp(1.5rem, 2vw, 2.1rem);
-        text-align: left !important;
+        text-align: left;
     }
 
     .profile-meta p {
         margin: 0.35rem 0;
         color: #4b5563;
-        text-align: left !important;
+        text-align: left;
     }
 
     .section-title-row {
         margin-bottom: 1.2rem;
     }
 
-    .section-title-row h3 {
+    .section-title-row h2 {
         margin: 0;
-        text-align: left !important;
+        text-align: left;
         font-size: 1.3rem;
     }
 
@@ -2252,9 +2260,9 @@ footer.footer .FooterH4 {
         padding: 1rem 1.1rem;
     }
 
-    .policy-item h4 {
+    .policy-item h3 {
         margin: 0 0 0.35rem;
-        text-align: left !important;
+        text-align: left;
         font-size: 1rem;
     }
 
@@ -2262,13 +2270,13 @@ footer.footer .FooterH4 {
         margin: 0;
         font-size: 0.88rem;
         color: #5f6b7a;
-        text-align: left !important;
+        text-align: left;
     }
 
     .toggle-policy {
         min-width: 128px;
         padding: 0.8rem 1rem;
-        border-radius: 999px;
+        border-radius: var(--radius-pill);
         font-size: 0.8rem;
         font-weight: 700;
         border: 1px solid rgba(15, 76, 92, 0.1);
@@ -2332,7 +2340,7 @@ footer.footer .FooterH4 {
   align-items: center;
   justify-content: center;
   border: 1px solid rgba(255, 255, 255, 0.7);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   padding: 0.7rem 1.2rem;
   color: #ffffff;
   background: rgba(255, 255, 255, 0.12);
@@ -2408,7 +2416,7 @@ footer.footer .footer-soporte {
   align-items: center;
   justify-content: center;
   border: 1px solid rgba(255, 255, 255, 0.7);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   padding: 0.55rem 1.1rem;
   font-weight: 700;
   text-decoration: none;
