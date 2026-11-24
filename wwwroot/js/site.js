@@ -119,7 +119,7 @@
     if (cuidadoresPage && cuidadoresPage.dataset.esPropietario === 'true') {
         const modalAgregar = document.getElementById('modalAgregar');
         const modalEliminar = document.getElementById('modalEliminar');
-        const btnAbrirAgregar = document.getElementById('btnAbrirAgregar');
+        const botonesAbrirAgregar = document.querySelectorAll('[data-abrir-agregar]');
         const btnCerrarAgregar = document.getElementById('btnCerrarAgregar');
         const btnConfirmarAgregar = document.getElementById('btnConfirmarAgregar');
         const identificadorCuidador = document.getElementById('identificadorCuidador');
@@ -131,11 +131,13 @@
         const urlAgregar = cuidadoresPage.dataset.urlAgregar;
         const urlEliminar = cuidadoresPage.dataset.urlEliminar;
         let cuidadorSeleccionado = 0;
-        if (btnAbrirAgregar && modalAgregar && identificadorCuidador && agregarMensaje) {
-            btnAbrirAgregar.addEventListener('click', function () {
-                identificadorCuidador.value = '';
-                agregarMensaje.textContent = '';
-                modalAgregar.classList.add('is-open');
+        if (modalAgregar && identificadorCuidador && agregarMensaje) {
+            botonesAbrirAgregar.forEach(function (boton) {
+                boton.addEventListener('click', function () {
+                    identificadorCuidador.value = '';
+                    agregarMensaje.textContent = '';
+                    modalAgregar.classList.add('is-open');
+                });
             });
         }
         if (btnCerrarAgregar && modalAgregar) {

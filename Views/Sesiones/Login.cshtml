@@ -16,12 +16,12 @@
             <form id="login-form" action="@Url.Action("LoginVerificar", "Sesiones")" method="POST" novalidate>
                 <div class="field-group">
                     <label for="usuario">Correo electrónico</label>
-                    <input id="usuario" type="email" name="email" placeholder="ejemplo@correo.com" required />
+                    <input id="usuario" type="email" name="email" placeholder="ejemplo@correo.com" autocomplete="email" required />
                 </div>
 
                 <div class="field-group">
                     <label for="contrasena">Contraseña</label>
-                    <input id="contrasena" type="password" name="password" placeholder="Ingrese su contraseña" required />
+                    <input id="contrasena" type="password" name="password" placeholder="Ingrese su contraseña" autocomplete="current-password" required />
                 </div>
 
                 <div class="form-row">

@@ -26,12 +26,17 @@
 		.ToList();
 }
 
-<div class="cuidadores-page" data-es-propietario="@esPropietario.ToString().ToLowerInvariant()" data-url-agregar="@Url.Action("AgregarCuidador", "Home")" data-url-eliminar="@Url.Action("EliminarCuidador", "Home")">
-	<section class="landing-brand">
-		<h1 class="Logo">BRIDGE</h1>
-		<h3 class="subtitle">Conservando la vida</h3>
-	</section>
+@functions {
+	string Iniciales(string nombre) {
+		if (string.IsNullOrWhiteSpace(nombre)) { return "U"; }
+		string[] partes = nombre.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+		string resultado = char.ToUpper(partes[0][0]).ToString();
+		if (partes.Length > 1) { resultado += char.ToUpper(partes[1][0]); }
+		return resultado;
+	}
+}
 
+<div class="cuidadores-page" data-es-propietario="@esPropietario.ToString().ToLowerInvariant()" data-url-agregar="@Url.Action("AgregarCuidador", "Home")" data-url-eliminar="@Url.Action("EliminarCuidador", "Home")">
 	<section class="dashboard-header">
 		<div>
 			<p class="dashboard-eyebrow">Familia y Cuidadores</p>
@@ -56,14 +61,13 @@
 					@foreach (MensajeViewModel mensaje in mensajes)
 					{
 						<article class="mensaje-item">
-							@if (!string.IsNullOrWhiteSpace(mensaje.fotoPerfil))
-							{
-								<img class="avatar" src="@mensaje.fotoPerfil" alt="Foto de @mensaje.nombreCuidador" />
-							}
-							else
-							{
-								<div class="avatar avatar-placeholder">👤</div>
-							}
+							<span class="avatar-with-fallback">
+								<span class="avatar avatar-placeholder" aria-hidden="true">@Iniciales(mensaje.nombreCuidador)</span>
+								@if (!string.IsNullOrWhiteSpace(mensaje.fotoPerfil))
+								{
+									<img class="avatar avatar-image" src="@mensaje.fotoPerfil" alt="Foto de @mensaje.nombreCuidador" width="42" height="42" loading="lazy" onerror="this.style.display='none'" />
+								}
+							</span>
 							<div class="mensaje-contenido">
 								<div class="mensaje-top">
 									<strong>@mensaje.nombreCuidador</strong>
@@ -125,13 +129,19 @@
 				<h3>Cuidadores autorizados</h3>
 				@if (esPropietario)
 				{
-					<button id="btnAbrirAgregar" type="button" class="panel-button">Agregar</button>
+					<button id="btnAbrirAgregar" type="button" class="panel-button" data-abrir-agregar>Agregar</button>
 				}
 			</div>
 
 			@if (!cuidadores.Any())
 			{
-				<p class="dashboard-empty">Aún no hay cuidadores en este grupo.</p>
+				<div class="empty-state">
+					<p>Aún no hay cuidadores en este grupo.</p>
+					@if (esPropietario)
+					{
+						<button type="button" class="primary-btn" data-abrir-agregar>Agregar cuidador</button>
+					}
+				</div>
 			}
 			else
 			{
@@ -146,14 +156,13 @@
 						{
 							<article class="cuidador-item">
 								<div class="cuidador-identidad">
-									@if (!string.IsNullOrWhiteSpace(cuidador.fotoPerfil))
-									{
-										<img class="avatar" src="@cuidador.fotoPerfil" alt="Foto de @cuidador.nombre" />
-									}
-									else
-									{
-										<div class="avatar avatar-placeholder">👤</div>
-									}
+									<span class="avatar-with-fallback">
+										<span class="avatar avatar-placeholder" aria-hidden="true">@Iniciales(cuidador.nombre)</span>
+										@if (!string.IsNullOrWhiteSpace(cuidador.fotoPerfil))
+										{
+											<img class="avatar avatar-image" src="@cuidador.fotoPerfil" alt="Foto de @cuidador.nombre" width="42" height="42" loading="lazy" onerror="this.style.display='none'" />
+										}
+									</span>
 
 									<div>
 										<p class="nombre-cuidador">@cuidador.nombre</p>
@@ -182,14 +191,13 @@
 						{
 							<article class="cuidador-item">
 								<div class="cuidador-identidad">
-									@if (!string.IsNullOrWhiteSpace(cuidador.fotoPerfil))
-									{
-										<img class="avatar" src="@cuidador.fotoPerfil" alt="Foto de @cuidador.nombre" />
-									}
-									else
-									{
-										<div class="avatar avatar-placeholder">👤</div>
-									}
+									<span class="avatar-with-fallback">
+										<span class="avatar avatar-placeholder" aria-hidden="true">@Iniciales(cuidador.nombre)</span>
+										@if (!string.IsNullOrWhiteSpace(cuidador.fotoPerfil))
+										{
+											<img class="avatar avatar-image" src="@cuidador.fotoPerfil" alt="Foto de @cuidador.nombre" width="42" height="42" loading="lazy" onerror="this.style.display='none'" />
+										}
+									</span>
 									<div>
 										<p class="nombre-cuidador">@cuidador.nombre</p>
 										<div class="badges">
@@ -213,12 +221,12 @@
 
 @if (esPropietario)
 {
-	<div id="modalAgregar" class="bridge-modal" aria-hidden="true">
+	<div id="modalAgregar" class="bridge-modal" role="dialog" aria-modal="true" aria-labelledby="modalAgregarTitle" aria-hidden="true">
 		<div class="bridge-modal__content">
-			<h4>Agregar cuidador</h4>
+			<h4 id="modalAgregarTitle">Agregar cuidador</h4>
 			<p>Ingresá el nombre de usuario o mail del cuidador.</p>
 			<input id="identificadorCuidador" type="text" placeholder="usuario@mail.com o nombreUsuario" />
-			<p id="agregarMensaje" class="modal-message"></p>
+			<p id="agregarMensaje" class="modal-message" aria-live="polite"></p>
 			<div class="modal-actions">
 				<button id="btnConfirmarAgregar" type="button">Confirmar</button>
 				<button id="btnCerrarAgregar" type="button" class="btn-secondary">Cancelar</button>
@@ -226,11 +234,11 @@
 		</div>
 	</div>
 
-	<div id="modalEliminar" class="bridge-modal" aria-hidden="true">
+	<div id="modalEliminar" class="bridge-modal" role="dialog" aria-modal="true" aria-labelledby="modalEliminarTitle" aria-hidden="true">
 		<div class="bridge-modal__content">
-			<h4>Eliminar cuidador</h4>
+			<h4 id="modalEliminarTitle">Eliminar cuidador</h4>
 			<p id="textoEliminar"></p>
-			<p id="eliminarMensaje" class="modal-message"></p>
+			<p id="eliminarMensaje" class="modal-message" aria-live="polite"></p>
 			<div class="modal-actions">
 				<button id="btnConfirmarEliminar" type="button">Eliminar</button>
 				<button id="btnCerrarEliminar" type="button" class="btn-secondary">Cancelar</button>

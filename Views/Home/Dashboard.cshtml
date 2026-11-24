@@ -1,17 +1,14 @@
 @{
     ViewData["Title"] = "Panel de control";
-    Evento eventos = ViewBag.Proximos5Eventos as List<Bridge.Models.Evento> ?? new List<Bridge.Models.Evento>();
+    List<Evento> eventos = ViewBag.Proximos5Eventos as List<Bridge.Models.Evento> ?? new List<Bridge.Models.Evento>();
 }
 <div class="dashboard-page">
-    <section class="landing-brand">
-        <h1 class="Logo">BRIDGE</h1>
-        <h3 class="subtitle">Conservando la vida</h3>
-    </section>
     <section class="dashboard-header">
         <div>
             <p class="dashboard-eyebrow">Panel de control</p>
             <h2>@ViewBag.NombreGrupo</h2>
         </div>
+        <a class="dashboard-group-link" href="@Url.Action("Grupo", "Home")">Cambiar grupo</a>
     </section>
     <div class="dashboard-grid">
         <section class="dashboard-section dashboard-events">
@@ -47,17 +44,10 @@
             <div class="dashboard-card dashboard-actions-card">
                 <h2>Acciones rápidas</h2>
                 <div class="button-group">
-                    <button type="button" onclick="location.href='@Url.Action("Herramientas", "Home")'">Herramientas</button>
-                    <button type="button" onclick="location.href='@Url.Action("AdultoMayor", "Home")'">Adulto mayor</button>
-                    <button type="button" onclick="location.href='@Url.Action("Cuidadores", "Home")'">Cuidadores</button>
+                    <a class="primary-btn" href="@Url.Action("Herramientas", "Home")">Herramientas</a>
+                    <a class="primary-btn" href="@Url.Action("AdultoMayor", "Home")">Adulto mayor</a>
+                    <a class="primary-btn" href="@Url.Action("Cuidadores", "Home")">Cuidadores</a>
                 </div>
-            </div>
-        </section>
-
-        <section class="dashboard-section dashboard-group">
-            <div class="dashboard-card dashboard-group-card">
-                <h2>Cambiar Grupo</h2>
-                <button type="button" onclick="location.href='@Url.Action("Grupo", "Home")'">Cambiar Grupo</button>
             </div>
         </section>
     </div>

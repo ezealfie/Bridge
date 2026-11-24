@@ -35,6 +35,7 @@ public class HomeController : Controller
     {
         Usuario usuario = _bd.ObtenerUsuarioPorId(HttpContext.Session.GetInt32("IdUsuario") ?? 0);
         ViewBag.user = usuario.fotoPerfil;
+        ViewBag.nombre = usuario.nombre;
         return View();
     }
     public IActionResult Herramientas()

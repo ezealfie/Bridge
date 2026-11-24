@@ -5,27 +5,27 @@
 }   
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Bridge</title>
     <script type="importmap"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-B/GM4XqrwHnWXNOWMbloTmrYXZg10cakYGmpfsR/bbzQ6JAJI4ihuyADKLnBgrCe" crossorigin="anonymous">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Bridge.styles.css" asp-append-version="true" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;600;700;800&family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
+    <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             @if (!usuarioLogueado)
             {
                 <div class="nav-group nav-group--left">
                     <a class="brand-logo-link" href="@Url.Action("Index", "Home")">
-                        <img class="brand-logo-image" src="~/Imagenes/LogoBlanco.png" alt="Logo de Bridge" />
+                        <img class="brand-logo-image" src="~/Imagenes/LogoBlanco.png" alt="Logo de Bridge" width="74" height="40" />
                     </a>
                     <a href="@Url.Action("Index", "Home")">Inicio</a>
                     <a href="@Url.Action("SobreNosotros", "Home")">Sobre nosotros</a>
@@ -39,7 +39,7 @@
             {
                 <div class="nav-group nav-group--left">
                     <a class="brand-logo-link" href="@Url.Action("Dashboard", "Home")">
-                        <img class="brand-logo-image" src="~/Imagenes/LogoBlanco.png" alt="Logo de Bridge" />
+                        <img class="brand-logo-image" src="~/Imagenes/LogoBlanco.png" alt="Logo de Bridge" width="74" height="40" />
                     </a>
                     <a href="@Url.Action("Dashboard", "Home")">Inicio</a>
                     <a href="@Url.Action("Grupo", "Home")">Grupos</a>
@@ -47,26 +47,15 @@
                     <a href="@Url.Action("AdultoMayor", "Home")">Adulto mayor</a>
                     <a href="@Url.Action("Cuidadores", "Home")">Familia y Cuidadores</a>
                 </div>
-                //si la imagen del usuario es null aparece avatar.png sino aparece la imagen del usuario
-                //<div class="nav-group nav-group--right">
-                  //  <a class="profile-link" href="@Url.Action("Configuracion", "Home")"><img src="~/Imagenes/avatar.png" alt="Aca va la foto de perfil" style="width: 30px; height: 30px; border-radius: 50%;"></a>
-                //</div>
-                if (usuario.fotoPerfil != null)
-                {
-                    <div class="nav-group nav-group--right">
-                        <a class="profile-link" href="@Url.Action("Configuracion", "Home")"><img src="@usuario.fotoPerfil" alt="Foto de perfil" style="width: 30px; height: 30px; border-radius: 50%;"></a>
-                    </div>
-                }
-                else
-                {
-                    <div class="nav-group nav-group--right">
-                        <a class="profile-link" href="@Url.Action("Configuracion", "Home")"><img src="~/Imagenes/avatar.png" alt="Aca va la foto de perfil" style="width: 30px; height: 30px; border-radius: 50%;"></a>
-                    </div>
-                }
+                <div class="nav-group nav-group--right">
+                    <a class="profile-link" href="@Url.Action("Configuracion", "Home")" aria-label="Configuración de perfil">
+                        <img class="profile-avatar" src="@(string.IsNullOrEmpty(usuario.fotoPerfil) ? "/Imagenes/avatar.png" : usuario.fotoPerfil)" alt="Foto de perfil" width="30" height="30" onerror="this.onerror=null; this.src='/Imagenes/avatar.png';" />
+                    </a>
+                </div>
             }
         </nav>
     </header>
-    <div class="container">
+    <div class="container" id="main-content">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -76,7 +65,7 @@
             <h3 class="FooterH3">Bridge</h3>
             <h4 class="FooterH4">Conservando la vida, facilitando la conexión y el bienestar de nuestros mayores.</h4>
         </div>
-        <button type="button" onclick="">Soporte</button> <!-- Aca va el icono de mail antes del texto de soporte, no se como hacerla -->
+        <a class="footer-soporte" href="mailto:soporte@bridge.com">Soporte</a>
         <ul>
             <li><a href="@Url.Action("SobreNosotros", "Home")">Sobre nosotros</a></li>
             @if (usuarioLogueado)
@@ -95,18 +84,17 @@
         <hr><!-- Esto deberia ser la linea -->
         <p><i>Copyright © 2026 Bridge. Todos los derechos reservados.</i></p>
         <a href="@Url.Action("Privacy", "Home")">Privacidad</a>
-        <a href="">Términos de servicio</a>
-        <section class="RedesSociales">
-            <a href=""><img src="~/Imagenes/X.png" alt="Logo de X"></a> <!-- Esto deberia ser el logo de X -->
-            <a href=""><img src="~/Imagenes/Instagram.png" alt="Logo de Instagram"></a> <!-- Esto deberia ser el logo de Instagram -->
-            <a href=""><img src="~/Imagenes/YouTube.png" alt="Logo de YouTube"></a> <!-- Esto deberia ser el logo de YouTube -->
-            <a href=""><img src="~/Imagenes/LinkedIn.png" alt="Logo de LinkedIn"></a> <!-- Esto deberia ser el logo de LinkedIn -->
+        <span class="footer-inactivo" aria-disabled="true">Términos de servicio</span>
+        <section class="RedesSociales" aria-label="Redes sociales">
+            <a class="footer-inactivo" aria-disabled="true" aria-label="X"><img src="~/Imagenes/X.png" alt="" width="16" height="16"></a>
+            <a class="footer-inactivo" aria-disabled="true" aria-label="Instagram"><img src="~/Imagenes/Instagram.png" alt="" width="16" height="16"></a>
+            <a class="footer-inactivo" aria-disabled="true" aria-label="YouTube"><img src="~/Imagenes/YouTube.png" alt="" width="16" height="16"></a>
+            <a class="footer-inactivo" aria-disabled="true" aria-label="LinkedIn"><img src="~/Imagenes/Linkedin.png" alt="" width="16" height="16"></a>
         </section>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
-    <script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-1a/pXj49ZQ1aHEmrJ+gMw1otqoVsYwlEnlD8mIfY2TV03r20Y0CN7uqx1tQogjPL" crossorigin="anonymous"></script>
 </body>
 </html>
