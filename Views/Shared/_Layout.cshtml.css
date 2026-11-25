@@ -10,15 +10,15 @@ a {
 
 .btn-primary {
   color: #fff;
-  background-color: var(--color-primario-oscuro);
-  border-color: var(--color-primario-oscuro);
+  background-color: #0a7d81;
+  border-color: #0a7d81;
 }
 
 .nav-pills .nav-link.active,
-.nav-pills .show > .nav-link {
+.nav-pills .show .nav-link {
   color: #fff;
-  background-color: var(--color-primario-oscuro);
-  border-color: var(--color-primario-oscuro);
+  background-color: #0a7d81;
+  border-color: #0a7d81;
 }
 
 .border-top {
@@ -29,9 +29,7 @@ a {
   border-bottom: 1px solid #e5e5e5;
 }
 
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
+
 
 button.accept-policy {
   font-size: 1rem;
@@ -39,14 +37,13 @@ button.accept-policy {
 }
 
 header {
-  background: var(--color-primario);
+  background: #00A9AF;
   width: 100%;
 }
 
-nav.navbar {
+header nav {
   background: transparent !important;
   border: none !important;
-  box-shadow: none !important;
   padding: 1rem 1.25rem !important;
   margin: 0 !important;
   display: flex !important;
@@ -55,39 +52,39 @@ nav.navbar {
   gap: 1rem;
 }
 
-nav.navbar .nav-group {
+header nav div {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
-nav.navbar .nav-group--left {
+header nav div:first-child {
   justify-content: flex-start;
   flex: 1;
 }
 
-nav.navbar .nav-group--right {
+header nav div:last-child {
   justify-content: flex-end;
   flex: 1;
 }
 
-nav.navbar .nav-group a {
+header nav div a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 2.6rem;
   padding: 0.75rem 1.35rem;
   border-radius: 999px;
-  background: var(--color-primario-oscuro) !important;
+  background: #0a7d81 !important;
   color: #ffffff !important;
   text-decoration: none !important;
   font-family: "Montserrat", sans-serif !important;
   font-size: 0.92rem !important;
   font-weight: 600 !important;
   line-height: 1;
-  transition: opacity 0.2s ease, transform 0.2s ease;
 }
-nav.navbar .nav-group a.brand-logo-link {
+
+header nav div a.brand-logo-link {
   display: inline-flex !important;
   align-items: center;
   justify-content: center;
@@ -97,41 +94,35 @@ nav.navbar .nav-group a.brand-logo-link {
   min-height: auto !important;
 }
 
-nav.navbar .nav-group a.brand-logo-link img.brand-logo-image {
+header nav div a.brand-logo-link img.brand-logo-image {
   display: block !important;
   width: 4.6rem !important;
   height: auto !important;
   max-height: 2.5rem !important;
-  object-fit: contain;
   background: transparent !important;
-  filter: none;
 }
 
-nav.navbar .nav-group a.btn-register {
+header nav div a.btn-register {
   background: #ffffff !important;
-  color: var(--color-primario-oscuro) !important;
-  border: 2px solid var(--color-primario-oscuro) !important;
-  box-shadow: none !important;
+  color: #0a7d81 !important;
+  border: 2px solid #0a7d81 !important;
 }
 
-nav.navbar .nav-group a.profile-link img {
-  width: 1.5rem;
-  height: 1.5rem;
+header nav div a.profile-link img {
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: 50%;
   display: block;
-  object-fit: cover;
 }
 
-nav.navbar .nav-group a:hover,
-nav.navbar .nav-group a.btn-register:hover {
+header nav div a:hover,
+header nav div a.btn-register:hover {
   opacity: 0.92;
-  transform: translateY(-1px);
 }
 
 .navbar {
   background: transparent !important;
   border: none !important;
-  box-shadow: none !important;
   padding: 1rem 1.25rem !important;
   margin: 0 !important;
   display: flex !important;
@@ -163,15 +154,15 @@ nav.navbar .nav-group a.btn-register:hover {
   min-height: 2.6rem;
   padding: 0.75rem 1.35rem;
   border-radius: 999px;
-  background: var(--color-primario-oscuro) !important;
+  background: #0a7d81 !important;
   color: #ffffff !important;
   text-decoration: none !important;
   font-family: "Montserrat", sans-serif !important;
   font-size: 0.92rem !important;
   font-weight: 600 !important;
   line-height: 1;
-  transition: opacity 0.2s ease, transform 0.2s ease;
 }
+
 .navbar .brand-logo-link {
   display: inline-flex !important;
   align-items: center;
@@ -188,16 +179,13 @@ nav.navbar .nav-group a.btn-register:hover {
   height: auto;
   max-height: 3rem;
   background: transparent;
-  object-fit: contain;
-  filter: none;
 }
 
 .navbar a.btn-register,
 .navbar .btn-register {
   background: #ffffff !important;
-  color: var(--color-primario-oscuro) !important;
-  border: 2px solid var(--color-primario-oscuro) !important;
-  box-shadow: none !important;
+  color: #0a7d81 !important;
+  border: 2px solid #0a7d81 !important;
 }
 
 .navbar .profile-link {
@@ -205,21 +193,18 @@ nav.navbar .nav-group a.btn-register:hover {
 }
 
 .navbar .profile-link img {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: 50%;
   display: block;
-  object-fit: cover;
 }
 
 .navbar a:hover {
   opacity: 0.92;
-  transform: translateY(-1px);
 }
 
 .navbar .btn-register:hover {
   opacity: 0.92;
-  transform: translateY(-1px);
 }
 
 .brand-logo-link {
@@ -237,15 +222,12 @@ nav.navbar .nav-group a.btn-register:hover {
   height: auto;
   max-height: 3rem;
   background: transparent;
-  object-fit: contain;
-  filter: none;
 }
 
 .btn-register {
   background: #ffffff !important;
-  color: var(--color-primario-oscuro) !important;
-  border: 2px solid var(--color-primario-oscuro) !important;
-  box-shadow: none !important;
+  color: #0a7d81 !important;
+  border: 2px solid #0a7d81 !important;
 }
 
 .profile-link {
@@ -253,23 +235,21 @@ nav.navbar .nav-group a.btn-register:hover {
 }
 
 .profile-link img {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: 50%;
   display: block;
-  object-fit: cover;
 }
 
-footer.footer {
+footer {
   position: relative !important;
   bottom: auto !important;
   width: 100%;
   white-space: normal;
   line-height: normal;
-  background: var(--color-primario) !important;
+  background: #00A9AF !important;
   color: #ffffff !important;
   border: none !important;
-  box-shadow: none !important;
   padding: 2rem 2.5rem 1.25rem !important;
   font-family: "League Spartan", sans-serif !important;
   display: flex !important;
@@ -279,7 +259,7 @@ footer.footer {
   text-align: left !important;
 }
 
-footer.footer .footer-brand {
+footer div {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -291,12 +271,12 @@ footer.footer .footer-brand {
   order: 1;
 }
 
-footer.footer .footer-soporte {
+footer .footer-soporte {
   order: 2;
   margin-left: auto;
 }
 
-footer.footer > .footer-inactivo {
+footer span {
   order: 3;
 }
 
@@ -329,10 +309,10 @@ footer.footer > .footer-inactivo {
   order: 2;
   display: block;
   max-width: 28rem;
-  color: rgba(255,255,255,0.92);
+  color: rgba(255, 255, 255, 0.92);
 }
 
-footer.footer ul {
+footer ul {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
@@ -344,18 +324,18 @@ footer.footer ul {
   order: 4;
 }
 
-footer.footer ul li {
+footer ul li {
   list-style: none;
 }
 
-footer.footer ul li a {
+footer ul li a {
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 500;
   opacity: 1;
 }
 
-footer.footer button {
+footer button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -372,22 +352,22 @@ footer.footer button {
   order: 4;
 }
 
-footer.footer hr {
+footer hr {
   width: 100%;
   border: none;
-  border-top: 1px solid rgba(255,255,255,0.85);
+  border-top: 1px solid rgba(255, 255, 255, 0.85);
   margin: 1.25rem 0 0.5rem;
   order: 5;
 }
 
-footer.footer p {
+footer p {
   margin: 0;
   font-size: 0.76rem;
   opacity: 0.95;
   order: 6;
 }
 
-footer.footer > a[href*="Privacy"] {
+footer a[href*="Privacy"] {
   margin-left: auto;
   color: #ffffff !important;
   text-decoration: none;
@@ -395,14 +375,7 @@ footer.footer > a[href*="Privacy"] {
   order: 8;
 }
 
-footer.footer > a[href*="Privacy"] + a {
-  color: #ffffff !important;
-  text-decoration: none;
-  font-size: 0.8rem;
-  order: 9;
-}
-
-footer.footer .RedesSociales {
+footer section {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -412,7 +385,7 @@ footer.footer .RedesSociales {
   order: 7;
 }
 
-footer.footer .RedesSociales a {
+footer section a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -422,19 +395,15 @@ footer.footer .RedesSociales a {
   padding: 0;
   background: transparent !important;
   border-radius: 0;
-  box-shadow: none;
 }
 
-footer.footer .RedesSociales a img {
+footer section a img {
   display: block;
   width: 1.35rem;
   height: 1.35rem;
   padding: 0;
   border-radius: 0;
   background: transparent !important;
-  object-fit: contain;
-  box-shadow: none;
-  filter: none;
 }
 
 @media (max-width: 767px) {
@@ -443,54 +412,52 @@ footer.footer .RedesSociales a img {
     flex-wrap: wrap;
     justify-content: center;
   }
+
   .navbar .nav-group--left,
   .navbar .nav-group--right {
     flex: 1 1 100%;
     justify-content: center;
     flex-wrap: wrap;
   }
+
   .navbar .nav-group a {
     min-height: 2.2rem;
     padding: 0.6rem 0.9rem;
     font-size: 0.8rem;
   }
+
   .navbar ul {
     justify-content: center;
     flex-wrap: wrap;
     gap: 0.7rem !important;
   }
+
   .navbar ul li a {
     min-height: 2.2rem;
     padding: 0.7rem 1rem;
     font-size: 0.8rem !important;
   }
-  footer.footer {
+
+  footer {
     grid-template-columns: 1fr;
     padding: 1.5rem 1rem 1rem !important;
     text-align: center;
   }
-  .footer .FooterH3,
-  .footer .FooterH4,
-  footer.footer ul,
-  footer.footer button,
-  footer.footer p,
-  footer.footer > a[href*="Privacy"],
-  footer.footer > a[href*="Privacy"] + a {
-    grid-column: 1;
-    grid-row: auto;
-    justify-self: center;
-  }
+
   .footer .FooterH4 {
     max-width: 100%;
   }
-  footer.footer ul {
+
+  footer ul {
     justify-content: center;
     gap: 0.8rem 1.1rem;
   }
-  footer.footer button {
+
+  footer button {
     margin-top: 0.25rem;
   }
-  footer.footer hr {
+
+  footer hr {
     margin-top: 0.8rem;
   }
 }

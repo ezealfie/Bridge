@@ -60,10 +60,7 @@
 							<article class="mensaje-item">
 								<span class="avatar-with-fallback">
 									<span class="avatar avatar-placeholder" aria-hidden="true">@Iniciales(mensaje.nombreCuidador)</span>
-									@if (!string.IsNullOrWhiteSpace(mensaje.fotoPerfil))
-									{
-										<img class="avatar avatar-image" src="@mensaje.fotoPerfil" alt="Foto de @mensaje.nombreCuidador" width="42" height="42" loading="lazy" onerror="this.style.display='none'" />
-									}
+									<img class="avatar avatar-image" src="@(string.IsNullOrWhiteSpace(mensaje.fotoPerfil) ? "/Imagenes/avatar.png" : mensaje.fotoPerfil)" alt="Foto de @mensaje.nombreCuidador" width="42" height="42" loading="lazy" onerror="this.onerror=null; this.src='/Imagenes/avatar.png';" />
 								</span>
 								<div class="mensaje-contenido">
 									<div class="mensaje-top">
@@ -151,10 +148,7 @@
 									<div class="cuidador-identidad">
 										<span class="avatar-with-fallback">
 											<span class="avatar avatar-placeholder" aria-hidden="true">@Iniciales(cuidador.nombre)</span>
-											@if (!string.IsNullOrWhiteSpace(cuidador.fotoPerfil))
-											{
-												<img class="avatar avatar-image" src="@cuidador.fotoPerfil" alt="Foto de @cuidador.nombre" width="42" height="42" loading="lazy" onerror="this.style.display='none'" />
-											}
+											<img class="avatar avatar-image" src="@(string.IsNullOrWhiteSpace(cuidador.fotoPerfil) ? "/Imagenes/avatar.png" : cuidador.fotoPerfil)" alt="Foto de @cuidador.nombre" width="42" height="42" loading="lazy" onerror="this.onerror=null; this.src='/Imagenes/avatar.png';" />
 										</span>
 
 										<div>
@@ -185,10 +179,7 @@
 									<div class="cuidador-identidad">
 										<span class="avatar-with-fallback">
 											<span class="avatar avatar-placeholder" aria-hidden="true">@Iniciales(cuidador.nombre)</span>
-											@if (!string.IsNullOrWhiteSpace(cuidador.fotoPerfil))
-											{
-												<img class="avatar avatar-image" src="@cuidador.fotoPerfil" alt="Foto de @cuidador.nombre" width="42" height="42" loading="lazy" onerror="this.style.display='none'" />
-											}
+											<img class="avatar avatar-image" src="@(string.IsNullOrWhiteSpace(cuidador.fotoPerfil) ? "/Imagenes/avatar.png" : cuidador.fotoPerfil)" alt="Foto de @cuidador.nombre" width="42" height="42" loading="lazy" onerror="this.onerror=null; this.src='/Imagenes/avatar.png';" />
 										</span>
 										<div>
 											<p class="nombre-cuidador">@cuidador.nombre</p>
