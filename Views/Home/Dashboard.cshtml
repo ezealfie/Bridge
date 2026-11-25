@@ -2,7 +2,7 @@
     ViewData["Title"] = "Panel de control";
     List<Evento> eventos = ViewBag.Proximos5Eventos as List<Bridge.Models.Evento> ?? new List<Bridge.Models.Evento>();
 }
-<div class="dashboard-page">
+<main class="dashboard-page">
     <section class="dashboard-header">
         <div>
             <p class="dashboard-eyebrow">Panel de control</p>
@@ -10,8 +10,8 @@
         </div>
         <a class="dashboard-group-link" href="@Url.Action("Grupo", "Home")">Cambiar grupo</a>
     </section>
-    <div class="dashboard-grid">
-        <section class="dashboard-section dashboard-events">
+    <section class="dashboard-grid">
+        <div class="dashboard-section dashboard-events">
             <div class="dashboard-card">
                 <h2>Últimos Eventos</h2>
                 @if (eventos.Count == 0)
@@ -38,9 +38,8 @@
                     </div>
                 }
             </div>
-        </section>
-
-        <section class="dashboard-section dashboard-actions">
+        </div>
+        <div class="dashboard-section dashboard-actions">
             <div class="dashboard-card dashboard-actions-card">
                 <h2>Acciones rápidas</h2>
                 <div class="button-group">
@@ -49,6 +48,6 @@
                     <a class="primary-btn" href="@Url.Action("Cuidadores", "Home")">Cuidadores</a>
                 </div>
             </div>
-        </section>
-    </div>
-</div>
+        </div>
+    </section>
+</main>

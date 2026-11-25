@@ -4,80 +4,79 @@
     bool esAdultoMayor = idUsuario > 0 && new Bridge.Models.BD().EsAdultoMayor(idUsuario);
     List<Bridge.Models.Grupo> grupos = ViewBag.Grupos as List<Bridge.Models.Grupo> ?? new List<Bridge.Models.Grupo>();
 }
-
-<section class="grupo-page py-4 py-md-5">
-    <div class="grupo-container">
-        <div class="grupo-shell">
-            <div class="grupo-header text-center mb-4">
-                <p class="grupo-kicker">Cuidado compartido</p>
-                <h1 class="fw-bold mb-0">Grupos de cuidado</h1>
-            </div>
-
-            <div class="grupo-card">
-                <div class="grupo-list">
-                    @if (!grupos.Any())
-                    {
-                        <div class="text-center text-muted py-4">
-                            Aún no tenés grupos creados.
-                        </div>
-                    }
-                    else
-                    {
-                        @foreach (Bridge.Models.Grupo grupo in grupos)
+<main>
+    <section class="grupo-page py-4 py-md-5">
+        <div class="grupo-container">
+            <div class="grupo-shell">
+                <div class="grupo-header text-center mb-4">
+                    <p class="grupo-kicker">Cuidado compartido</p>
+                    <h1 class="fw-bold mb-0">Grupos de cuidado</h1>
+                </div>
+                <div class="grupo-card">
+                    <div class="grupo-list">
+                        @if (!grupos.Any())
                         {
-                            <a href="@Url.Action("Dashboard", "Home", new { idGrupo = grupo.id_grupo })"
-                               class="grupo-item">
-                                <span class="grupo-avatar">
-                                    @(!string.IsNullOrEmpty(grupo.Nombre) ? grupo.Nombre.Substring(0, 1).ToUpper() : "G")
-                                </span>
-                                <span class="grupo-name">@grupo.Nombre</span>
-                            </a>
+                            <div class="text-center text-muted py-4">
+                                Aún no tenés grupos creados.
+                            </div>
                         }
-                    }
-                </div>
+                        else
+                        {
+                            @foreach (Bridge.Models.Grupo grupo in grupos)
+                            {
+                                <a href="@Url.Action("Dashboard", "Home", new { idGrupo = grupo.id_grupo })"
+                                class="grupo-item">
+                                    <span class="grupo-avatar">
+                                        @(!string.IsNullOrEmpty(grupo.Nombre) ? grupo.Nombre.Substring(0, 1).ToUpper() : "G")
+                                    </span>
+                                    <span class="grupo-name">@grupo.Nombre</span>
+                                </a>
+                            }
+                        }
+                    </div>
 
-                <div class="grupo-actions">
-                    <button type="button" class="grupo-btn" data-bs-toggle="modal" data-bs-target="#crearGrupoModal">Agregar</button>
+                    <div class="grupo-actions">
+                        <button type="button" class="grupo-btn" data-bs-toggle="modal" data-bs-target="#crearGrupoModal">Agregar</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<div class="modal fade" id="crearGrupoModal" tabindex="-1" aria-labelledby="crearGrupoModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form asp-action="CrearGrupo" asp-controller="Home" method="post">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="crearGrupoModalLabel">Crear grupo</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="nombre" class="form-label">Nombre del grupo</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" required />
+    <section class="modal fade" id="crearGrupoModal" tabindex="-1" aria-labelledby="crearGrupoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form asp-action="CrearGrupo" asp-controller="Home" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="crearGrupoModalLabel">Crear grupo</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                     </div>
-                    @if (!esAdultoMayor)
-                    {
+                    <div class="modal-body">
                         <div class="mb-3">
-                            <label for="dniAdulto" class="form-label">DNI del adulto mayor</label>
-                            <input type="text" class="form-control" id="dniAdulto" name="dniAdulto" required />
+                            <label for="nombre" class="form-label">Nombre del grupo</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" required />
                         </div>
-                    }
-                    <div class="mb-3">
-                        <label for="descripcion" class="form-label">Descripción</label>
-                        <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
+                        @if (!esAdultoMayor)
+                        {
+                            <div class="mb-3">
+                                <label for="dniAdulto" class="form-label">DNI del adulto mayor</label>
+                                <input type="text" class="form-control" id="dniAdulto" name="dniAdulto" required />
+                            </div>
+                        }
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Guardar grupo</button>
-                </div>
-            </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar grupo</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
-</div>
-
+    </section>
+</main>
 @section Scripts {
     <script>
         const grupos = @Html.Raw(Json.Serialize(ViewBag.Grupos ?? new List<Bridge.Models.Grupo>()));
