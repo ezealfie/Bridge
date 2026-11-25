@@ -20,76 +20,100 @@
 </head>
 <body>
     <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            @if (!usuarioLogueado)
-            {
-                <div class="nav-group nav-group--left">
-                    <a class="brand-logo-link" href="@Url.Action("Index", "Home")">
-                        <img class="brand-logo-image" src="~/Imagenes/LogoBlanco.png" alt="Logo de Bridge" width="74" height="40" />
-                    </a>
-                    <a href="@Url.Action("Index", "Home")">Inicio</a>
-                    <a href="@Url.Action("SobreNosotros", "Home")">Sobre nosotros</a>
+    <header class="bridge-site-header">
+        @if (!usuarioLogueado)
+        {
+            <nav class="bridge-navbar-guest" aria-label="Navegación principal">
+                <a class="bridge-brand-guest" href="@Url.Action("Index", "Home")" aria-label="Ir al inicio">
+                    <img class="bridge-brand-guest__logo" src="~/Imagenes/LogoBlanco.png" alt="Logo de Bridge" />
+                </a>
+
+                <div class="bridge-navigation-guest">
+                    <a class="bridge-nav-button-guest" href="@Url.Action("Index", "Home")">Inicio</a>
+                    <a class="bridge-nav-button-guest" href="@Url.Action("SobreNosotros", "Home")">Sobre nosotros</a>
                 </div>
-                <div class="nav-group nav-group--right">
-                    <a href="@Url.Action("Login", "Sesiones")">Iniciar Sesion</a>
-                    <a class="btn-register" href="@Url.Action("Registrarse", "Sesiones")">Registrarse</a>
+
+                <div class="bridge-auth-actions">
+                    <a class="bridge-login-button" href="@Url.Action("Login", "Sesiones")">Iniciar Sesión</a>
+                    <a class="bridge-register-button" href="@Url.Action("Registrarse", "Sesiones")">Registrarse</a>
                 </div>
-            }
-            else
-            {
-                <div class="nav-group nav-group--left">
-                    <a class="brand-logo-link" href="@Url.Action("Dashboard", "Home")">
-                        <img class="brand-logo-image" src="~/Imagenes/LogoBlanco.png" alt="Logo de Bridge" width="74" height="40" />
-                    </a>
-                    <a href="@Url.Action("Dashboard", "Home")">Inicio</a>
-                    <a href="@Url.Action("Grupo", "Home")">Grupos</a>
-                    <a href="@Url.Action("Herramientas", "Home")">Herramientas</a>
-                    <a href="@Url.Action("AdultoMayor", "Home")">Adulto mayor</a>
-                    <a href="@Url.Action("Cuidadores", "Home")">Familia y Cuidadores</a>
+            </nav>
+        }
+        else
+        {
+            <nav class="bridge-navbar" aria-label="Navegación principal">
+                <a class="bridge-brand" href="@Url.Action("Dashboard", "Home")" aria-label="Ir al inicio">
+                    <img class="bridge-brand__logo" src="~/Imagenes/LogoBlanco.png" alt="Logo de Bridge" />
+                </a>
+
+                <div class="bridge-navigation">
+                    <a class="bridge-nav-button" href="@Url.Action("Dashboard", "Home")">Inicio</a>
+                    <a class="bridge-nav-button" href="@Url.Action("Grupo", "Home")">Grupos</a>
+                    <a class="bridge-nav-button" href="@Url.Action("Herramientas", "Home")">Herramientas</a>
+                    <a class="bridge-nav-button" href="@Url.Action("AdultoMayor", "Home")">Adulto mayor</a>
+                    <a class="bridge-nav-button" href="@Url.Action("Cuidadores", "Home")">Cuidadores</a>
                 </div>
-                <div class="nav-group nav-group--right">
-                    <a class="profile-link" href="@Url.Action("Configuracion", "Home")" aria-label="Configuración de perfil">
-                        <img class="profile-avatar" src="@(string.IsNullOrEmpty(usuario.fotoPerfil) ? "/Imagenes/avatar.png" : usuario.fotoPerfil)" alt="Foto de perfil" width="30" height="30" onerror="this.onerror=null; this.src='/Imagenes/avatar.png';" />
-                    </a>
-                </div>
-            }
-        </nav>
+
+                <a class="bridge-profile" href="@Url.Action("Configuracion", "Home")" aria-label="Configuración de perfil">
+                    <img class="bridge-profile__avatar" src="@(string.IsNullOrEmpty(usuario.fotoPerfil) ? "/Imagenes/avatar.png" : usuario.fotoPerfil)" alt="Foto de perfil" onerror="this.onerror=null; this.src='/Imagenes/avatar.png';" />
+                </a>
+            </nav>
+        }
     </header>
     <div class="container" id="main-content">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-    <footer class="border-top footer text-muted">
-        <div class="footer-brand">
-            <p class="FooterH3">Bridge</p>
-            <p class="FooterH4">Conservando la vida, facilitando la conexión y el bienestar de nuestros mayores.</p>
+    <footer class="bridge-footer" role="contentinfo">
+        <div class="bridge-footer__main">
+            <div class="bridge-footer__brand">
+                <p class="bridge-footer__title">Bridge</p>
+                <p class="bridge-footer__description">Conservando la vida, facilitando la conexión y el bienestar de nuestros mayores.</p>
+            </div>
+
+            <nav class="bridge-footer__navigation" aria-label="Navegación del footer">
+                <a href="@Url.Action("SobreNosotros", "Home")">Sobre nosotros</a>
+                @if (usuarioLogueado)
+                {
+                    <a href="@Url.Action("AdultoMayor", "Home")">Adulto mayor</a>
+                    <a href="@Url.Action("Cuidadores", "Home")">Cuidadores</a>
+                    <a href="@Url.Action("Herramientas", "Home")">Herramientas</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Login", "Sesiones")">Adulto mayor</a>
+                    <a href="@Url.Action("Login", "Sesiones")">Cuidadores</a>
+                    <a href="@Url.Action("Login", "Sesiones")">Herramientas</a>
+                }
+            </nav>
+
+            <a class="bridge-footer__support" href="mailto:soporte@bridge.com" aria-label="Contactar soporte">
+                <svg class="bridge-footer__mail" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect x="1.5" y="3" width="13" height="10" rx="1.5" stroke="currentColor" stroke-width="1.2" />
+                    <path d="M2.25 4L8 8.5L13.75 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Soporte</span>
+            </a>
         </div>
-        <ul>
-            <li><a href="@Url.Action("SobreNosotros", "Home")">Sobre nosotros</a></li>
-            @if (usuarioLogueado)
-            {
-                <li><a href="@Url.Action("Herramientas", "Home")">Herramientas</a></li>
-                <li><a href="@Url.Action("AdultoMayor", "Home")">Adulto mayor</a></li>
-                <li><a href="@Url.Action("Cuidadores", "Home")">Familia y Cuidadores</a></li>
-            }
-            else
-            {
-                <li><a href="@Url.Action("Login", "Sesiones")">Herramientas</a></li>
-                <li><a href="@Url.Action("Login", "Sesiones")">Adulto mayor</a></li>
-                <li><a href="@Url.Action("Login", "Sesiones")">Familia y Cuidadores</a></li>
-            }
-        </ul>
-        <hr><!-- Esto deberia ser la linea -->
-        <p><i>Copyright © 2026 Bridge. Todos los derechos reservados.</i></p>
-        <a href="@Url.Action("Privacy", "Home")">Privacidad</a>
-        <section class="RedesSociales" aria-label="Redes sociales">
-            <span class="footer-inactivo"><img src="~/Imagenes/X.png" alt="X" width="16" height="16"></span>
-            <span class="footer-inactivo"><img src="~/Imagenes/Instagram.png" alt="Instagram" width="16" height="16"></span>
-            <span class="footer-inactivo"><img src="~/Imagenes/YouTube.png" alt="YouTube" width="16" height="16"></span>
-            <span class="footer-inactivo"><img src="~/Imagenes/Linkedin.png" alt="LinkedIn" width="16" height="16"></span>
-        </section>
+
+        <div class="bridge-footer__divider" aria-hidden="true"></div>
+
+        <div class="bridge-footer__meta">
+            <p>Copyright © 2026 Bridge. Todos los derechos reservados.</p>
+
+            <nav class="bridge-footer__legal" aria-label="Enlaces legales">
+                <a href="@Url.Action("Privacy", "Home")">Privacidad</a>
+                <a href="#" aria-label="Términos de servicio">Términos de servicio</a>
+            </nav>
+        </div>
+
+        <div class="bridge-footer__social" aria-label="Redes sociales">
+            <a href="#" aria-label="X"><img src="~/Imagenes/X.png" alt="X" width="24" height="24" /></a>
+            <a href="#" aria-label="Instagram"><img src="~/Imagenes/Instagram.png" alt="Instagram" width="24" height="24" /></a>
+            <a href="#" aria-label="YouTube"><img src="~/Imagenes/YouTube.png" alt="YouTube" width="24" height="24" /></a>
+            <a href="#" aria-label="LinkedIn"><img src="~/Imagenes/Linkedin.png" alt="LinkedIn" width="24" height="24" /></a>
+        </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
