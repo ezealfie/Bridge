@@ -35,15 +35,15 @@
 	}
 }
 <main>
-	<div class="cuidadores-page" data-es-propietario="@esPropietario.ToString().ToLowerInvariant()" data-url-agregar="@Url.Action("AgregarCuidador", "Home")" data-url-eliminar="@Url.Action("EliminarCuidador", "Home")">
-		<section class="dashboard-header">
+	<section class="cuidadores-page" data-es-propietario="@esPropietario.ToString().ToLowerInvariant()" data-url-agregar="@Url.Action("AgregarCuidador", "Home")" data-url-eliminar="@Url.Action("EliminarCuidador", "Home")">
+		<div class="dashboard-header">
 			<div>
 				<p class="dashboard-eyebrow">Familia y Cuidadores</p>
 				<h2>@ViewBag.NombreGrupo</h2>
 			</div>
-		</section>
-		<div class="cuidadores-grid">
-			<section class="dashboard-card cuidadores-card">
+		</div>
+		<section class="cuidadores-grid">
+			<div class="dashboard-card cuidadores-card">
 				<div class="panel-header">
 					<h3>Últimos Mensajes</h3>
 					<a class="panel-link" href="@Url.Action("mensajes", "Home")">Ver más</a>
@@ -73,8 +73,8 @@
 						}
 					</div>
 				}
-			</section>
-			<section class="dashboard-card cuidadores-card">
+			</div>
+			<div class="dashboard-card cuidadores-card">
 				<div class="panel-header">
 					<h3>Calendario compartido</h3>
 					<a class="panel-link" href="@Url.Action("Calendario", "Home")">Ver</a>
@@ -113,8 +113,8 @@
 						}
 					</div>
 				</div>
-			</section>
-			<section class="dashboard-card cuidadores-card">
+			</div>
+			<div class="dashboard-card cuidadores-card">
 				<div class="panel-header">
 					<h3>Cuidadores autorizados</h3>
 					@if (esPropietario)
@@ -122,7 +122,6 @@
 						<button id="btnAbrirAgregar" type="button" class="panel-button" data-abrir-agregar>Agregar</button>
 					}
 				</div>
-
 				@if (!cuidadores.Any())
 				{
 					<div class="empty-state">
@@ -197,9 +196,9 @@
 						}
 					</div>
 				}
-			</section>
-		</div>
-	</div>
+			</div>
+		</section>
+	</section>
 	@if (esPropietario)
 	{
 		<div id="modalAgregar" class="bridge-modal" role="dialog" aria-modal="true" aria-labelledby="modalAgregarTitle" aria-hidden="true">

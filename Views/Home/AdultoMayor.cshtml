@@ -9,10 +9,10 @@
     string nombreAdultoMayor = bd.ObtenerNombreAdulto(Context.Session.GetInt32("IdUsuario") ?? 0);
 }
 
-<div class="adulto-page">
+<main class="adulto-page">
     <h1 class="adulto-title">Adulto mayor</h1>
-    <div class="adulto-grid">
-        <section class="adulto-card">
+    <section class="adulto-grid">
+        <div class="adulto-card">
             <h2>Recordatorios</h2>
             <div class="reminder-list">
                 @foreach (Recordatorio recordatorio in recordatorios)
@@ -32,7 +32,7 @@
             <div class="card-action">
                 <a class="primary-btn" href="@Url.Action("Recordatorios", "Home")">Agregar / Ver más</a>
             </div>
-        </section>
+        </div>
         <section class="adulto-card">
             <h2>Datos personales</h2>
 
@@ -133,6 +133,6 @@
             </div>
         </section>
     </div>
-</div>
+</main>
 
 

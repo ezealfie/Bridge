@@ -7,16 +7,16 @@
     if (partesNombre.Length > 1) { iniciales += char.ToUpper(partesNombre[1][0]); }
 }
 
-<div class="config-page">
+<main class="config-page">
     <!-- Encabezado + cerrar sesión -->
-    <div class="config-header">
+    <section class="config-header">
         <div>
             <p class="config-kicker">Cuenta y privacidad</p>
             <h1>Configuración</h1>
         </div>
         <a class="btn-logout" href="@Url.Action("Logout", "Sesiones")">Cerrar sesión</a>
-    </div>
-    <div class="config-grid">
+    </section>
+    <section class="config-grid">
         <!-- Foto de perfil -->
         <section class="config-card profile-card">
             <div class="avatar-upload-wrap">
@@ -34,7 +34,7 @@
             </form>
             </div>
         </section>
-    </div>
+    </section>
     <!-- Políticas de privacidad -->
     <section class="config-card policy-card">
         <div class="section-title-row">
@@ -67,7 +67,7 @@
             </div>
         </div>
     </section>
-</div>
+</main>
 <script>
     document.querySelectorAll('.toggle-policy').forEach(function (btn) {
         btn.addEventListener('click', function () {
